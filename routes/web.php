@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\ReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +20,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('user.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::group(['prefix' => 'KL', 'middleware' => ['auth', 'verified']], function () {
+    Route::get('/', [RoomController::class, 'index'])->name('dashboard');
+    Route::get('/room/{id}', [DeviceController::class, 'deviceOfRoom']);
+    Route::get('/report', [ReportController::class, 'index'])->name('report');
+    Route::post('/showDevice', [ReportController::class, 'showDevice'])->name('showDevice');
+    Route::get('/seachDevice', [ReportController::class, 'seachDevice'])->name('seachDevice');
+
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

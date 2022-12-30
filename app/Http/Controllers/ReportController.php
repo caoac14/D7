@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Device;
 use App\Models\Room;
+use App\Models\ClassName;
 
 class ReportController extends Controller
 {
@@ -15,7 +16,9 @@ class ReportController extends Controller
 
         $listRooms = Room::get();
 
-        return view('user.pages.report', compact('listRooms', 'deviceName'));
+        $classNames = ClassName::orderBy('ten_lop', 'ASC')->get();
+
+        return view('user.pages.report', compact('listRooms', 'deviceName', 'classNames'));
     }
 
     function showDevice(Request $request)
@@ -24,6 +27,11 @@ class ReportController extends Controller
             $devices = Device::where('ma_phong', $request->room_id)->orderBy('ten_thiet_bi', 'ASC')->get();
             return response()->json($devices);
         }
+    }
+
+    function getDataReport(Request $request){
+        dd($request);
+        die;
     }
 
     // function seachDevice(Request $request)

@@ -25,8 +25,9 @@ Route::group(['prefix' => 'KL', 'middleware' => ['auth', 'verified']], function 
     Route::get('/', [RoomController::class, 'index'])->name('dashboard');
     Route::get('/room/{id}', [DeviceController::class, 'deviceOfRoom']);
     Route::get('/report', [ReportController::class, 'index'])->name('report');
+    // Route::get('/seachDevice', [ReportController::class, 'seachDevice'])->name('seachDevice');
     Route::post('/showDevice', [ReportController::class, 'showDevice'])->name('showDevice');
-    Route::get('/seachDevice', [ReportController::class, 'seachDevice'])->name('seachDevice');
+    Route::post('/getDataReport', [ReportController::class, 'getDataReport'])->name('getDataReport');
 
 });
 

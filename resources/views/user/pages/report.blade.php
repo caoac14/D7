@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-2 text-gray-900">
-                    <form method="POST" action="#">
+                    <form method="POST" action="{{ route('getDataReport') }}">
                         @csrf
                         <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
                             <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
@@ -12,30 +12,41 @@
                                     <div>
                                         <div class="flex items-center">
                                             <div>
-                                                <select id="countries"
+                                                <select id="countries" name="time"
                                                     class="w-32 py-2 px-4 text-lx border-2 border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                    <option value="VN" selected>Sáng</option>
-                                                    <option value="US">Chiều</option>
-                                                    <option value="CA">Tối</option>
+                                                    <option value="morning" selected>Sáng</option>
+                                                    <option value="afternoon">Chiều</option>
+                                                    <option value="evening">Tối</option>
                                                 </select>
                                             </div>
                                             <div class="ml-8">
-                                                <input type="date" placeholder="name" id="date"
+                                                <input type="date" placeholder="name" name="date" id="date"
+                                                    required
                                                     class="outline-none border-gray-300 py-2 px-2 text-md border-2 rounded-md" />
                                             </div>
                                         </div>
                                     </div>
                                     <div>
                                         <label for="name" class="text-lx">Tên giáo viên:</label>
-                                        <input type="text" placeholder="name" id="name"
+                                        <input type="text" placeholder="name" id="name" name="user"
                                             class="block outline-none w-full bg-slate-200 border-gray-300 py-2 px-4 text-md border-2 rounded-md cursor-default"
-                                            disabled readonly value="{{ Auth::user()->name }}" />
+                                            disabled value="{{ Auth::user()->name }}" />
+                                    </div>
+                                    <div>
+                                        <label for="title" class="text-lx">Mã lớp:</label>
+                                        <select id="room" name="class" required
+                                            class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-lx rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option selected hidden value="">Chọn lớp</option>
+                                            @foreach ($classNames as $class)
+                                                <option value="{{ $class->id }}">{{ $class->ten_lop }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div>
                                         <label for="title" class="text-lx">Phòng:</label>
                                         <select id="room" name="room" required
                                             class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-lx rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected hidden>Chọn phòng</option>
+                                            <option selected hidden value="">Chọn phòng</option>
                                             @foreach ($listRooms as $room)
                                                 <option value="{{ $room->id }}">{{ $room->ten_phong }}</option>
                                             @endforeach
@@ -90,7 +101,7 @@
                                                     <!-- Modal body -->
                                                     <div class="p-1 mt-2 ">
                                                         <ul class=" my-2 mx-3 space-y-3">
-                                                            <div>
+                                                            {{-- <div>
                                                                 <div class="relative">
                                                                     <div
                                                                         class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -111,15 +122,15 @@
                                                                         placeholder="Nhập tên thiết bị cần tìm"
                                                                         required>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                             <div id="device">
 
                                                             </div>
                                                             <div class="flex justify-center">
-                                                                <button type="button" data-modal-toggle="crypto-modal"
-                                                                class=" px-4 w-full mb-4 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-blue-600 hover:bg-blue-500  ">
+                                                                <button data-modal-toggle="crypto-modal" type="button"
+                                                                    class=" px-4 w-full mb-4 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-blue-600 hover:bg-blue-500  ">
                                                                     Xong
-                                                            </button>
+                                                                </button>
                                                             </div>
                                                         </ul>
                                                     </div>
@@ -139,7 +150,7 @@
 
                                     <div>
                                         <label for="description" class="block mb-2 text-lx">Mô tả:</label>
-                                        <textarea id="description" cols="30" rows="5" placeholder="Sự cố thiết bị gặp phải?"
+                                        <textarea id="description" cols="30" name="about" rows="2" placeholder="Sự cố thiết bị gặp phải?"
                                             class="w-full px-4 py-4 text-gray-600 border-gray-300 bg-indigo-50 outline-none rounded-md"></textarea>
                                     </div>
 
@@ -174,7 +185,7 @@
                             `<li>
                                 <div
                                     class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-blue-300 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
-                                    <input id="default-${value.id}" type="checkbox"
+                                    <input id="default-${value.id}" type="checkbox" name="device[]"
                                         value="${value.id}"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="default-${value.id}"

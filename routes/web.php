@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,7 +41,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {
-    Route::view('/', 'admin.dashboard');
+    Route::get('/', [AdminController::class, 'showHomePage'])->name('admin.home');
+    Route::get('/report', [AdminController::class, 'showReportPage'])->name('admin.report');
+    Route::get('/device', [AdminController::class, 'showDevicePage'])->name('admin.device');
+    Route::get('/chart', [AdminController::class, 'showDevicePage'])->name('admin.chart');
+    Route::get('/account', [AdminController::class, 'showAccountPage'])->name('admin.account');
 });
 
 //test

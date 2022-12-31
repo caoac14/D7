@@ -12,15 +12,15 @@
                                     <div>
                                         <div class="flex items-center">
                                             <div>
-                                                <select id="countries" name="time"
+                                                <select id="countries" name="timeR"
                                                     class="w-32 py-2 px-4 text-lx border-2 border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                    <option value="morning" selected>Sáng</option>
-                                                    <option value="afternoon">Chiều</option>
-                                                    <option value="evening">Tối</option>
+                                                    <option value="Sáng" selected>Sáng</option>
+                                                    <option value="Chiều">Chiều</option>
+                                                    <option value="Tối">Tối</option>
                                                 </select>
                                             </div>
                                             <div class="ml-8">
-                                                <input type="date" placeholder="name" name="date" id="date"
+                                                <input type="date" placeholder="name" name="dateR" id="date"
                                                     required
                                                     class="outline-none border-gray-300 py-2 px-2 text-md border-2 rounded-md" />
                                             </div>
@@ -150,7 +150,7 @@
 
                                     <div>
                                         <label for="description" class="block mb-2 text-lx">Mô tả:</label>
-                                        <textarea id="description" cols="30" name="about" rows="2" placeholder="Sự cố thiết bị gặp phải?"
+                                        <textarea id="description" cols="30" name="about" rows="3" placeholder="Sự cố thiết bị gặp phải?"
                                             class="w-full px-4 py-4 text-gray-600 border-gray-300 bg-indigo-50 outline-none rounded-md"></textarea>
                                     </div>
 

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Device;
 use App\Models\Room;
 use App\Models\ClassName;
+use App\Models\Report;
 
 class ReportController extends Controller
 {
@@ -30,8 +32,20 @@ class ReportController extends Controller
     }
 
     function getDataReport(Request $request){
-        dd($request);
-        die;
+        foreach($request->device as $device){
+            $idDevice = (Device::where('id', $device)->pluck('id'));
+            $report = new Report;
+            $report->ma_giao_vien = Auth::user()->id;
+            $report->ma_phong = $request->room;
+            $report->ma_lop = $request->class;
+            $report->ma_thiet_bi = $idDevice[0];
+            $report->mo_ta_loi = $request->about;
+            $report->buoi = $request->timeR;
+            $report->ngay = $request->dateR;
+            $report->ghi_chu = "";
+    
+            $report->save();
+        }
     }
 
     // function seachDevice(Request $request)

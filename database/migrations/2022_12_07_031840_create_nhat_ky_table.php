@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string("buoi");
             $table->date('ngay');
             $table->string("ghi_chu");
+            $table->timestamps();
         });
     }
 

@@ -46,6 +46,7 @@ class ReportController extends Controller
     
             $report->save();
         }
+        return redirect('/KL/report');
     }
 
     // function seachDevice(Request $request)

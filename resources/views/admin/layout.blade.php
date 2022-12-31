@@ -25,8 +25,10 @@
                     <div class="shrink-0 flex items-center">
                         <a href="{{ route('dashboard') }}">
                             <x-application-logo
-                                class="block h-16 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                                class="block h-16  w-auto fill-current text-gray-800 dark:text-gray-200" />
                         </a>
+                        <span class="text-xl text-blue-600 ml-4 font-semibold">TRƯỜNG ĐẠI HỌC TRÀ
+                            VINH</span>
                     </div>
                     <div>
                     </div>
@@ -37,7 +39,7 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-base leading-4 font-medium rounded-md text-gray-500 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                                 <div>{{ Auth::user()->name }}</div>
 
                                 <div class="ml-1">
@@ -86,15 +88,16 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-6 gap-4">
+            <div class="grid grid-cols-6 gap-1">
                 <div class="col-span-1">@include('admin.sidebar')</div>
                 <div class="col-span-5">
-                    <main class="container mt-5">
+                    <main class="container mt-1">
                         @yield('home')
                         @yield('report')
                         @yield('device')
                         @yield('chart')
                         @yield('account')
+                        @yield('detail_report')
                     </main>
                 </div>
             </div>

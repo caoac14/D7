@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2022 at 10:32 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Dec 31, 2022 at 03:56 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -45,7 +45,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `loai_thiet_bi` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_loai_thiet_bi` varchar(255) NOT NULL,
+  `ten_loai_thiet_bi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -69,7 +69,7 @@ INSERT INTO `loai_thiet_bi` (`id`, `ten_loai_thiet_bi`, `created_at`, `updated_a
 
 CREATE TABLE `lop` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_lop` varchar(255) NOT NULL,
+  `ten_lop` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -98,7 +98,7 @@ INSERT INTO `lop` (`id`, `ten_lop`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -126,9 +126,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `nhan_vien` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_nhan_vien` varchar(255) NOT NULL,
-  `ten_cong_ty` varchar(255) NOT NULL,
-  `sdt_nhan_vien` varchar(255) NOT NULL,
+  `ten_nhan_vien` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ten_cong_ty` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sdt_nhan_vien` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -145,18 +145,20 @@ CREATE TABLE `nhat_ky` (
   `ma_phong` bigint(20) UNSIGNED NOT NULL,
   `ma_lop` bigint(20) UNSIGNED NOT NULL,
   `ma_thiet_bi` bigint(20) UNSIGNED NOT NULL,
-  `mo_ta_loi` varchar(255) NOT NULL,
-  `buoi` varchar(255) NOT NULL,
+  `mo_ta_loi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `buoi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ngay` date NOT NULL,
-  `ghi_chu` varchar(255) NOT NULL
+  `ghi_chu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `nhat_ky`
 --
 
-INSERT INTO `nhat_ky` (`id`, `ma_giao_vien`, `ma_phong`, `ma_lop`, `ma_thiet_bi`, `mo_ta_loi`, `buoi`, `ngay`, `ghi_chu`) VALUES
-(1, 2, 1, 1, 16, 'sadasbuuuuuuuuuuuuuuuuuduyasgfuyasgjasbdfwgi yrqorgiiiiiiigfiyasdas gbryasgydf gáuyrvyjvuyfuy', 'Sáng', '2022-12-31', '');
+INSERT INTO `nhat_ky` (`id`, `ma_giao_vien`, `ma_phong`, `ma_lop`, `ma_thiet_bi`, `mo_ta_loi`, `buoi`, `ngay`, `ghi_chu`, `created_at`, `updated_at`) VALUES
+(7, 1, 1, 8, 6, 'Không kết nối được internet', 'Tối', '2022-12-31', '', '2022-12-31 07:51:40', '2022-12-31 07:51:40');
 
 -- --------------------------------------------------------
 
@@ -165,8 +167,8 @@ INSERT INTO `nhat_ky` (`id`, `ma_giao_vien`, `ma_phong`, `ma_lop`, `ma_thiet_bi`
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -178,11 +180,11 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `token` varchar(64) NOT NULL,
-  `abilities` text DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -197,8 +199,8 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `phong` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_phong` varchar(255) NOT NULL,
-  `so_do_bo_tri` varchar(255) NOT NULL,
+  `ten_phong` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `so_do_bo_tri` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -236,7 +238,7 @@ CREATE TABLE `thiet_bi` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `ma_phong` bigint(20) UNSIGNED NOT NULL,
   `ma_loai_thiet_bi` bigint(20) UNSIGNED NOT NULL,
-  `ten_thiet_bi` varchar(255) NOT NULL,
+  `ten_thiet_bi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -274,11 +276,14 @@ INSERT INTO `thiet_bi` (`id`, `ma_phong`, `ma_loai_thiet_bi`, `ten_thiet_bi`, `c
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `chuc_vu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hoc_vi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sdt` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -287,9 +292,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Trương Quốc Huy', 'quochuy@gmail.com', NULL, '$2y$10$y/VPWEYpwozbirQ.rukIEuG2g49/aLB/jb7kYXhBTuifeMauZThxW', NULL, '2022-12-30 11:50:33', '2022-12-30 11:50:33'),
-(2, 'Lý Thế Vinh', 'thevinh@gmail.com', NULL, '$2y$10$YblJ8piMPkkcy4T8XWztTe.jfjdaACnHF/2WAXkxtSzxHHQLh4pPu', NULL, '2022-12-30 13:01:40', '2022-12-30 13:01:40');
+INSERT INTO `users` (`id`, `name`, `chuc_vu`, `hoc_vi`, `sdt`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Trương Quốc Huy', 'Chuyên gia đầu ngành', 'Tiến sĩ', '0945976200', 'quochuy@gmail.com', NULL, '$2y$10$y/VPWEYpwozbirQ.rukIEuG2g49/aLB/jb7kYXhBTuifeMauZThxW', NULL, '2022-12-30 11:50:33', '2022-12-30 11:50:33'),
+(2, 'Lý Thế Vinh', 'Chuyên gia đầu ngành', 'Tiến sĩ', '0945976201', 'thevinh@gmail.com', NULL, '$2y$10$YblJ8piMPkkcy4T8XWztTe.jfjdaACnHF/2WAXkxtSzxHHQLh4pPu', NULL, '2022-12-30 13:01:40', '2022-12-30 13:01:40');
 
 --
 -- Indexes for dumped tables
@@ -397,7 +402,7 @@ ALTER TABLE `lop`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `nhan_vien`
@@ -409,7 +414,7 @@ ALTER TABLE `nhan_vien`
 -- AUTO_INCREMENT for table `nhat_ky`
 --
 ALTER TABLE `nhat_ky`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

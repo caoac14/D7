@@ -46,6 +46,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::get('/device', [AdminController::class, 'showDevicePage'])->name('admin.device');
     Route::get('/chart', [AdminController::class, 'showDevicePage'])->name('admin.chart');
     Route::get('/account', [AdminController::class, 'showAccountPage'])->name('admin.account');
+    Route::get('/detail_report/{id}', [AdminController::class, 'showDetailReportPage'])->name('admin.detail_report');
 });
 
 //test

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Report;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -16,7 +17,12 @@ class AdminController extends Controller
                     ->join('lop', 'lop.id', '=', 'nhat_ky.ma_lop')
                     ->join('users', 'users.id', '=', 'nhat_ky.ma_giao_vien')
                     ->join('thiet_bi', 'thiet_bi.id', '=', 'nhat_ky.ma_thiet_bi')
-                    ->get();
+                    ->orderBy('nhat_ky.created_at', 'DESC')
+                    ->select('name','ten_phong','ma_lop','ma_thiet_bi','ten_thiet_bi','ten_lop',
+                    'buoi','ngay','mo_ta_loi', 'nhat_ky.id')
+                    ->paginate(20);
+                    // dd($reportList);die;
+        // $reportList = $reports->sortBy('created_at');
         return view('admin.report', compact('reportList'));
     }
 
@@ -29,6 +35,10 @@ class AdminController extends Controller
     }
     
     function showAccountPage(){
-        return view('admin.account');
+        $userLists = User::paginate(15);
+        return view('admin.account',compact('userLists'));
+    }
+    function showDetailReportPage($id){
+        return view('admin.detail_report');
     }
 }

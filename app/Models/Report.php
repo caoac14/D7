@@ -9,5 +9,5 @@ class Report extends Model
 {
     use HasFactory;
     protected $table = 'nhat_ky';
-    public $timestamps = false;
+    public $timestamps = true;
 }

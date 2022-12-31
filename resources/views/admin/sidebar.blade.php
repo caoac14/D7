@@ -3,7 +3,7 @@
         <ul class="space-y-2">
             <li>
                 <a href="{{ route('admin.home') }}"
-                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700">
+                    class="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="#000000" stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
                         <path d="M21.5 12H12V2.5" />
@@ -14,7 +14,7 @@
             </li>
             <li>
                 <a href="{{ route('admin.report') }}"
-                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    class="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#000000" stroke-width="2" stroke-linecap="square"
                         stroke-linejoin="round">
@@ -26,7 +26,7 @@
             </li>
             <li>
                 <a href="{{ route('admin.device') }}"
-                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    class="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="2" y="3" width="20" height="14" rx="2" ry="2">
@@ -39,7 +39,7 @@
             </li>
             <li>
                 <a href="{{ route('admin.account') }}"
-                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    class="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#000000" stroke-width="2" stroke-linecap="square"
                         stroke-linejoin="round">
@@ -51,7 +51,7 @@
             </li>
             <li>
                 <a href="{{ route('admin.chart') }}"
-                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    class="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#000000" stroke-width="2" stroke-linecap="square"
                         stroke-linejoin="round">
@@ -62,7 +62,7 @@
             </li>
             <li>
                 <a href="#"
-                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    class="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#000000" stroke-width="2" stroke-linecap="square"
                         stroke-linejoin="round">
@@ -76,7 +76,7 @@
             </li>
             <li>
                 <a href="#"
-                    class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    class="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#000000" stroke-width="2" stroke-linecap="square"
                         stroke-linejoin="round">

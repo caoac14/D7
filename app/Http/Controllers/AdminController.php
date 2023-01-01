@@ -41,4 +41,8 @@ class AdminController extends Controller
     function showDetailReportPage($id){
         return view('admin.detail_report');
     }
+
+    function showRegisterAccount(){
+        return view('admin.register_account');
+    }
 }

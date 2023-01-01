@@ -98,6 +98,7 @@
                         @yield('chart')
                         @yield('account')
                         @yield('detail_report')
+                        @yield('register_account')
                     </main>
                 </div>
             </div>

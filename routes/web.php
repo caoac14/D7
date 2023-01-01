@@ -6,6 +6,8 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +49,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::get('/chart', [AdminController::class, 'showDevicePage'])->name('admin.chart');
     Route::get('/account', [AdminController::class, 'showAccountPage'])->name('admin.account');
     Route::get('/detail_report/{id}', [AdminController::class, 'showDetailReportPage'])->name('admin.detail_report');
+    Route::get('/register_account', [AdminController::class, 'showRegisterAccount'])->name('admin.register_account');
+    Route::post('register_account', [RegisteredUserController::class, 'store'])->name('register_account');
+
 });
 
 //test

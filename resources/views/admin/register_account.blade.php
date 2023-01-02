@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
-                    <x-primary-button class="ml-4">
+                    <x-primary-button class="ml-4" id="btn-create_account">
                         {{ __('Tạo mới') }}
                     </x-primary-button>
                 </div>

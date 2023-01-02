@@ -23,7 +23,12 @@
                 required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
-
+<div>
+            <x-input-label for="chuc_vu" :value="__('Chức vụ')" />
+            <x-text-input id="chuc_vu" name="chuc_vu" type="text" class="mt-1 block w-full" :value="old('chuc_vu', $user->chuc_vu)"
+                required  autocomplete="chuc_vu" />
+            <x-input-error class="mt-2" :messages="$errors->get('chuc_vu')" />
+        </div>
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)"
@@ -50,22 +55,17 @@
             @endif
         </div>
 
-        <div>
-            <x-input-label for="chuc_vu" :value="__('Chức vụ')" />
-            <x-text-input id="chuc_vu" name="chuc_vu" type="text" class="mt-1 block w-full" :value="old('chuc_vu', $user->chuc_vu)"
-                required autofocus autocomplete="chuc_vu" />
-            <x-input-error class="mt-2" :messages="$errors->get('chuc_vu')" />
-        </div>
+        
         <div>
             <x-input-label for="hoc_vi" :value="__('Học vị')" />
             <x-text-input id="hoc_vi" name="hoc_vi" type="text" class="mt-1 block w-full" :value="old('hoc_vi', $user->hoc_vi)"
-                required autofocus autocomplete="hoc_vi" />
+                required  autocomplete="hoc_vi" />
             <x-input-error class="mt-2" :messages="$errors->get('hoc_vi')" />
         </div>
         <div>
             <x-input-label for="sdt" :value="__('Số điện thoại')" />
             <x-text-input id="sdt" name="sdt" type="text" class="mt-1 block w-full" :value="old('sdt', $user->sdt)"
-                required autofocus autocomplete="sdt" />
+                required  autocomplete="sdt" />
             <x-input-error class="mt-2" :messages="$errors->get('sdt')" />
         </div>
         <div class="flex items-center gap-4">

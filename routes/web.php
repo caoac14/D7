@@ -50,7 +50,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::get('/account', [AdminController::class, 'showAccountPage'])->name('admin.account');
     Route::get('/detail_report/{id}', [AdminController::class, 'showDetailReportPage'])->name('admin.detail_report');
     Route::get('/register_account', [AdminController::class, 'showRegisterAccount'])->name('admin.register_account');
-    Route::post('register_account', [RegisteredUserController::class, 'store'])->name('register_account');
+    Route::post('register_account', [AdminController::class,    'postRegisterAccount'])->name('register_account');
 
 });
 

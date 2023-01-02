@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2022 at 03:56 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Jan 02, 2023 at 10:59 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -45,7 +45,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `loai_thiet_bi` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_loai_thiet_bi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ten_loai_thiet_bi` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -69,7 +69,7 @@ INSERT INTO `loai_thiet_bi` (`id`, `ten_loai_thiet_bi`, `created_at`, `updated_a
 
 CREATE TABLE `lop` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_lop` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ten_lop` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -98,7 +98,7 @@ INSERT INTO `lop` (`id`, `ten_lop`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -126,9 +126,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `nhan_vien` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_nhan_vien` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ten_cong_ty` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sdt_nhan_vien` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ten_nhan_vien` varchar(255) NOT NULL,
+  `ten_cong_ty` varchar(255) NOT NULL,
+  `sdt_nhan_vien` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -145,10 +145,10 @@ CREATE TABLE `nhat_ky` (
   `ma_phong` bigint(20) UNSIGNED NOT NULL,
   `ma_lop` bigint(20) UNSIGNED NOT NULL,
   `ma_thiet_bi` bigint(20) UNSIGNED NOT NULL,
-  `mo_ta_loi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `buoi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mo_ta_loi` varchar(255) NOT NULL,
+  `buoi` varchar(255) NOT NULL,
   `ngay` date NOT NULL,
-  `ghi_chu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ghi_chu` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -158,7 +158,19 @@ CREATE TABLE `nhat_ky` (
 --
 
 INSERT INTO `nhat_ky` (`id`, `ma_giao_vien`, `ma_phong`, `ma_lop`, `ma_thiet_bi`, `mo_ta_loi`, `buoi`, `ngay`, `ghi_chu`, `created_at`, `updated_at`) VALUES
-(7, 1, 1, 8, 6, 'Không kết nối được internet', 'Tối', '2022-12-31', '', '2022-12-31 07:51:40', '2022-12-31 07:51:40');
+(7, 1, 1, 8, 6, 'Không kết nối được internet', 'Tối', '2022-12-31', '', '2022-12-31 07:51:40', '2022-12-31 07:51:40'),
+(8, 1, 1, 1, 16, 'khoong lanhj', 'Chiều', '2023-01-02', '', '2023-01-01 17:36:49', '2023-01-01 17:36:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `passone`
+--
+
+CREATE TABLE `passone` (
+  `id` int(11) NOT NULL,
+  `pass` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -167,8 +179,8 @@ INSERT INTO `nhat_ky` (`id`, `ma_giao_vien`, `ma_phong`, `ma_lop`, `ma_thiet_bi`
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -180,11 +192,11 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -199,8 +211,8 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `phong` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_phong` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `so_do_bo_tri` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ten_phong` varchar(255) NOT NULL,
+  `so_do_bo_tri` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -238,7 +250,7 @@ CREATE TABLE `thiet_bi` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `ma_phong` bigint(20) UNSIGNED NOT NULL,
   `ma_loai_thiet_bi` bigint(20) UNSIGNED NOT NULL,
-  `ten_thiet_bi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ten_thiet_bi` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -276,14 +288,14 @@ INSERT INTO `thiet_bi` (`id`, `ma_phong`, `ma_loai_thiet_bi`, `ten_thiet_bi`, `c
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `chuc_vu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `hoc_vi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sdt` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `chuc_vu` varchar(255) NOT NULL,
+  `hoc_vi` varchar(255) NOT NULL,
+  `sdt` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -293,8 +305,17 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `chuc_vu`, `hoc_vi`, `sdt`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Trương Quốc Huy', 'Chuyên gia đầu ngành', 'Tiến sĩ', '0945976200', 'quochuy@gmail.com', NULL, '$2y$10$y/VPWEYpwozbirQ.rukIEuG2g49/aLB/jb7kYXhBTuifeMauZThxW', NULL, '2022-12-30 11:50:33', '2022-12-30 11:50:33'),
-(2, 'Lý Thế Vinh', 'Chuyên gia đầu ngành', 'Tiến sĩ', '0945976201', 'thevinh@gmail.com', NULL, '$2y$10$YblJ8piMPkkcy4T8XWztTe.jfjdaACnHF/2WAXkxtSzxHHQLh4pPu', NULL, '2022-12-30 13:01:40', '2022-12-30 13:01:40');
+(1, 'Trương Quốc Huy', 'Chuyên gia đầu ngành', 'Thạc sĩ', '0945976200', 'quochuy@gmail.com', NULL, '$2y$10$y/VPWEYpwozbirQ.rukIEuG2g49/aLB/jb7kYXhBTuifeMauZThxW', NULL, '2022-12-30 11:50:33', '2023-01-01 17:54:05'),
+(2, 'Lý Thế Vinh', 'Chuyên gia đầu ngành', 'Tiến sĩ', '0945976201', 'thevinh@gmail.com', NULL, '$2y$10$YblJ8piMPkkcy4T8XWztTe.jfjdaACnHF/2WAXkxtSzxHHQLh4pPu', NULL, '2022-12-30 13:01:40', '2022-12-30 13:01:40'),
+(3, 'Thạch Minh Lực', 'Giảng viên', 'Tiến sĩ', '0945789123', 'minhluc@gmail.com', NULL, '$2y$10$/5QBZ.ssU889Zbo9pFipS.1iE9jTAn9SG8xq6nPgDvlL8v1PSBrOG', NULL, '2023-01-01 20:11:11', '2023-01-01 20:16:04'),
+(5, 'Trần Quốc Đảm', '', '', '', 'quocdam@gmail.com', NULL, '$2y$10$ruAzgRJVK4pjkw7U0ZLQPend6rwjWcVl6wZN4Xf8lFJfqjzm2seuC', NULL, '2023-01-01 20:12:09', '2023-01-01 20:12:09'),
+(6, 'Tô Trọng Nhân', '', '', '', 'trongnhan@gmail.com', NULL, '$2y$10$ro4TVrhbb6uNIL9xTDP1Te2cWXoR7jspdjGXZVVm8ZPBPoMjTvFYW', NULL, '2023-01-01 20:12:35', '2023-01-01 20:12:35'),
+(7, 'Đỗ Thành Ý', '', '', '', 'thanhy@gmail.com', NULL, '$2y$10$0O7iiBPQLFONyP/G3A4eEu1d1Cb9csOCEu8yKZA57fTrNB.G6vXee', NULL, '2023-01-01 20:13:09', '2023-01-01 20:13:09'),
+(8, 'Nguyễn Thành Trung', '', '', '', 'thanhtrung@gmail.com', NULL, '$2y$10$NymsoXcWpb.HbpaeoEzImOybblkLmVmRyslacKiqKYwPG5bvaMBY.', NULL, '2023-01-01 20:24:50', '2023-01-01 20:24:50'),
+(9, 'Nguyễn Văn Thái Sang', '', '', '', 'thaisang@gmail.com', NULL, '$2y$10$LK3UEaneVLHUPsaSlyErYOo5gCyJJdKztpavfLfua3G.3ci1p.ISu', NULL, '2023-01-01 20:29:29', '2023-01-01 20:29:29'),
+(11, 'Nguyễn Phúc Nhi', '', '', '', 'qh.mt14@gmail.com', NULL, '$2y$10$DrTAXQzWeMblRuIKpCp.Fut3SGs.KWiBlvgXI1DyO7sbc5aIQdEWm', NULL, '2023-01-02 00:43:48', '2023-01-02 00:43:48'),
+(12, 'Trần Thị Tú Quyên', '', '', '', 'tuquyen@gmail.com', NULL, '$2y$10$/BUTUNZAVgCjXv7vIWBP4ufspF37hgyCPGGvsubPiAGch47zveZYK', NULL, '2023-01-02 00:49:11', '2023-01-02 00:49:11'),
+(13, 'Dương Thị Yến Ngọc', '', '', '', 'yenngoc@gmail.com', NULL, '$2y$10$AzQBZnCmLvMRyjHvb97ySu.CWpb0yU6egarJEQQls60yGp/1I4mfi', NULL, '2023-01-02 00:50:28', '2023-01-02 00:50:28');
 
 --
 -- Indexes for dumped tables
@@ -414,7 +435,7 @@ ALTER TABLE `nhan_vien`
 -- AUTO_INCREMENT for table `nhat_ky`
 --
 ALTER TABLE `nhat_ky`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -438,7 +459,7 @@ ALTER TABLE `thiet_bi`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

@@ -4,8 +4,8 @@
     <div>
         <div class="bg-gray-100 mb-6 text-sm">
             <div>
-                <div class="w-full flex items-center font-bold p-2 my-1">
-                    <div class="w-full flex items-center mt-2">
+                <div class="w-full flex items-center font-bold p-3 bg-blue-300 mt-2">
+                    <div class="w-full flex items-center">
                         <span class="w-44 pr-2 ml-8 truncate">Tên giáo viên</span>
                         <span class="w-32 truncate">Tên phòng</span>
                         <span class="w-48 truncate">Thiết bị</span>
@@ -23,7 +23,7 @@
                             class="w-4 h-4 text-blue-600 bg-white rounded border-gray-300 focus:ring-blue-500 mr-2 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <div x-data="{ messageHover: false }" @mouseover="messageHover = true" @mouseleave="messageHover = false"
                             class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
-                            <a href="{{ url('admin/detail_report', $report->id) }}">
+                            <a href="{{ route('admin.report_detail', $report->id) }}">
                                 <div class="flex items-center">
                                     <span class="w-44 pr-2 truncate">{{ $report->name }}</span>
                                     <span class="w-32 truncate">{{ $report->ten_phong }}</span>

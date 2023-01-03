@@ -8,16 +8,17 @@ Alpine.start();
 
 // Script
 
+
+// Random password for account creation
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const btnCreate = $("#btn-create_account");
 const inpPassword = $("#password");
-const inpPasswordConfirm = $("#password_confirmation");
 
-btnCreate.onclick = function(e){
-    const passCurrent = new Array(10).fill().map(() => String.fromCharCode(Math.random()*86+40)).join("");
-    inpPassword.value = passCurrent;
-    inpPasswordConfirm.value = passCurrent;
-    alert (passCurrent);
+if(btnCreate){
+    btnCreate.onclick = function(e){
+        inpPassword.value = "***************";
+    }
 }
+

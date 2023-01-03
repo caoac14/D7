@@ -97,7 +97,8 @@
                         @yield('device')
                         @yield('chart')
                         @yield('account')
-                        @yield('detail_report')
+                        @yield('report_detail')
+                        @yield('account_detail')
                         @yield('register_account')
                     </main>
                 </div>

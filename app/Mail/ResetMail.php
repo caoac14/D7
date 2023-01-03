@@ -9,11 +9,11 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Mailable
+class ResetMail extends Mailable
 {
     use Queueable, SerializesModels;
-
     public $testMailData;
+
     /**
      * Create a new message instance.
      *
@@ -32,7 +32,7 @@ class SendMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Cung cấp mật khẩu ',
+            subject: 'Thay đổi mật khẩu',
         );
     }
 
@@ -44,7 +44,7 @@ class SendMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'admin.emails.mailPassword',
+            view: 'admin.emails.mailResetPassword',
         );
     }
 
@@ -56,11 +56,5 @@ class SendMail extends Mailable
     public function attachments()
     {
         return [];
-    }
-
-    public function build()
-    {
-        return $this->subject('Email từ phòng máy tính D7 Trường Đại học Trà Vinh')
-                    ->view('admin.emails.mailPassword');
     }
 }

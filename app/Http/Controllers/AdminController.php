@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Report;
 use App\Models\User;
 use App\Models\Device;
 use App\Models\Room;
-use Illuminate\Support\Facades\Hash;
+use App\Models\TypeDevice;
 use App\Mail\SendMail;
 use App\Mail\ResetMail;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -40,8 +41,6 @@ class AdminController extends Controller
                 'nhat_ky.id'
             )
             ->paginate(20);
-        // dd($reportList);die;
-        // $reportList = $reports->sortBy('created_at');
         return view('admin.report', compact('reportList'));
     }
 
@@ -51,9 +50,37 @@ class AdminController extends Controller
     // function of Device
     function showDevicePage()
     {
-        $deviceLists = Device::orderBy('ten_thiet_bi', 'ASC')->get();
         $roomLists = Room::orderBy('ten_phong', 'ASC')->get();
-        return view('admin.device', compact('deviceLists', 'roomLists'));
+        return view('admin.device', compact('roomLists'));
+    }
+    
+    function showDeviceOfRoom($id){
+        $nameTypes = TypeDevice::pluck('ten_loai_thiet_bi');
+        
+        $listDevices = Device::where('ma_phong', $id)->get();        
+        $idDevices = TypeDevice::pluck('id');
+
+        $typeOfDevice = array();
+        foreach ($idDevices as $idType) {
+            $queryTypeDevice = Device::where('ma_phong', $id)->where('ma_loai_thiet_bi', $idType)->orderBy('ten_thiet_bi', 'ASC')->get();
+            array_push($typeOfDevice, $queryTypeDevice);
+        }
+
+
+        $typeDeviceLists = TypeDevice::orderBy('ten_loai_thiet_bi', 'ASC')->get();
+
+        $room = Room::where('id', $id)->pluck('ten_phong');
+
+        return view('admin.device_detail', compact('listDevices','id', 'room', 'typeOfDevice', 'nameTypes','typeDeviceLists'));
+    }
+
+    function addDevice(Request $request, $id){
+        $device = new Device();
+        $device->ma_phong = $id;
+        $device->ma_loai_thiet_bi = $request->type_device;
+        $device->ten_thiet_bi = $request->name_device;
+        $device->save();
+        return redirect()->back();
     }
 
 
@@ -63,7 +90,11 @@ class AdminController extends Controller
     // function of Chart
     function showChartPage()
     {
-        return view('admin.chart');
+        $countReport = Report::count();
+        $countDevice = Device::count();
+        $countUser = User::count();
+
+        return view('admin.chart', compact('countReport', 'countDevice', 'countUser'));
     }
 
 

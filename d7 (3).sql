@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 03, 2023 at 10:31 AM
+-- Generation Time: Jan 04, 2023 at 10:44 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -58,8 +58,7 @@ INSERT INTO `loai_thiet_bi` (`id`, `ten_loai_thiet_bi`, `created_at`, `updated_a
 (2, 'Bàn ghế', NULL, NULL),
 (3, 'Máy tính', NULL, NULL),
 (4, 'Máy chiếu & Máy lạnh', NULL, NULL),
-(5, 'Đèn quạt', NULL, NULL),
-(6, 'Khác', NULL, NULL);
+(5, 'Đèn quạt', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -160,7 +159,8 @@ CREATE TABLE `nhat_ky` (
 INSERT INTO `nhat_ky` (`id`, `ma_giao_vien`, `ma_phong`, `ma_lop`, `ma_thiet_bi`, `mo_ta_loi`, `buoi`, `ngay`, `ghi_chu`, `created_at`, `updated_at`) VALUES
 (7, 1, 1, 8, 6, 'Không kết nối được internet', 'Tối', '2022-12-31', '', '2022-12-31 07:51:40', '2022-12-31 07:51:40'),
 (8, 1, 1, 1, 16, 'khoong lanhj', 'Chiều', '2023-01-02', '', '2023-01-01 17:36:49', '2023-01-01 17:36:49'),
-(9, 30, 1, 1, 12, 'gãy chân', 'Chiều', '2023-01-03', '', '2023-01-02 23:35:45', '2023-01-02 23:35:45');
+(9, 30, 1, 1, 12, 'gãy chân', 'Chiều', '2023-01-03', '', '2023-01-02 23:35:45', '2023-01-02 23:35:45'),
+(10, 1, 1, 1, 12, 'khong co', 'Chiều', '2023-01-04', '', '2023-01-04 02:04:50', '2023-01-04 02:04:50');
 
 -- --------------------------------------------------------
 
@@ -274,13 +274,21 @@ INSERT INTO `thiet_bi` (`id`, `ma_phong`, `ma_loai_thiet_bi`, `ten_thiet_bi`, `c
 (11, 1, 2, 'Bàn 03', NULL, NULL),
 (12, 1, 2, 'Bàn 04', NULL, NULL),
 (13, 1, 2, 'Bàn 05', NULL, NULL),
-(14, 1, 4, 'Máy chiếu Canon', NULL, NULL),
-(15, 1, 4, 'Máy lạnh Daikin', NULL, NULL),
-(16, 1, 4, 'Máy lạnh Toshiba', NULL, NULL),
+(15, 1, 4, 'Máy lạnh 01', NULL, NULL),
+(16, 1, 4, 'Máy lạnh 02', NULL, NULL),
 (17, 1, 5, 'Đèn dài 01', NULL, NULL),
 (18, 1, 5, 'Quạt trần 01', NULL, NULL),
 (19, 1, 5, 'Đèn dài 02', NULL, NULL),
-(20, 1, 5, 'Đèn ngủ', NULL, NULL);
+(20, 1, 5, 'Đèn ngủ', NULL, NULL),
+(21, 1, 4, 'Máy chiếu\r\n', NULL, NULL),
+(22, 1, 2, 'Bàn 11', '2023-01-03 20:55:14', '2023-01-03 20:55:14'),
+(23, 1, 2, 'Bàn 12', '2023-01-03 20:56:48', '2023-01-03 20:56:48'),
+(24, 1, 2, 'Bàn 123', '2023-01-03 20:57:33', '2023-01-03 20:57:33'),
+(25, 1, 2, 'Bàn 123', '2023-01-03 20:57:45', '2023-01-03 20:57:45'),
+(26, 1, 2, 'Bàn 1234', '2023-01-03 20:57:57', '2023-01-03 20:57:57'),
+(27, 3, 3, 'Máy tính 01', '2023-01-04 01:39:04', '2023-01-04 01:39:04'),
+(28, 3, 2, 'Bàn 01', '2023-01-04 01:39:53', '2023-01-04 01:39:53'),
+(29, 3, 2, 'Bàn 02', '2023-01-04 01:41:21', '2023-01-04 01:41:21');
 
 -- --------------------------------------------------------
 
@@ -312,12 +320,13 @@ INSERT INTO `users` (`id`, `name`, `chuc_vu`, `hoc_vi`, `sdt`, `email`, `email_v
 (3, 'Thạch Minh Lực', 'Giảng viên', 'Tiến sĩ', '0945789123', 'minhluc@gmail.com', NULL, '$2y$10$Fp/asQbePvw8CEszXw.GaOjrfqFk42JKZsyxklXui6SIGqJhOW/Cu', NULL, '2023-01-01 20:11:11', '2023-01-03 01:54:53'),
 (26, 'Thái Thị Hà', '', '', '', 'thiha@gmail.com', NULL, '$2y$10$WPMNGG9JB/tlLTUKpgbGUudpl6.uHWasXVgjWfGBUq5IYM/BioPzS', NULL, '2023-01-02 19:14:49', '2023-01-03 00:52:19'),
 (28, 'Nguyễn Văn Ổi', '', '', '', 'vanoi@gmail.com', NULL, '$2y$10$/TDUfK4R6zpy27xXBdpa4.7uIXd7iFKVTtPneZKlNVWOgOgrTHcp.', NULL, '2023-01-02 19:27:24', '2023-01-03 01:55:24'),
-(29, 'Nguyễn Văn Quýt', '', '', '', 'vanquyt@gmail.com', NULL, '$2y$10$axz9dm6MB7vBsSh3JNqC2.3UoiDz7ae9AeyVUTaaNznRNUXWdFtKe', NULL, '2023-01-02 19:31:36', '2023-01-03 00:55:04'),
+(29, 'Nguyễn Văn Quýt', 'Giảng viên', 'Tiến sĩ', '0945789123', 'vanquyt@gmail.com', NULL, '$2y$10$axz9dm6MB7vBsSh3JNqC2.3UoiDz7ae9AeyVUTaaNznRNUXWdFtKe', NULL, '2023-01-02 19:31:36', '2023-01-03 19:52:42'),
 (30, 'Nguyễn Văn Cam', '', '', '', 'vancam@gmail.com', NULL, '$2y$10$e20RbBKrxyIHCHX6MjpQtOf67G1XB05ZYf2oft3GVy74APVxic.bu', NULL, '2023-01-02 19:33:29', '2023-01-03 01:42:10'),
 (31, 'Nguyễn Dưa Hấu', 'Giảng viên', 'Tiến sĩ', '0945687541', 'duahau@gmail.com', NULL, '$2y$10$TdAONJloSzLsv8VYpikyeeP0GziSI0PC1Y5AYM1TXC.MqX98A515W', NULL, '2023-01-02 19:36:42', '2023-01-03 01:47:31'),
 (32, 'Nguyễn Văn Táo', '', '', '', 'vantao@gmail.com', NULL, '$2y$10$tWHDT0z/2VR12KlOV.tKTuXCgNeSK8UusQYUH.otuDJT2izkuqicm', NULL, '2023-01-02 19:38:11', '2023-01-03 01:48:26'),
 (33, 'Trần Văn Nhãn', '', '', '', 'vannhan@gmail.com', NULL, '$2y$10$o3wuH9OyZJb1PqCg3U4nOe66gv4x7uVxqcnz4dU50zrcNl9bQX9Ky', NULL, '2023-01-03 00:27:02', '2023-01-03 01:53:58'),
-(34, 'Lê Quốc Anh', '', '', '', 'quocanh@gmail.com', NULL, '$2y$10$QEHZQuKPBlxm.1HJwb/H4ulSDCCvCwKOFE.BGUaCklpWIbHBUax36', NULL, '2023-01-03 01:02:21', '2023-01-03 01:16:08');
+(34, 'Lê Quốc Anh', '', '', '', 'quocanh@gmail.com', NULL, '$2y$10$QEHZQuKPBlxm.1HJwb/H4ulSDCCvCwKOFE.BGUaCklpWIbHBUax36', NULL, '2023-01-03 01:02:21', '2023-01-03 01:16:08'),
+(35, 'Tăng Quảng Châu', '', '', '', 'quangchau@gmail.com', NULL, '$2y$10$X0FU0dKp6rGh/34LyWw80OwVOxXGYVco4RTuTAuLlsNViRNco99Ye', NULL, '2023-01-04 02:21:33', '2023-01-04 02:21:33');
 
 --
 -- Indexes for dumped tables
@@ -437,7 +446,7 @@ ALTER TABLE `nhan_vien`
 -- AUTO_INCREMENT for table `nhat_ky`
 --
 ALTER TABLE `nhat_ky`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -455,13 +464,13 @@ ALTER TABLE `phong`
 -- AUTO_INCREMENT for table `thiet_bi`
 --
 ALTER TABLE `thiet_bi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables

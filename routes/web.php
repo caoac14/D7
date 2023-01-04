@@ -50,8 +50,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::get('/detail_report/{id}', [AdminController::class, 'showDetailReportPage'])->name('admin.report_detail');
 
     Route::get('/device', [AdminController::class, 'showDevicePage'])->name('admin.device');
+    Route::get('/room/{id}', [AdminController::class, 'showDeviceOfRoom'])->name('admin.device_of_room');
+    Route::post('/add_device/{id}', [AdminController::class, 'addDevice'])->name('admin.add_device');
 
-    Route::get('/chart', [AdminController::class, 'showDevicePage'])->name('admin.chart');
+
+    Route::get('/chart', [AdminController::class, 'showChartPage'])->name('admin.chart');
 
     Route::get('/account', [AdminController::class, 'showAccountPage'])->name('admin.account');
     Route::get('/detail_account', [AdminController::class, 'showDetailAccountPage'])->name('admin.account_detail');

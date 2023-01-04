@@ -2,7 +2,6 @@
 
 @section('device')
     <div class="grid grid-cols-5 gap-4 p-6">
-
         <button data-modal-toggle="modal_addroom"
             class="w-40 flex items-center justify-center text-blue-700 border border-blue-500 hover:bg-blue-500 hover:border-white hover:text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
             <span class="font-semibold">Thêm phòng</span>
@@ -60,7 +59,7 @@
         </div>
         @foreach ($roomLists as $room)
             <div class="">
-                <a href="">
+                <a href="{{ route('admin.device_of_room', $room->id) }}">
                     <button type="button"
                         class="w-40 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
                         Phòng <span>{{ $room->ten_phong }}</span>

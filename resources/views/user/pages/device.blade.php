@@ -11,10 +11,10 @@
                             <h3 class="mb-4 text-xl text-center font-bold tracking-tight text-gray-800 dark:text-white">{{ $nameTypes[$i] }}</h3>
                                     <div class="grid grid-cols-2 gap-2 ">
                                         @foreach ($typeOfDevice[$i] as $device)
-                                            <div class="w-full flex items-center justify-center">
+                                            <div class="w-full flex items-center  justify-center">
                                                 <!-- Modal toggle -->
                                                 <button
-                                                    class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                                                    class="text-white min-w-full shadow-md shadow-blue-500 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                                                     type="button" data-modal-toggle="defaultModal-{{ $device->id }}">
                                                     {{ $device->ten_thiet_bi }}
                                                 </button>

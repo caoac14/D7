@@ -12,7 +12,7 @@
                         <span class="w-64 ml-2">Mô tả</span>
                     </div>
                     <div class="w-48 flex items-center justify-end">
-                        <span class="w-full ml-6 text-gray-600">Thời gian</span>
+                        <span class="w-full ml-6 text-gray-800">Thời gian</span>
                     </div>
                 </div>
             </div>

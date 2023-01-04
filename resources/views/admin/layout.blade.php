@@ -99,6 +99,7 @@
                         @yield('account')
                         @yield('report_detail')
                         @yield('account_detail')
+                        @yield('device_detail')
                         @yield('register_account')
                     </main>
                 </div>

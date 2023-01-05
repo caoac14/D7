@@ -10,6 +10,7 @@ use App\Models\Report;
 use App\Models\User;
 use App\Models\Device;
 use App\Models\Room;
+use App\Models\GroupDevice;
 use App\Models\TypeDevice;
 use App\Mail\SendMail;
 use App\Mail\ResetMail;
@@ -20,8 +21,6 @@ class AdminController extends Controller
     function createAdmin(){
         $random_pass = (Str::random(10));
         $user = new User();
-        // $user->name = $request->name;
-        // $user->email = $request->email;
         $user->name = "Trương Quốc Huy";
         $user->email = "quochuy@gmail.com";
         $user->chuc_vu = "";
@@ -54,9 +53,12 @@ class AdminController extends Controller
                 'ngay',
                 'mo_ta_loi',
                 'nhat_ky.id'
-            )
-            ->paginate(20);
-        return view('admin.report', compact('reportList'));
+            )->paginate(30);
+
+                $groupDeviceList = GroupDevice::get();
+
+            
+        return view('admin.report', compact('reportList','groupDeviceList'));
     }
 
 

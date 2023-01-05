@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Device;
 use App\Models\Room;
 use App\Models\ClassName;
+use App\Models\GroupDevice;
 use App\Models\Report;
 
 class ReportController extends Controller
@@ -32,21 +33,26 @@ class ReportController extends Controller
     }
 
     function getDataReport(Request $request){
-        foreach($request->device as $device){
-            // $idDevice = (Device::where('id', $device)->pluck('id'));
-            $report = new Report;
-            $report->ma_giao_vien = Auth::user()->id;
-            $report->ma_phong = $request->room;
-            $report->ma_lop = $request->class;
-            // $report->ma_thiet_bi = $idDevice[0];
-            $report->mo_ta_loi = $request->about;
-            $report->buoi = $request->timeR;
-            $report->ngay = $request->dateR;
-            $report->ghi_chu = "";
-    
-            $report->save();
-        }
-        return redirect('/KL/report');
-    }
+        $report = new Report;
+        $report->ma_giao_vien = Auth::user()->id;
+        $report->ma_phong = $request->room;
+        $report->ma_lop = $request->class;
+        // $report->ma_thiet_bi = $idDevice[0];
+        $report->mo_ta_loi = $request->about;
+        $report->buoi = $request->timeR;
+        $report->ngay = $request->dateR;
+        $report->ghi_chu = "";
+        $report->save();
 
+        
+        $idLastReport = Report::get()->last()->id;
+        foreach($request->device as $device){
+            $groupDevice = new GroupDevice();
+            $groupDevice->ma_nhat_ky = $idLastReport;
+            $groupDevice->ma_thiet_bi = $device;
+            $groupDevice->save();
+        }
+        
+        return redirect()->back();
+    }
 }

@@ -26,8 +26,14 @@
                             <a href="{{ route('admin.report_detail', $report->id) }}">
                                 <div class="flex items-center">
                                     <span class="w-44 pr-2 truncate">{{ $report->name }}</span>
-                                    <span class="w-32 truncate">{{ $report->ten_phong }}</span>
-                                    <span class="w-48 truncate">{{ $report->ten_thiet_bi }}</span>
+                                    <span class="w-32 ml-2 truncate">{{ $report->ten_phong }}</span>
+                                    <span class="w-48 truncate">
+                                        @foreach ($groupDeviceList as $item)
+                                            @if ($item->id == $report->id)
+                                                <span> {{ $item->ma_thiet_bi }}</span>
+                                            @endif
+                                        @endforeach
+                                    </span>
                                     <span class="mx-1">-</span>
                                     <span class="w-64 text-gray-600 text-sm truncate">{{ $report->mo_ta_loi }}</span>
                                 </div>
@@ -50,7 +56,7 @@
                                     </a>
                                 </div>
                                 <span x-show="!messageHover" class="text-sm text-gray-500">
-                                    {{ $report->buoi }} - {{ $report->ngay }}
+                                    {{ $report->buoi }} - {{ date('d-m-Y', strtotime($report->ngay)) }}
                                 </span>
                             </div>
                         </div>

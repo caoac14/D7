@@ -6,6 +6,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ExportExcel;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
@@ -34,7 +35,7 @@ Route::group(['prefix' => 'KL', 'middleware' => ['auth', 'verified']], function 
 
 });
 
-
+Route::get('create_admin',[AdminController::class, 'createAdmin']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -51,6 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
 
     Route::get('/device', [AdminController::class, 'showDevicePage'])->name('admin.device');
     Route::get('/room/{id}', [AdminController::class, 'showDeviceOfRoom'])->name('admin.device_of_room');
+    Route::post('/add_room', [AdminController::class, 'addRoom'])->name('admin.add_room');
     Route::post('/add_device/{id}', [AdminController::class, 'addDevice'])->name('admin.add_device');
 
 
@@ -65,6 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
 
     Route::get('/send-mail', [AdminController::class, 'sendMail'])->name('admin.send_mail');
 
+    Route::get('/export_report', [ExportExcel::class, 'exportReport'])->name('admin.export_report');
 });
 
 

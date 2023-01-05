@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId("ma_giao_vien")->constrained("users");
             $table->foreignId("ma_phong")->constrained("phong");
             $table->foreignId("ma_lop")->constrained("lop");
-            $table->foreignId("ma_thiet_bi")->constrained("thiet_bi");
-            $table->string("mo_ta_loi");
+
+            $table->string("mo_ta_loi")->nullable();
             $table->string("buoi");
             $table->date('ngay');
             $table->string("ghi_chu");

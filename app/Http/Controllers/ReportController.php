@@ -33,12 +33,12 @@ class ReportController extends Controller
 
     function getDataReport(Request $request){
         foreach($request->device as $device){
-            $idDevice = (Device::where('id', $device)->pluck('id'));
+            // $idDevice = (Device::where('id', $device)->pluck('id'));
             $report = new Report;
             $report->ma_giao_vien = Auth::user()->id;
             $report->ma_phong = $request->room;
             $report->ma_lop = $request->class;
-            $report->ma_thiet_bi = $idDevice[0];
+            // $report->ma_thiet_bi = $idDevice[0];
             $report->mo_ta_loi = $request->about;
             $report->buoi = $request->timeR;
             $report->ngay = $request->dateR;
@@ -49,17 +49,4 @@ class ReportController extends Controller
         return redirect('/KL/report');
     }
 
-    // function seachDevice(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $output = '';
-    //         $divices = Device::table('thiet_bi')->where('ten_thiet_bi', 'LIKE', '%' . $request->searchDevice . '%')->get();
-    //         if ($divices) {
-    //             foreach ($divices as $key => $divice) {
-    //                 $output .= '<p>' .$divice->then_thiet_bi .'</p>';
-    //             }
-    //         }
-    //         return Response($output);
-    //     }
-    // }
 }

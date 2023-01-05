@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div>
-                        <a href="#"
+                        <a href="{{ route('admin.account') }}"
                             class="flex items-center text-xs px-3 py-1 bg-orange-500 text-gray-50 rounded-full hover:bg-orange-400">
                             Xem chi tiết
                         </a>
@@ -125,7 +125,7 @@
                                         <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
                                             <h3 class="text-base pb-1 leading-6 font-medium text-gray-700">Nhật ký được lưu
                                             </h3>
-                                            <p class="text-xl font-bold text-black">71,897</p>
+                                            <p class="text-xl font-bold text-black"> {{ $countReport }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +137,7 @@
                                         <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
                                             <h3 class="text-base pb-1 leading-6 font-medium text-gray-700">Thiết bị hiện tại
                                             </h3>
-                                            <p class="text-xl font-bold text-black">458</p>
+                                            <p class="text-xl font-bold text-black">{{ $countDevice }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -148,13 +148,13 @@
                                     <div class="sm:flex sm:items-start">
                                         <div class="text-center sm:mt-0 sm:ml-2 sm:text-left">
                                             <h3 class="text-sm leading-6 font-medium text-gray-700">Tài khoản được tạo</h3>
-                                            <p class="text-xl font-bold text-black">247</p>
+                                            <p class="text-xl font-bold text-black"> {{ $countUser }}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-sm">
-                                <a href="#"
+                                <div
                                     class="w-full bg-green-500
                                hover:bg-green-600 text-gray-50 font-bold py-2 px-4 rounded inline-flex justify-center shadow-md shadow-green-400
                                items-center">
@@ -191,44 +191,60 @@
                                                 </div>
                                                 <!-- Modal body -->
                                                 <div class="p-6 space-y-4">
-                                                    <h4 class="text-gray-800 text-xl">Chọn thời gian thông kê</h4>
+                                                    <h4 class="text-gray-800 text-xl">Xuất file theo:</h4>
 
                                                     <div class="flex items-center">
-                                                        <input id="default-radio-1" type="radio" value=""
-                                                            name="default-radio"
+                                                        <input checked id="rdo_report" type="radio" value=""
+                                                            name="rdo_excel"
                                                             class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                        <label for="default-radio-1"
-                                                            class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">Theo tháng</label>
+                                                        <label for="rdo_report"
+                                                            class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                            Xuất sổ nhật ký
+                                                        </label>
                                                     </div>
                                                     <div class="flex items-center">
-                                                        <input checked id="default-radio-2" type="radio" value=""
-                                                            name="default-radio"
+                                                        <input checked id="rdo_account" type="radio" value=""
+                                                            name="rdo_excel"
                                                             class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                        <label for="default-radio-2"
-                                                            class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">Theo năm</label>
+                                                        <label for="rdo_account"
+                                                            class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                            Xuất danh sách tài khoản
+                                                        </label>
                                                     </div>
-
+                                                    <div class="flex items-center">
+                                                        <input id="rdo_device" type="radio" value=""
+                                                            name="rdo_excel"
+                                                            class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                        <label for="rdo_device"
+                                                            class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                            Xuất danh sách thiết bị
+                                                        </label>
+                                                    </div>
+                                                    <div class="flex items-center">
+                                                        <input id="rdo_room" type="radio" value=""
+                                                            name="rdo_excel"
+                                                            class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                        <label for="rdo_room"
+                                                            class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                            Xuất file phòng học
+                                                        </label>
+                                                    </div>
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div
                                                     class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                                    <form action="" method="GET">
-                                                        @csrf
-                                                        <input type="text" name="devide" class="hidden"
-                                                            value="">
-                                                        <button type="submit" data-modal-toggle="modal_excel"
-                                                            type="button"
-                                                            class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                            Xuất file
-                                                        </button>
-                                                    </form>
+                                                    <a href="{{route('admin.export_report')}}" data-modal-toggle="modal_excel" type="button"
+                                                        class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                        Xuất file
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
+                        <span class="hidden" id="totalData">{{ $totalData }},10</span>
                     </div>
                 </div>
             </div>
@@ -239,29 +255,50 @@
         <!-- Chart bar -->
         <script>
             const labelsBarChart = [
-                "Tháng 1",
-                "Tháng 2",
-                "Tháng 3",
-                "Tháng 4",
-                "Tháng 5",
-                "Tháng 6",
-                "Tháng 7",
-                "Tháng 8",
-                "Tháng 9",
-                "Tháng 10",
-                "Tháng 11",
-                "Tháng 12",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12",
+                "13",
+                "14",
+                "15",
+                "16",
+                "17",
+                "18",
+                "19",
+                "20",
+                "21",
+                "22",
+                "23",
+                "24",
+                "25",
+                "26",
+                "27",
+                "28",
+                "29",
+                "30",
+                "31"
             ];
+            const totalData = document.getElementById('totalData').innerHTML;
+            const resultData = totalData.split(",");
+
             const dataBarChart = {
                 labels: labelsBarChart,
                 datasets: [{
-                    label: "Lỗi gặp phải",
+                    label: "Nhật ký đã được lưu",
                     backgroundColor: "hsl(206, 100%, 50%)",
                     borderColor: "hsl(252, 82.9%, 67.8%)",
-                    data: [5, 10, 46, 13, 20, 40, 16, 32, 3, 9, 15, 40],
+                    data: resultData,
                 }, ],
             };
-
             const configBarChart = {
                 type: "bar",
                 data: dataBarChart,

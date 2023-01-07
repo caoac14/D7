@@ -46,6 +46,7 @@ class AdminController extends Controller
             ->orderBy('nhat_ky.created_at', 'DESC')
             ->select(
                 'name',
+                'email',
                 'ten_phong',
                 'ma_lop',
                 'ten_lop',
@@ -55,7 +56,9 @@ class AdminController extends Controller
                 'nhat_ky.id'
             )->paginate(30);
 
-                $groupDeviceList = GroupDevice::get();
+                $groupDeviceList = GroupDevice::
+                join('thiet_bi','thiet_bi.id', '=', 'nhom_thiet_bi.ma_thiet_bi')
+                ->select('ma_nhat_ky','ten_thiet_bi')->get();
 
             
         return view('admin.report', compact('reportList','groupDeviceList'));
@@ -101,6 +104,19 @@ class AdminController extends Controller
         $device->save();
         return redirect()->back();
     }
+
+    function deleteDevice($id){
+        $checkGroupDevice =  GroupDevice::where('ma_thiet_bi', $id)->exists();
+        if($checkGroupDevice){
+            $groupDevice =  GroupDevice::where('ma_thiet_bi', $id)->delete();
+        }
+
+        $device =  Device::where('id',$id)->delete();
+        return redirect()->back();
+    }
+
+
+    // Route of room
 
     function addRoom(Request $request)
     {

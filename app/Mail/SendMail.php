@@ -63,4 +63,5 @@ class SendMail extends Mailable
         return $this->subject('Email từ phòng máy tính D7 Trường Đại học Trà Vinh')
                     ->view('admin.emails.mailPassword');
     }
+    
 }

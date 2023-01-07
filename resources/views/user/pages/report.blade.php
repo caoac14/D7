@@ -124,7 +124,7 @@
 
                                     <button type="submit"
                                         class=" px-4 w-52 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-blue-600  ">
-                                        Gởi
+                                        Lưu nhật ký
                                     </button>
                                 </div>
                             </div>

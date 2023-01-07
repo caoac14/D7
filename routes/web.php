@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::get('/room/{id}', [AdminController::class, 'showDeviceOfRoom'])->name('admin.device_of_room');
     Route::post('/add_room', [AdminController::class, 'addRoom'])->name('admin.add_room');
     Route::post('/add_device/{id}', [AdminController::class, 'addDevice'])->name('admin.add_device');
+    Route::post('/delete_device/{id}', [AdminController::class, 'deleteDevice'])->name('admin.delete_device');
 
 
     Route::get('/chart', [AdminController::class, 'showChartPage'])->name('admin.chart');

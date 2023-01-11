@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Device;
 use App\Models\Room;
+use App\Models\GroupRoom;
 use App\Models\ClassName;
 use App\Models\GroupDevice;
 use App\Models\Report;
@@ -17,27 +18,34 @@ class ReportController extends Controller
         $deviceId = $request->devide;
         $deviceName = Device::where('id', $deviceId)->pluck('ten_thiet_bi');
 
-        $listRooms = Room::get();
+        $listRooms = GroupRoom::orderBy('ten_day_phong', 'ASC')->get();
 
         $classNames = ClassName::orderBy('ten_lop', 'ASC')->get();
 
         return view('user.pages.report', compact('listRooms', 'deviceName', 'classNames'));
     }
 
+    function showRoomAjax(Request  $request){
+        if ($request->ajax()) {
+            $rooms = Room::where('ma_nhom_phong', $request->groupRoom_id)->orderBy('ten_phong', 'ASC')->get();
+            return response()->json($rooms);
+        }
+    }
+
     function showDevice(Request $request)
     {
         if ($request->ajax()) {
-            $devices = Device::where('ma_phong', $request->room_id)->orderBy('ten_thiet_bi', 'ASC')->get();
+            $devices = Device::all();
             return response()->json($devices);
         }
     }
+
 
     function getDataReport(Request $request){
         $report = new Report;
         $report->ma_giao_vien = Auth::user()->id;
         $report->ma_phong = $request->room;
         $report->ma_lop = $request->class;
-        // $report->ma_thiet_bi = $idDevice[0];
         $report->mo_ta_loi = $request->about;
         $report->buoi = $request->timeR;
         $report->ngay = $request->dateR;

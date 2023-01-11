@@ -34,11 +34,22 @@
                                     </div>
                                     <div>
                                         <label for="title" class="text-lx">Mã lớp:</label>
-                                        <select id="room" name="class" required
+                                        <select id="class" name="class" required
                                             class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-lx rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected hidden value="">Chọn lớp</option>
+                                            <option selected hidden value="">--Chọn--</option>
                                             @foreach ($classNames as $class)
                                                 <option value="{{ $class->id }}">{{ $class->ten_lop }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="title" class="text-lx">Dãy phòng:</label>
+                                        <select id="groupRoom" name="groupRoom" required
+                                            class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-lx rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <option selected hidden value="">--Chọn--</option>
+                                            @foreach ($listRooms as $room)
+                                                <option value="{{ $room->id }}">Dãy {{ $room->ten_day_phong }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -46,12 +57,11 @@
                                         <label for="title" class="text-lx">Phòng:</label>
                                         <select id="room" name="room" required
                                             class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-lx rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected hidden value="">Chọn phòng</option>
-                                            @foreach ($listRooms as $room)
-                                                <option value="{{ $room->id }}">{{ $room->ten_phong }}</option>
-                                            @endforeach
+                                            <option selected hidden value="">--Chọn--</option>
+                                            
                                         </select>
                                     </div>
+
                                     <div class="over">
                                         <label for="device" class="text-lx block">Tên thiết bị:</label>
 
@@ -68,8 +78,6 @@
                                                 </svg>
                                                 <span class="ml-2 text-base">Chọn thiết bị</span>
                                             </button>
-                                            <input type="text"
-                                                class="flex-1 outline-none py-2 ml-4 px-4 text-md border-2 border-gray-300 text-gray-900 text-lx rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         </div>
 
                                         <!-- Main modal -->
@@ -101,10 +109,12 @@
                                                     <!-- Modal body -->
                                                     <div class="p-1 mt-2 ">
                                                         <ul class=" my-2 mx-3 space-y-3">
-                                                            <div id="device">
+                                                            <div id="deviceLists">
+
                                                             </div>
                                                             <div class="flex justify-center">
-                                                                <button data-modal-toggle="crypto-modal" type="button"
+                                                                <button data-modal-toggle="crypto-modal"
+                                                                    type="button"
                                                                     class=" px-4 w-full mb-4 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-blue-600 hover:bg-blue-500  ">
                                                                     Xong
                                                                 </button>
@@ -147,9 +157,10 @@
                     _token: token
                 },
                 success: function(data) {
-                    $("#device").html('');
+                    console.log(data);
+                    $("#deviceLists").html('');
                     $.each(data, function(key, value) {
-                        $("#device").append(
+                        $("#deviceLists").append(
                             `<li>
                                 <div
                                     class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-blue-300 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
@@ -168,25 +179,28 @@
             });
         });
 
-        // Search device
-        // $('#searchDevice').on('keyup', function() {
-        //     console.log(123)
-        //     $value = $(this).val();
-        //     $.ajax({
-        //         type: 'get',
-        //         url: '{{ URL::to('searchDevice') }}',
-        //         data: {
-        //             'searchValue': $value
-        //         },
-        //         success: function(data) {
-        //             $('p').html(data);
-        //         }
-        //     });
-        // })
-        // $.ajaxSetup({
-        //     headers: {
-        //         'csrftoken': '{{ csrf_token() }}'
-        //     }
-        // });
+        var url = "{{ url('/KL/showRoomAjax') }}";
+        $("select[name='groupRoom']").change(function() {
+            var groupRoom_id = $(this).val();
+            var token = $("input[name='_token']").val();
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    groupRoom_id: groupRoom_id,
+                    _token: token
+                },
+                success: function(dataRooms) {
+                    console.log(dataRooms);
+                    $("select[name='room'").html('');
+                    $.each(dataRooms, function(key, value) {
+                        $("select[name='room']").append(
+                            "<option value=" + value.id + ">" + value.ten_phong +
+                            "</option>"
+                        );
+                    });
+                }
+            });
+        });
     </script>
 </x-app-layout>

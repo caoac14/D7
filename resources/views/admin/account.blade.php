@@ -5,7 +5,7 @@
         <div class="flex justify-end text-sm p-1">
             <a href="{{ route('admin.register_account') }}">
                 <button
-                    class="flex items-center justify-center bg-blue-500 mr-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    class="mb-1 flex items-center shadow-sm shadow-green-400 justify-center bg-green-500 mr-2 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="#fff" stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -159,7 +159,7 @@
                 @endforeach
             </ul>
             <div
-                class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                 {{ $userLists->links() }}
             </div>
         </div>

@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Device;
 use App\Models\TypeDevice;
 use App\Models\Room;
+use App\Models\GroupRoom;
 
 class DeviceController extends Controller
 {
     function index()
     {
-        // $listRooms = Device::get();
-        // return view('user.pages.room', compact('listRooms'));
+        $listGroupRooms = GroupRoom::orderBy('ten_day_phong')->get();
+        return view('user.pages.room', compact('listGroupRooms'));
     }
 
 

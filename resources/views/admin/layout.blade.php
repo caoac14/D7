@@ -90,7 +90,7 @@
 
             <div class="grid grid-cols-6 gap-1">
                 <div class="col-span-1">@include('admin.sidebar')</div>
-                <div class="col-span-5">
+                <div class="col-span-5 bg-gray-100">
                     <main class="container mt-1">
                         @yield('home')
                         @yield('report')

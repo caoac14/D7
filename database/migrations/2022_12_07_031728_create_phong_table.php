@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('phong', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("ma_nhom_phong")->constrained("nhom_phong");
+            $table->foreignId("ma_loai_phong")->constrained("loai_phong");
             $table->string('ten_phong');
             $table->string('so_do_bo_tri');
             $table->timestamps();

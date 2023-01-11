@@ -12,13 +12,16 @@ use App\Models\Device;
 use App\Models\Room;
 use App\Models\GroupDevice;
 use App\Models\TypeDevice;
+use App\Models\GroupRoom;
+use App\Models\TypeRoom;
 use App\Mail\SendMail;
 use App\Mail\ResetMail;
 use Dflydev\DotAccessData\Data;
 
 class AdminController extends Controller
 {
-    function createAdmin(){
+    function createAdmin()
+    {
         $random_pass = (Str::random(10));
         $user = new User();
         $user->name = "Trương Quốc Huy";
@@ -56,29 +59,48 @@ class AdminController extends Controller
                 'nhat_ky.id'
             )->paginate(30);
 
-                $groupDeviceList = GroupDevice::
-                join('thiet_bi','thiet_bi.id', '=', 'nhom_thiet_bi.ma_thiet_bi')
-                ->select('ma_nhat_ky','ten_thiet_bi')->get();
+        $groupDeviceList = GroupDevice::join('thiet_bi', 'thiet_bi.id', '=', 'nhom_thiet_bi.ma_thiet_bi')
+            ->select('ma_nhat_ky', 'ten_thiet_bi')->get();
 
-            
-        return view('admin.report', compact('reportList','groupDeviceList'));
+
+        return view('admin.report', compact('reportList', 'groupDeviceList'));
     }
 
 
+    // function showDeviceOfRoom($id)
+    // {
+    //     $nameTypes = TypeDevice::pluck('ten_loai_thiet_bi');
 
+    //     $listDevices = Device::where('ma_phong', $id)->get();
+    //     $idDevices = TypeDevice::pluck('id');
+
+    //     $typeOfDevice = array();
+    //     foreach ($idDevices as $idType) {
+    //         $queryTypeDevice = Device::where('ma_phong', $id)->where('ma_loai_thiet_bi', $idType)->orderBy('ten_thiet_bi', 'ASC')->get();
+    //         array_push($typeOfDevice, $queryTypeDevice);
+    //     }
+
+
+    //     $typeDeviceLists = TypeDevice::orderBy('ten_loai_thiet_bi', 'ASC')->get();
+
+    //     $room = Room::where('id', $id)->pluck('ten_phong');
+
+    //     return view('admin.device_room', compact('listDevices', 'id', 'room', 'typeOfDevice', 'nameTypes', 'typeDeviceLists'));
+    // }
 
     // function of Device
+
     function showDevicePage()
     {
         $roomLists = Room::orderBy('ten_phong', 'ASC')->get();
-        return view('admin.device', compact('roomLists'));
+        $groupRoomLists = GroupRoom::orderBy('ten_day_phong', 'ASC')->get();
+
+        return view('admin.device', compact('roomLists', 'groupRoomLists'));
     }
 
     function showDeviceOfRoom($id)
     {
-        $nameTypes = TypeDevice::pluck('ten_loai_thiet_bi');
 
-        $listDevices = Device::where('ma_phong', $id)->get();
         $idDevices = TypeDevice::pluck('id');
 
         $typeOfDevice = array();
@@ -86,32 +108,53 @@ class AdminController extends Controller
             $queryTypeDevice = Device::where('ma_phong', $id)->where('ma_loai_thiet_bi', $idType)->orderBy('ten_thiet_bi', 'ASC')->get();
             array_push($typeOfDevice, $queryTypeDevice);
         }
+        $nameTypes = TypeDevice::select('id', 'ten_loai_thiet_bi')->get();
+        // dd($nameTypes);die;
 
+        $roomName = Room::where('id', $id)->first();
 
-        $typeDeviceLists = TypeDevice::orderBy('ten_loai_thiet_bi', 'ASC')->get();
-
-        $room = Room::where('id', $id)->pluck('ten_phong');
-
-        return view('admin.device_detail', compact('listDevices', 'id', 'room', 'typeOfDevice', 'nameTypes', 'typeDeviceLists'));
+        return view('admin.device_room', compact('id', 'typeOfDevice', 'nameTypes', 'roomName'));
     }
 
-    function addDevice(Request $request, $id)
+    function showDeviceDetail(Request $request)
+    {
+        $idRoomRequest = $request->roomId;
+        $idTypeDeviceRequest = $request->typeDeviceId;
+
+        $roomName = Room::where('id', $idRoomRequest)->first();
+        $typeDeviceName = TypeDevice::where('id', $idTypeDeviceRequest)->first();
+
+        $typeDeviceLists = Device::orderBy('ten_thiet_bi', 'ASC')->where('ma_phong', $idRoomRequest)->where('ma_loai_thiet_bi', $request->typeDeviceId)->get();
+
+        return view('admin.device_detail', compact('typeDeviceLists', 'roomName', 'typeDeviceName'));
+    }
+
+    function addDevice(Request $request)
     {
         $device = new Device();
-        $device->ma_phong = $id;
-        $device->ma_loai_thiet_bi = $request->type_device;
+        $device->ma_phong =  $request->roomId;
+        $device->ma_loai_thiet_bi = $request->typeDeviceId;
         $device->ten_thiet_bi = $request->name_device;
         $device->save();
         return redirect()->back();
     }
 
-    function deleteDevice($id){
+    function deleteDevice($id)
+    {
         $checkGroupDevice =  GroupDevice::where('ma_thiet_bi', $id)->exists();
-        if($checkGroupDevice){
+        if ($checkGroupDevice) {
             $groupDevice =  GroupDevice::where('ma_thiet_bi', $id)->delete();
         }
 
-        $device =  Device::where('id',$id)->delete();
+        $device =  Device::where('id', $id)->delete();
+        return redirect()->back();
+    }
+
+    function addTypeDevice(Request $request)
+    {
+        $type_device = new TypeDevice();
+        $type_device->ten_loai_thiet_bi = $request->name_typedevice;
+        $type_device->save();
         return redirect()->back();
     }
 
@@ -121,11 +164,40 @@ class AdminController extends Controller
     function addRoom(Request $request)
     {
         $room = new Room();
-        $room->ten_phong = $request->name_room;
-        $room->so_do_bo_tri = $request->so_do_bo_tri;
+        $room->ten_phong = $request->ten_phong;
+        $room->so_do_bo_tri = "";
+        $room->ma_nhom_phong = $request->ma_nhom_phong;
+        $room->ma_loai_phong = $request->ma_loai_phong;
 
         $room->save();
         return redirect()->back();
+    }
+
+
+    function addGroupRoom(Request $request)
+    {
+        $groupRoom = new GroupRoom();
+        $groupRoom->ten_day_phong = $request->ten_day_phong;
+        $groupRoom->save();
+        return redirect()->back();
+    }
+
+    function showGroupRoom($id)
+    {
+        $typeRoomLists = TypeRoom::orderBy('ten_loai_phong', 'ASC')->get();
+
+        $nameTypeRoom = TypeRoom::orderBy('ten_loai_phong', 'ASC')->pluck('ten_loai_phong');
+
+        $roomLists = array();
+        foreach ($typeRoomLists as $i) {
+            array_push($roomLists, Room::where('ma_nhom_phong', $id)->where('ma_loai_phong', $i->id)
+                ->join('loai_phong', 'loai_phong.id', '=', 'phong.ma_loai_phong')
+                ->select('phong.id', 'ten_phong', 'ten_loai_phong')->get());
+        }
+        $groupRoomSelected = GroupRoom::where('id', $id)->first();
+        $groupRoomLists = GroupRoom::orderBy('ten_day_phong', 'ASC')->get();
+
+        return view('admin.room', compact('roomLists', 'typeRoomLists', 'groupRoomLists', 'groupRoomSelected', 'nameTypeRoom'));
     }
 
 
@@ -143,7 +215,7 @@ class AdminController extends Controller
         for ($i = 1; $i <= 31; $i++) {
             array_push($dataReport, Report::whereDay('ngay', $i)->whereMonth('ngay', now()->month)->count());
         }
-        $temp = (implode(",",$dataReport));
+        $temp = (implode(",", $dataReport));
         $totalData = ($temp);
 
         return view('admin.chart', compact('countReport', 'countDevice', 'countUser', "totalData"));
@@ -255,5 +327,5 @@ class AdminController extends Controller
         } else {
             return redirect('admin/register_account');
         }
-    }    
+    }
 }

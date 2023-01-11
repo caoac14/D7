@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RoomController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
@@ -26,11 +25,12 @@ Route::get('/', function () {
 
 // Route of User 
 Route::group(['prefix' => 'KL', 'middleware' => ['auth', 'verified']], function () {
-    Route::get('/', [RoomController::class, 'index'])->name('dashboard');
+    Route::get('/', [DeviceController::class, 'index'])->name('dashboard');
     Route::get('/room/{id}', [DeviceController::class, 'deviceOfRoom']);
     Route::get('/report', [ReportController::class, 'index'])->name('report');
     // Route::get('/seachDevice', [ReportController::class, 'seachDevice'])->name('seachDevice');
     Route::post('/showDevice', [ReportController::class, 'showDevice'])->name('showDevice');
+    Route::post('/showRoomAjax', [ReportController::class, 'showRoomAjax'])->name('showRoomAjax');
     Route::post('/getDataReport', [ReportController::class, 'getDataReport'])->name('getDataReport');
 
 });
@@ -51,10 +51,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::get('/detail_report/{id}', [AdminController::class, 'showDetailReportPage'])->name('admin.report_detail');
 
     Route::get('/device', [AdminController::class, 'showDevicePage'])->name('admin.device');
+    Route::get('/device_detail/{roomId?}/{typeDeviceId?}', [AdminController::class, 'showDeviceDetail'])->name('admin.device_detail');
+
+
     Route::get('/room/{id}', [AdminController::class, 'showDeviceOfRoom'])->name('admin.device_of_room');
     Route::post('/add_room', [AdminController::class, 'addRoom'])->name('admin.add_room');
-    Route::post('/add_device/{id}', [AdminController::class, 'addDevice'])->name('admin.add_device');
+    Route::post('/add_device/{roomId}/{typeDeviceId}', [AdminController::class, 'addDevice'])->name('admin.add_device');
+    Route::post('/add_typedevice', [AdminController::class, 'addTypeDevice'])->name('admin.add_typedevice');
     Route::post('/delete_device/{id}', [AdminController::class, 'deleteDevice'])->name('admin.delete_device');
+
+    Route::post('/add_groupRoom', [AdminController::class, 'addGroupRoom'])->name('admin.add_groupRoom');
+    Route::get('/group_room/{id}', [AdminController::class, 'showGroupRoom'])->name('admin.group_room');
 
 
     Route::get('/chart', [AdminController::class, 'showChartPage'])->name('admin.chart');

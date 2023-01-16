@@ -5,8 +5,9 @@
                 <div class="p-6 text-gray-900">
                     <div class="grid grid-cols-1 gap-4">
                         <div>
-                            <div class="text-gray-200 text-lg p-4 mb-4 rounded-md bg-blue-400 shadow-md shadow-blue-300">
-                                <h3 class="">Dãy <span class="text-red-600" >{{$groupRoomSelected->ten_day_phong}}</span></h3>
+                            <div
+                                class="text-gray-50 text-lg p-4 mb-4 rounded-md bg-green-500 shadow-md shadow-green-300">
+                                <h3 class="">Dãy <span>{{ $groupRoomSelected->ten_day_phong }}</span></h3>
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 @for ($i = 0; $i < count($roomLists); $i++)

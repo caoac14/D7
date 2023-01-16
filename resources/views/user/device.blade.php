@@ -6,7 +6,7 @@
                     <div>
                         <div>
                             <div
-                                class="flex justify-between items-center text-gray-200 text-lg p-4 mb-4 rounded-md bg-blue-400 shadow-md shadow-blue-300">
+                                class="flex justify-between items-center text-gray-50 text-lg px-4 py-3 mb-4 rounded-md bg-green-500 shadow-md shadow-green-300">
                                 <h3 class="flex items-center space-x-2">
                                     <span>Phòng</span> <span>{{ $roomName->ten_phong }}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -14,17 +14,24 @@
                                         stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h13M12 5l7 7-7 7" />
                                     </svg>
-                                    <span class="flex text-red-600">
+                                    <span class="flex">
                                         {{ $typeDeviceName->ten_loai_thiet_bi }}</span>
                                 </h3>
                                 <button data-modal-toggle="mapDeviceModal"
-                                    class="flex justify-center items-center space-x-2 w-40 text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-2 py-2 text-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                    class="flex justify-center items-center space-x-2 w-40 text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-2 py-2 text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="7" height="7"></rect>
+                                        <rect x="14" y="3" width="7" height="7"></rect>
+                                        <rect x="14" y="14" width="7" height="7"></rect>
+                                        <rect x="3" y="14" width="7" height="7"></rect>
+                                    </svg>
                                     <span>Xem sơ đồ bố trí</span>
                                 </button>
                                 <div id="mapDeviceModal" tabindex="-1" aria-hidden="true"
-                                    class="fixed top-0 left-0 right-0 z-50 hidden w-full max-h-screen p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-                                    <div class="relative w-full h-full max-w-3xl md:h-auto">
+                                    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-auto">
+                                    <div class="relative w-full h-full max-w-3xl">
                                         <!-- Modal content -->
                                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                             <!-- Modal header -->
@@ -48,7 +55,8 @@
                                             <!-- Modal body -->
                                             <div class="p-6 space-y-6">
                                                 <div class="flex justify-center items-center">
-                                                    <img width="100%" src="{{asset('/images/D71.105.png')}}" alt="">
+                                                    <img width="100%" src="{{ asset($roomName->so_do_bo_tri) }}"
+                                                        alt="">
                                                 </div>
                                             </div>
                                         </div>
@@ -63,7 +71,7 @@
                                                 <div class="w-full flex items-center justify-center">
                                                     <!-- Modal toggle -->
                                                     <button
-                                                        class="text-white min-w-full bg-gradient-to-r shadow-md shadow-blue-500 from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-1"
+                                                        class="text-white  min-w-full bg-gradient-to-r shadow-md shadow-blue-500 from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-md text-sm px-5 py-2.5 text-center mb-1"
                                                         type="button"
                                                         data-modal-toggle="deviceModal-{{ $device->id }}">
                                                         {{ $device->ten_thiet_bi }}
@@ -78,11 +86,11 @@
                                                                 class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                                                 <!-- Modal header -->
                                                                 <div
-                                                                    class="flex items-start justify-between px-6 pt-4 pb-2  border-b rounded-t dark:border-gray-600">
+                                                                    class="flex items-start bg-blue-500 justify-between px-6 pt-4 pb-2  border-b rounded-t dark:border-gray-600">
                                                                     <div
-                                                                        class=" font-semibold text-gray-800 dark:text-white">
+                                                                        class=" font-semibold  text-gray-800 dark:text-white">
                                                                         <a href="{{ route('dashboard') }}">
-                                                                            <p class="text-blue-500 text-base">
+                                                                            <p class="text-gray-50 text-base">
                                                                                 Phòng: {{ $roomName->ten_phong }}
                                                                             </p>
                                                                         </a>
@@ -91,7 +99,7 @@
                                                                         </h3>
                                                                     </div>
                                                                     <button type="button"
-                                                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                        class="text-gray-100 bg-red-500 hover:bg-red-400 hover:text-gray-100 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                                                         data-modal-toggle="deviceModal-{{ $device->id }}">
                                                                         <svg aria-hidden="true" class="w-5 h-5"
                                                                             fill="currentColor" viewBox="0 0 20 20"

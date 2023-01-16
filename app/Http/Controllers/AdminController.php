@@ -160,20 +160,17 @@ class AdminController extends Controller
     }
 
     function uploadImageRoom(Request $request){
+        $request->validate([
+            'room_image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
         
         $imageName = time().'.'.$request->room_image->extension();
         
-        // Public Folder
         $request->room_image->move(public_path('images'), $imageName);
-        dd($request->room_image);
-        // $request->validate([
-        //     'room_image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
-        // ]);
+        $getImage = 'images/'.$imageName;
+        Room::where('id',$request->id)->update(['so_do_bo_tri' => $getImage]);
 
-        // $imageName = time().'.'.$request->room_image->extension();
-        // printf($imageName);die;
-        // $request->image->move(public_path('images'), $imageName);
-
+        return back();
         // return back()->with('success', 'Image uploaded Successfully!')
         // ->with('image', $imageName);
     }

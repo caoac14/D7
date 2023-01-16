@@ -5,7 +5,8 @@
                 <div class="p-6 text-gray-900">
                     <div class="grid grid-cols-1 gap-4">
                         <div>
-                            <div class="text-gray-200 text-lg p-4 mb-4 rounded-md bg-blue-400 shadow-md shadow-blue-300">
+                            <div
+                                class="text-gray-50 text-lg p-4 mb-4 rounded-md bg-green-500 shadow-md shadow-green-300">
                                 <h3 class="">DANH SÁCH DÃY PHÒNG</h3>
                             </div>
                             <div class="grid grid-cols-6 gap-6 bg-gray-200 p-4  rounded-md">

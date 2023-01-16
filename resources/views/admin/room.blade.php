@@ -3,7 +3,10 @@
 @section('device')
     <div>
         <div class="flex justify-between items-center text-sm bg-blue-300 p-2 mr-1">
-            <div class="text-lg text-gray-700 mx-2 font-semibold">Dãy<span class="text-blue-700"> {{$groupRoomSelected->ten_day_phong}}</span></div>
+            <div class="text-lg text-gray-700 mx-2 font-semibold">Dãy<span class="text-blue-700">
+                    {{ $groupRoomSelected->ten_day_phong }}</span></div>
+
+
             <button data-modal-toggle="modal_addroom"
                 class="flex justify-center items-center w-40 text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-semibold rounded-lg text-sm px-5 py-2 text-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" height="20" viewBox="0 0 24 24"
@@ -81,8 +84,7 @@
         </div>
         <div class="grid grid-cols-2 gap-4 my-2">
             @for ($i = 0; $i < count($roomLists); $i++)
-                <div
-                    class="w-full p-4 justify-center max-w-2xl mx-auto bg-gray-200 shadow-lg rounded-md">
+                <div class="w-full p-4 justify-center max-w-2xl mx-auto bg-gray-200 shadow-lg rounded-md">
                     <h4 class="text-lg text-center uppercase text-gray-800 font-bold ">{{ $nameTypeRoom[$i] }}</h4>
                     <div class="grid grid-cols-4 gap-4 px-6 mt-4">
                         @foreach ($roomLists[$i] as $room[$i])

@@ -61,7 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::post('/add_device/{roomId}/{typeDeviceId}', [AdminController::class, 'addDevice'])->name('admin.add_device');
     Route::post('/add_typedevice', [AdminController::class, 'addTypeDevice'])->name('admin.add_typedevice');
     Route::post('/delete_device/{id}', [AdminController::class, 'deleteDevice'])->name('admin.delete_device');
-    Route::post('/upload_image_room', [AdminController::class, 'uploadImageRoom'])->name('admin.upload_image_room');
+    Route::post('/upload_image_room/{id}', [AdminController::class, 'uploadImageRoom'])->name('admin.upload_image_room');
 
     Route::post('/add_groupRoom', [AdminController::class, 'addGroupRoom'])->name('admin.add_groupRoom');
     Route::get('/group_room/{id}', [AdminController::class, 'showGroupRoom'])->name('admin.group_room');

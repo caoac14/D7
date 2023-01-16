@@ -67,28 +67,6 @@ class AdminController extends Controller
     }
 
 
-    // function showDeviceOfRoom($id)
-    // {
-    //     $nameTypes = TypeDevice::pluck('ten_loai_thiet_bi');
-
-    //     $listDevices = Device::where('ma_phong', $id)->get();
-    //     $idDevices = TypeDevice::pluck('id');
-
-    //     $typeOfDevice = array();
-    //     foreach ($idDevices as $idType) {
-    //         $queryTypeDevice = Device::where('ma_phong', $id)->where('ma_loai_thiet_bi', $idType)->orderBy('ten_thiet_bi', 'ASC')->get();
-    //         array_push($typeOfDevice, $queryTypeDevice);
-    //     }
-
-
-    //     $typeDeviceLists = TypeDevice::orderBy('ten_loai_thiet_bi', 'ASC')->get();
-
-    //     $room = Room::where('id', $id)->pluck('ten_phong');
-
-    //     return view('admin.device_room', compact('listDevices', 'id', 'room', 'typeOfDevice', 'nameTypes', 'typeDeviceLists'));
-    // }
-
-    // function of Device
 
     function showDevicePage()
     {
@@ -109,7 +87,6 @@ class AdminController extends Controller
             array_push($typeOfDevice, $queryTypeDevice);
         }
         $nameTypes = TypeDevice::select('id', 'ten_loai_thiet_bi')->get();
-        // dd($nameTypes);die;
 
         $roomName = Room::where('id', $id)->first();
 
@@ -143,7 +120,7 @@ class AdminController extends Controller
     {
         $checkGroupDevice =  GroupDevice::where('ma_thiet_bi', $id)->exists();
         if ($checkGroupDevice) {
-            $groupDevice =  GroupDevice::where('ma_thiet_bi', $id)->delete();
+            GroupDevice::where('ma_thiet_bi', $id)->delete();
         }
 
         $device =  Device::where('id', $id)->delete();
@@ -182,6 +159,25 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    function uploadImageRoom(Request $request){
+        
+        $imageName = time().'.'.$request->room_image->extension();
+        
+        // Public Folder
+        $request->room_image->move(public_path('images'), $imageName);
+        dd($request->room_image);
+        // $request->validate([
+        //     'room_image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        // ]);
+
+        // $imageName = time().'.'.$request->room_image->extension();
+        // printf($imageName);die;
+        // $request->image->move(public_path('images'), $imageName);
+
+        // return back()->with('success', 'Image uploaded Successfully!')
+        // ->with('image', $imageName);
+    }
+
     function showGroupRoom($id)
     {
         $typeRoomLists = TypeRoom::orderBy('ten_loai_phong', 'ASC')->get();
@@ -194,6 +190,7 @@ class AdminController extends Controller
                 ->join('loai_phong', 'loai_phong.id', '=', 'phong.ma_loai_phong')
                 ->select('phong.id', 'ten_phong', 'ten_loai_phong')->get());
         }
+
         $groupRoomSelected = GroupRoom::where('id', $id)->first();
         $groupRoomLists = GroupRoom::orderBy('ten_day_phong', 'ASC')->get();
 

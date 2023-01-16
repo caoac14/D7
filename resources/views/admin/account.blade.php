@@ -5,8 +5,8 @@
         <div class="flex justify-end text-sm p-1">
             <a href="{{ route('admin.register_account') }}">
                 <button
-                    class="mb-1 flex items-center shadow-sm shadow-green-400 justify-center bg-green-500 mr-2 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="24" height="24" viewBox="0 0 24 24"
+                    class="mb-1 flex items-center shadow-sm shadow-green-400 justify-center bg-green-500 mr-2 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" height="20" viewBox="0 0 24 24"
                         fill="none" stroke="#fff" stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
                         <line x1="5" y1="12" x2="19" y2="12"></line>

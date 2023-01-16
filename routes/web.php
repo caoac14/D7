@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ExportExcel;
@@ -25,10 +25,12 @@ Route::get('/', function () {
 
 // Route of User 
 Route::group(['prefix' => 'KL', 'middleware' => ['auth', 'verified']], function () {
-    Route::get('/', [DeviceController::class, 'index'])->name('dashboard');
-    Route::get('/room/{id}', [DeviceController::class, 'deviceOfRoom']);
+    Route::get('/', [UserController::class, 'showGroupRoom'])->name('dashboard');
+    Route::get('/typeRoom/{id?}', [UserController::class, 'showTypeRoom'])->name('KL.show_typeroom');
+    Route::get('/room/{id?}', [UserController::class, 'showRoom'])->name('KL.show_room');
+    Route::get('/device/{roomId?}/{typeDeviceId?}', [UserController::class, 'showDevice'])->name('KL.show_device');
     Route::get('/report', [ReportController::class, 'index'])->name('report');
-    // Route::get('/seachDevice', [ReportController::class, 'seachDevice'])->name('seachDevice');
+
     Route::post('/showDevice', [ReportController::class, 'showDevice'])->name('showDevice');
     Route::post('/showRoomAjax', [ReportController::class, 'showRoomAjax'])->name('showRoomAjax');
     Route::post('/getDataReport', [ReportController::class, 'getDataReport'])->name('getDataReport');
@@ -59,6 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::post('/add_device/{roomId}/{typeDeviceId}', [AdminController::class, 'addDevice'])->name('admin.add_device');
     Route::post('/add_typedevice', [AdminController::class, 'addTypeDevice'])->name('admin.add_typedevice');
     Route::post('/delete_device/{id}', [AdminController::class, 'deleteDevice'])->name('admin.delete_device');
+    Route::post('/upload_image_room', [AdminController::class, 'uploadImageRoom'])->name('admin.upload_image_room');
 
     Route::post('/add_groupRoom', [AdminController::class, 'addGroupRoom'])->name('admin.add_groupRoom');
     Route::get('/group_room/{id}', [AdminController::class, 'showGroupRoom'])->name('admin.group_room');

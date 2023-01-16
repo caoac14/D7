@@ -3,10 +3,10 @@
 @section('device')
     <div>
         <div class="flex justify-between items-center text-sm bg-blue-300 p-2 mr-1">
-            <div class="text-lg text-gray-900 mx-2 font-semibold">Dãy<span class="text-blue-700"> {{$groupRoomSelected->ten_day_phong}}</span></div>
+            <div class="text-lg text-gray-700 mx-2 font-semibold">Dãy<span class="text-blue-700"> {{$groupRoomSelected->ten_day_phong}}</span></div>
             <button data-modal-toggle="modal_addroom"
-                class="flex justify-center items-center w-40 text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2 text-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="24" height="24" viewBox="0 0 24 24"
+                class="flex justify-center items-center w-40 text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-semibold rounded-lg text-sm px-5 py-2 text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" height="20" viewBox="0 0 24 24"
                     fill="none" stroke="#fff" stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -21,7 +21,7 @@
                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                         <!-- Modal header -->
                         <div
-                            class="flex items-center justify-between bg-blue-500 p-4 border-b rounded-t dark:border-gray-600">
+                            class="flex items-center justify-between bg-green-500 p-4 border-b rounded-t dark:border-gray-600">
                             <h3 class="text-xl font-semibold mt-2  text-gray-100 dark:text-white">
                                 Thêm phòng học
                             </h3>
@@ -47,13 +47,13 @@
                                         Tên phòng:
                                     </label>
                                     <input type="text" name="ten_phong" id="name"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                                         required value="">
                                 </div>
                                 <div class="mb-6">
                                     <label for="ma_nhom_phong" class="text-base">Thuộc dãy: </label>
                                     <select id="ma_nhom_phong" name="ma_nhom_phong" readonly
-                                        class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-base rounded-lg focus:ring-green-500 focus:border-green-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                         <option selected value="{{ $groupRoomSelected->id }}">
                                             {{ $groupRoomSelected->ten_day_phong }}</option>
                                     </select>
@@ -61,7 +61,7 @@
                                 <div class="mb-6">
                                     <label for="ma_loai_phong" class="text-base">Loại phòng: </label>
                                     <select id="ma_loai_phong" name="ma_loai_phong" required
-                                        class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-base rounded-lg focus:ring-green-500 focus:border-green-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                                         <option selected hidden value="">--Chọn--</option>
                                         @foreach ($typeRoomLists as $typeRoom)
                                             <option value="{{ $typeRoom->id }}">{{ $typeRoom->ten_loai_phong }}</option>
@@ -70,7 +70,7 @@
                                 </div>
 
                                 <button type="submit"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                     Thêm
                                 </button>
                             </form>
@@ -79,10 +79,10 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-4 p-4">
+        <div class="grid grid-cols-2 gap-4 my-2">
             @for ($i = 0; $i < count($roomLists); $i++)
                 <div
-                    class="w-full p-4 justify-center max-w-2xl mx-auto bg-white shadow-lg rounded-md border border-gray-200">
+                    class="w-full p-4 justify-center max-w-2xl mx-auto bg-gray-200 shadow-lg rounded-md">
                     <h4 class="text-lg text-center uppercase text-gray-800 font-bold ">{{ $nameTypeRoom[$i] }}</h4>
                     <div class="grid grid-cols-4 gap-4 px-6 mt-4">
                         @foreach ($roomLists[$i] as $room[$i])

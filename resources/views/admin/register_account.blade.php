@@ -27,12 +27,12 @@
                 <div class="mt-4">
                     <x-input-label for="password" :value="__('Mật khẩu')" />
 
-                    <x-text-input id="password" class="block mt-1 w-full bg-gray-200" type="password" name="password" required
-                    readonly  autocomplete="new-password" />
+                    <x-text-input id="password" class="block mt-1 w-full bg-gray-200" type="password" name="password"
+                        required readonly autocomplete="new-password" />
 
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
-                
+
                 <div class="flex items-center justify-end mt-4">
                     <x-primary-button class="ml-4" id="btn-create_account">
                         {{ __('Tạo mới') }}
@@ -41,4 +41,17 @@
             </form>
         </div>
     </div>
+    <script>
+        const $ = document.querySelector.bind(document);
+        const $$ = document.querySelectorAll.bind(document);
+
+        const btnCreate = $("#btn-create_account");
+        const inpPassword = $("#password");
+
+        if (btnCreate) {
+            btnCreate.onclick = function(e) {
+                inpPassword.value = "***************";
+            }
+        }
+    </script>
 @endsection

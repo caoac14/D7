@@ -190,54 +190,57 @@
                                                     </button>
                                                 </div>
                                                 <!-- Modal body -->
-                                                <div class="p-6 space-y-4">
-                                                    <h4 class="text-gray-800 text-xl">Xuất file theo:</h4>
+                                                <form method="post" action="{{ route('admin.export_report', 1) }}"
+                                                    class="flex items-center px-6 py-1">
+                                                    @csrf
+                                                    <div class="p-6">
+                                                        <h4 class="text-gray-800 text-xl">Xuất file theo:</h4>
 
-                                                    <div class="flex items-center">
-                                                        <input checked id="rdo_report" type="radio" value=""
-                                                            name="rdo_excel"
-                                                            class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                        <label for="rdo_report"
-                                                            class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-                                                            Xuất sổ nhật ký
-                                                        </label>
+                                                        <div class="flex items-center my-2">
+                                                            <input checked id="rdo_report" type="radio" value="rdo_report"
+                                                                name="rdo_excel"
+                                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                            <label for="rdo_report"
+                                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                                Xuất sổ nhật ký
+                                                            </label>
+                                                        </div>
+                                                        <div class="flex items-center my-2">
+                                                            <input id="rdo_account" type="radio" value="rdo_account"
+                                                                name="rdo_excel"
+                                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                            <label for="rdo_account"
+                                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                                Xuất danh sách tài khoản
+                                                            </label>
+                                                        </div>
+                                                        <div class="flex items-center my-2">
+                                                            <input id="rdo_device" type="radio" value="rdo_device"
+                                                                name="rdo_excel"
+                                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                            <label for="rdo_device"
+                                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                                Xuất danh sách thiết bị
+                                                            </label>
+                                                        </div>
+                                                        <div class="flex items-center my-2">
+                                                            <input id="rdo_room" type="radio" value="rdo_room"
+                                                                name="rdo_excel"
+                                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                            <label for="rdo_room"
+                                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                                Xuất file phòng học
+                                                            </label>
+                                                        </div>
+
+                                                        <button data-modal-toggle="modal_excel"
+                                                            class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-2.5 my-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                            Xuất file
+                                                        </button>
+
                                                     </div>
-                                                    <div class="flex items-center">
-                                                        <input checked id="rdo_account" type="radio" value=""
-                                                            name="rdo_excel"
-                                                            class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                        <label for="rdo_account"
-                                                            class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-                                                            Xuất danh sách tài khoản
-                                                        </label>
-                                                    </div>
-                                                    <div class="flex items-center">
-                                                        <input id="rdo_device" type="radio" value=""
-                                                            name="rdo_excel"
-                                                            class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                        <label for="rdo_device"
-                                                            class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-                                                            Xuất danh sách thiết bị
-                                                        </label>
-                                                    </div>
-                                                    <div class="flex items-center">
-                                                        <input id="rdo_room" type="radio" value=""
-                                                            name="rdo_excel"
-                                                            class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                        <label for="rdo_room"
-                                                            class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-                                                            Xuất file phòng học
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <!-- Modal footer -->
-                                                <div
-                                                    class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                                    <a href="{{route('admin.export_report')}}" data-modal-toggle="modal_excel" type="button"
-                                                        class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                        Xuất file
-                                                    </a>
-                                                </div>
+                                                </form>
+
                                             </div>
                                         </div>
                                     </div>

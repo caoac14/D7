@@ -93,10 +93,10 @@
                 <div class="col-span-5 bg-gray-100">
                     <main class="container mt-1">
                         @yield('home')
-                        @yield('report')
                         @yield('device')
                         @yield('chart')
                         @yield('account')
+                        @yield('report') 
                         @yield('report_detail')
                         @yield('account_detail')
                         @yield('device_detail')

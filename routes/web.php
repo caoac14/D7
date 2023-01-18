@@ -29,11 +29,12 @@ Route::group(['prefix' => 'KL', 'middleware' => ['auth', 'verified']], function 
     Route::get('/typeRoom/{id?}', [UserController::class, 'showTypeRoom'])->name('KL.show_typeroom');
     Route::get('/room/{id?}', [UserController::class, 'showRoom'])->name('KL.show_room');
     Route::get('/device/{roomId?}/{typeDeviceId?}', [UserController::class, 'showDevice'])->name('KL.show_device');
-    Route::get('/report', [ReportController::class, 'index'])->name('report');
+    Route::get('/report', [UserController::class, 'pageReport'])->name('KL.report');
 
-    Route::post('/showDevice', [ReportController::class, 'showDevice'])->name('showDevice');
-    Route::post('/showRoomAjax', [ReportController::class, 'showRoomAjax'])->name('showRoomAjax');
-    Route::post('/getDataReport', [ReportController::class, 'getDataReport'])->name('getDataReport');
+    Route::get('/showRoomAjax', [UserController::class, 'showRoomAjax'])->name('KL.showRoomAjax');
+    Route::get('/showDeviceAjax', [UserController::class, 'showDeviceAjax'])->name('KL.showDeviceAjax');
+
+    Route::post('/setDataReport', [UserController::class, 'setDataReport'])->name('KL.setDataReport');
 
 });
 
@@ -78,7 +79,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
 
     Route::get('/send-mail', [AdminController::class, 'sendMail'])->name('admin.send_mail');
 
-    Route::get('/export_report', [ExportExcel::class, 'exportReport'])->name('admin.export_report');
+    Route::post('/export_report/{id}', [ExportExcel::class, 'exportReport'])->name('admin.export_report');
 });
 
 

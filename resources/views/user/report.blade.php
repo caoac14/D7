@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-2 text-gray-900">
-                    <form method="POST" action="{{ route('getDataReport') }}">
+                    <form method="POST" action="{{ route('KL.setDataReport') }}">
                         @csrf
                         <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
                             <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
@@ -20,8 +20,8 @@
                                                 </select>
                                             </div>
                                             <div class="ml-8">
-                                                <input type="date" placeholder="name" name="dateR" id="date"
-                                                    required
+                                                <input type="date" placeholder="name" name="dateR"
+                                                    id="datePickerId" required
                                                     class="outline-none border-gray-300 py-2 px-2 text-md border-2 rounded-md" />
                                             </div>
                                         </div>
@@ -58,7 +58,7 @@
                                         <select id="room" name="room" required
                                             class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-lx rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                             <option selected hidden value="">--Chọn--</option>
-                                            
+
                                         </select>
                                     </div>
 
@@ -145,19 +145,44 @@
         </div>
     </div>
     <script type="text/javascript">
-        var url = "{{ url('/KL/showDevice') }}";
+        datePickerId.min = "2023-01-01";
+        datePickerId.max = new Date().toISOString().split("T")[0];
+
+        var url2 = "{{ route('KL.showRoomAjax') }}";
+        $("select[name='groupRoom']").change(function() {
+            var groupRoom_id = $(this).val();
+            var token2 = $("input[name='_token']").val();
+            $.ajax({
+                url: url2,
+                method: 'GET',
+                data: {
+                    groupRoom_id: groupRoom_id,
+                    _token: token2
+                },
+                success: function(dataRooms) {
+                    $("select[name='room'").html('');
+                    $.each(dataRooms, function(key, value) {
+                        $("select[name='room']").append(
+                            "<option value=" + value.id + ">" + value.ten_phong +
+                            "</option>"
+                        );
+                    });
+                }
+            });
+        });
+
+        var url = "{{ route('KL.showDeviceAjax') }}";
         $("select[name='room']").change(function() {
             var room_id = $(this).val();
             var token = $("input[name='_token']").val();
             $.ajax({
                 url: url,
-                method: 'POST',
+                method: 'GET',
                 data: {
                     room_id: room_id,
                     _token: token
                 },
                 success: function(data) {
-                    console.log(data);
                     $("#deviceLists").html('');
                     $.each(data, function(key, value) {
                         $("#deviceLists").append(
@@ -173,30 +198,6 @@
                                     </label>
                                 </div>
                             </li> `
-                        );
-                    });
-                }
-            });
-        });
-
-        var url = "{{ url('/KL/showRoomAjax') }}";
-        $("select[name='groupRoom']").change(function() {
-            var groupRoom_id = $(this).val();
-            var token = $("input[name='_token']").val();
-            $.ajax({
-                url: url,
-                method: 'POST',
-                data: {
-                    groupRoom_id: groupRoom_id,
-                    _token: token
-                },
-                success: function(dataRooms) {
-                    console.log(dataRooms);
-                    $("select[name='room'").html('');
-                    $.each(dataRooms, function(key, value) {
-                        $("select[name='room']").append(
-                            "<option value=" + value.id + ">" + value.ten_phong +
-                            "</option>"
                         );
                     });
                 }

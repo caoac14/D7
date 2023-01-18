@@ -166,8 +166,8 @@ class AdminController extends Controller
         
         $imageName = time().'.'.$request->room_image->extension();
         
-        $request->room_image->move(public_path('images'), $imageName);
-        $getImage = 'images/'.$imageName;
+        $request->room_image->move(public_path('images/room'), $imageName);
+        $getImage = 'images/room/'.$imageName;
         Room::where('id',$request->id)->update(['so_do_bo_tri' => $getImage]);
 
         return back();

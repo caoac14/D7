@@ -17,7 +17,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('report')" :active="request()->routeIs('report')">
+                    <x-nav-link :href="route('KL.report')" :active="request()->routeIs('KL.report')">
                         {{ __('Nhật ký') }}
                     </x-nav-link>
                 </div>

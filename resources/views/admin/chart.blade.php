@@ -2,8 +2,104 @@
 
 @section('chart')
     <div>
-        <div class="w-full py-3 mt-2 text-xl font-bold px-5 bg-white text-center">THỐNG KÊ THÁNG {{ now()->month }} NĂM
-            {{ now()->year }}</div>
+        <div class="flex justify-between items-center p-4 m-2">
+            <span class=" font-semibold text-xl">
+                THỐNG KÊ THÁNG {{ now()->month }} NĂM {{ now()->year }}
+            </span>
+
+            <div>
+                <div
+                    class="w-full bg-green-500
+               hover:bg-green-600 text-gray-50 text-base font-normal py-1.5 px-4 rounded inline-flex justify-center shadow-md shadow-green-300
+               items-center">
+                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20">
+                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                    </svg>
+                    <span data-modal-toggle="modal_excel">Xuất file Excel</span>
+
+                    <div id="modal_excel" tabindex="-1" aria-hidden="true"
+                        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+                        <div class="relative w-full h-full max-w-2xl md:h-auto">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-start justify-between px-6 py-3 bg-green-500  border-b rounded-t dark:border-gray-600">
+                                    <div class=" font-semibold text-gray-100 dark:text-white">
+                                        <h3 class="text-gray-100 text-xl mt-2">
+                                            Xuất dữ liệu file Excel
+                                        </h3>
+                                    </div>
+                                    <button type="button"
+                                        class="text-gray-200 bg-transparent hover:bg-green-400 hover:text-gray-200 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="modal_excel">
+                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <form method="post" action="{{ route('admin.export_report') }}"
+                                    class="flex items-center px-6 py-1">
+                                    @csrf
+                                    <div class="p-6">
+                                        <h4 class="text-gray-800 text-xl">Xuất file theo:</h4>
+
+                                        <div class="flex items-center my-2">
+                                            <input checked id="rdo_report" type="radio"
+                                                value="rdo_report" name="rdo_excel"
+                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="rdo_report"
+                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                Xuất sổ nhật ký
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center my-2">
+                                            <input id="rdo_account" type="radio" value="rdo_account"
+                                                name="rdo_excel"
+                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="rdo_account"
+                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                Xuất danh sách tài khoản
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center my-2">
+                                            <input id="rdo_device" type="radio" value="rdo_device"
+                                                name="rdo_excel"
+                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="rdo_device"
+                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                Xuất danh sách thiết bị
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center my-2">
+                                            <input id="rdo_room" type="radio" value="rdo_room"
+                                                name="rdo_excel"
+                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                            <label for="rdo_room"
+                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                Xuất file phòng học
+                                            </label>
+                                        </div>
+
+                                        <button data-modal-toggle="modal_excel"
+                                            class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-2.5 my-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Xuất file
+                                        </button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         {{-- Số lượng thiết bị --}}
         <!-- component -->
@@ -108,12 +204,12 @@
             {{-- <div class="w-full py-3 mt-2 text-xl font-bold px-5 bg-white text-center">
                 THỐNG KÊ LỖI PHÒNG MÁY {{ now()->year }}
             </div> --}}
-            <div class="grid grid-cols-4 gap-4">
-                <div class="col-span-3">
+            <div class="">
+                <div class="">
                     {{-- Biểu đồ --}}
                     <canvas class="px-10" id="chartBar"></canvas>
                 </div>
-                <div class="col-span-1">
+                {{-- <div class="col-span-1">
                     <!-- Thống kê số liệu -->
                     <div class="max-w-full mx-4 py-6 sm:mx-auto sm:px-6 lg:px-8">
                         <div class="flex flex-col">
@@ -153,103 +249,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-sm">
-                                <div
-                                    class="w-full bg-green-500
-                               hover:bg-green-600 text-gray-50 font-bold py-2 px-4 rounded inline-flex justify-center shadow-md shadow-green-400
-                               items-center">
-                                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-                                    </svg>
-                                    <span data-modal-toggle="modal_excel">Xuất file Excel</span>
-
-                                    <div id="modal_excel" tabindex="-1" aria-hidden="true"
-                                        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-                                        <div class="relative w-full h-full max-w-2xl md:h-auto">
-                                            <!-- Modal content -->
-                                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                <!-- Modal header -->
-                                                <div
-                                                    class="flex items-start justify-between px-6 py-3 bg-green-500  border-b rounded-t dark:border-gray-600">
-                                                    <div class=" font-semibold text-gray-100 dark:text-white">
-                                                        <h3 class="text-gray-100 text-xl mt-2">
-                                                            Xuất dữ liệu file Excel
-                                                        </h3>
-                                                    </div>
-                                                    <button type="button"
-                                                        class="text-gray-200 bg-transparent hover:bg-green-400 hover:text-gray-200 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                        data-modal-toggle="modal_excel">
-                                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd"
-                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                                clip-rule="evenodd"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Close modal</span>
-                                                    </button>
-                                                </div>
-                                                <!-- Modal body -->
-                                                <form method="post" action="{{ route('admin.export_report', 1) }}"
-                                                    class="flex items-center px-6 py-1">
-                                                    @csrf
-                                                    <div class="p-6">
-                                                        <h4 class="text-gray-800 text-xl">Xuất file theo:</h4>
-
-                                                        <div class="flex items-center my-2">
-                                                            <input checked id="rdo_report" type="radio" value="rdo_report"
-                                                                name="rdo_excel"
-                                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                            <label for="rdo_report"
-                                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-                                                                Xuất sổ nhật ký
-                                                            </label>
-                                                        </div>
-                                                        <div class="flex items-center my-2">
-                                                            <input id="rdo_account" type="radio" value="rdo_account"
-                                                                name="rdo_excel"
-                                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                            <label for="rdo_account"
-                                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-                                                                Xuất danh sách tài khoản
-                                                            </label>
-                                                        </div>
-                                                        <div class="flex items-center my-2">
-                                                            <input id="rdo_device" type="radio" value="rdo_device"
-                                                                name="rdo_excel"
-                                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                            <label for="rdo_device"
-                                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-                                                                Xuất danh sách thiết bị
-                                                            </label>
-                                                        </div>
-                                                        <div class="flex items-center my-2">
-                                                            <input id="rdo_room" type="radio" value="rdo_room"
-                                                                name="rdo_excel"
-                                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                            <label for="rdo_room"
-                                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-                                                                Xuất file phòng học
-                                                            </label>
-                                                        </div>
-
-                                                        <button data-modal-toggle="modal_excel"
-                                                            class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-8 py-2.5 my-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                            Xuất file
-                                                        </button>
-
-                                                    </div>
-                                                </form>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
-                        <span class="hidden" id="totalData">{{ $totalData }},10</span>
                     </div>
-                </div>
+                </div> --}}
+                <span class="hidden" id="totalData">{{ $totalData }},10</span>
             </div>
         </div>
         <!-- Required chart.js -->

@@ -12,7 +12,8 @@ class ExportAccount implements FromCollection
     */
     public function collection()
     {
-        $dataReport = User::get();
+        $dataReport = User::select('id', 'name', 'chuc_vu', 'hoc_vi', 'sdt', 'email', 'created_at', 'updated_at')
+        ->get();
         return $dataReport;
     }
 }

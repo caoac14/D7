@@ -79,7 +79,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
 
     Route::get('/send-mail', [AdminController::class, 'sendMail'])->name('admin.send_mail');
 
-    Route::post('/export_report/{id}', [ExportExcel::class, 'exportReport'])->name('admin.export_report');
+    Route::post('/export_report/{id?}', [ExportExcel::class, 'exportReport'])->name('admin.export_report');
 });
 
 

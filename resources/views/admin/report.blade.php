@@ -59,7 +59,7 @@
                                             class="flex items-start justify-between  bg-blue-500 px-6 pt-4 pb-2  border-b rounded-t dark:border-gray-600">
                                             <div class=" font-semibold text-gray-200 dark:text-white">
                                                 <h3 class="text-gray-100  text-2xl py-2">
-                                                    Nhật ký số: {{ $report->id }}
+                                                    Nhật ký số {{ $report->id }}
                                                 </h3>
                                             </div>
                                             <button type="button"

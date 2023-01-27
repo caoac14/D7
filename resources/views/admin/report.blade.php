@@ -18,15 +18,16 @@
                     <div class="w-full flex items-center">
                         <span class="w-44 pr-2 ml-8 truncate">Tên giáo viên</span>
                         <span class="w-32 truncate">Tên phòng</span>
-                        <span class="w-48 truncate">Thiết bị</span>
-                        <span class="w-64 ml-2">Ghi chú</span>
+                        <span class="w-44 truncate">Thiết bị</span>
+                        <span class="w-52 ml-2">Ghi chú</span>
+                        <span class="w-24 ml-2">Trạng thái</span>
                     </div>
                     <div class="w-48 flex items-center justify-end">
                         <span class="w-full ml-6 text-gray-800">Thời gian</span>
                     </div>
                 </div>
             </div>
-            
+
             <ul>
                 @foreach ($reportList as $report)
                     <li class="flex items-center border-y hover:bg-gray-200 px-3">
@@ -34,11 +35,12 @@
                             class="w-4 h-4 text-blue-600 bg-white rounded border-gray-300 focus:ring-blue-500 mr-2 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <div x-data="{ messageHover: false }" @mouseover="messageHover = true" @mouseleave="messageHover = false"
                             class="w-full flex items-center justify-between p-2 cursor-pointer">
-                            <div data-modal-target="modal-report-{{ $report->id }}" data-modal-toggle="modal-report-{{ $report->id }}">
+                            <div data-modal-target="modal-report-{{ $report->id }}"
+                                data-modal-toggle="modal-report-{{ $report->id }}">
                                 <div class="flex items-center">
                                     <span class="w-44 pr-2 truncate">{{ $report->name }}</span>
                                     <span class="w-32 ml-2 truncate">{{ $report->ten_phong }}</span>
-                                    <span class="w-48 truncate">
+                                    <span class="w-44 truncate">
                                         @foreach ($groupDeviceList as $item)
                                             @if ($item->ma_nhat_ky == $report->id)
                                                 <span> {{ $item->ten_thiet_bi }}; </span>
@@ -46,7 +48,26 @@
                                         @endforeach
                                     </span>
                                     <span class="mx-1">-</span>
-                                    <span class="w-64 text-gray-600 text-sm truncate">{{ $report->mo_ta_loi }}</span>
+                                    <span class="w-52 text-gray-600 text-sm truncate">{{ $report->mo_ta_loi }}</span>
+                                    @if ($report->trang_thai == 0)
+                                        <div>
+                                            <span
+                                                class="relative inline-block px-3 py-1 font-semibold text-red-800 leading-tight">
+                                                <span aria-hidden
+                                                    class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                                                <span class="relative">Đang đợi</span>
+                                            </span>
+                                        </div>
+                                    @else
+                                        <div>
+                                            <span
+                                                class="relative inline-block px-3 py-1 font-semibold text-green-800 leading-tight">
+                                                <span aria-hidden
+                                                    class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                                <span class="relative">Đã xử lý</span>
+                                            </span>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div id="modal-report-{{ $report->id }}" tabindex="-1" aria-hidden="true"
@@ -111,7 +132,7 @@
                                                                 {{ date('d-m-Y', strtotime($report->ngay)) }}
                                                             </dd>
                                                         </div>
-                                                       
+
                                                         <div
                                                             class="bg-gray-200 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                                             <dt class="text-base font-medium text-gray-600">Tên thiết bị
@@ -129,20 +150,40 @@
                                                             </dd>
                                                         </div>
                                                         <div
-                                                        class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                        <dt class="text-base font-medium text-gray-600">Ghi chú</dt>
-                                                        <dd class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0">
-                                                            {{ $report->mo_ta_loi }}
-                                                        </dd>
-                                                    </div>
+                                                            class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                            <dt class="text-base font-medium text-gray-600">Ghi chú</dt>
+                                                            <dd class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0">
+                                                                {{ $report->mo_ta_loi }}
+                                                            </dd>
+                                                        </div>
                                                     </dl>
                                                 </div>
                                             </div>
-                                            <button type="button" data-modal-toggle="modal-report-{{ $report->id }}"
-                                                type="button"
-                                                class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                Xong
-                                            </button>
+                                            @if ($report->trang_thai != 0)
+                                                <form action="" method="POST">
+                                                    @csrf
+                                                    <button type="button"
+                                                        data-modal-toggle="modal-report-{{ $report->id }}" type="button"
+                                                        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                        Xong
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <button type="button"
+                                                    data-modal-toggle="modal-report-{{ $report->id }}" type="button"
+                                                    class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                    <div class="flex justify-center items-center space-x-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="19"
+                                                            height="19" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2"
+                                                            stroke-linecap="butt" stroke-linejoin="bevel">
+                                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                        </svg>
+                                                        <span>Đã xử lý</span>
+                                                    </div>
+                                                </button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

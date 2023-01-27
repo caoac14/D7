@@ -121,6 +121,7 @@ class UserController extends Controller
         $report->buoi = $request->timeR;
         $report->ngay = $request->dateR;
         $report->ghi_chu = "";
+        $report->trang_thai = 0;
         $report->save();
 
         

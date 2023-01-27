@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('ten_loai_thiet_bi');
             $table->timestamps();
+            
         });
     }
 

@@ -33,6 +33,7 @@ class AdminController extends Controller
         $user->save();
 
         $mailSended = $this->sendMail("Trương Quốc Huy", "quochuy@gmail.com", $random_pass);
+        return redirect()->back();
     }
 
 
@@ -46,7 +47,7 @@ class AdminController extends Controller
         $reportList = Report::join('phong', 'phong.id', '=', 'nhat_ky.ma_phong')
             ->join('lop', 'lop.id', '=', 'nhat_ky.ma_lop')
             ->join('users', 'users.id', '=', 'nhat_ky.ma_giao_vien')
-            ->orderBy('nhat_ky.created_at', 'DESC')
+            ->orderBy('nhat_ky.trang_thai', 'ASC')->orderBy('nhat_ky.created_at', 'ASC')
             ->select(
                 'name',
                 'email',
@@ -56,6 +57,7 @@ class AdminController extends Controller
                 'buoi',
                 'ngay',
                 'mo_ta_loi',
+                'trang_thai',
                 'nhat_ky.id'
             )->paginate(30);
 
@@ -192,6 +194,12 @@ class AdminController extends Controller
         $groupRoomLists = GroupRoom::orderBy('ten_day_phong', 'ASC')->get();
 
         return view('admin.room', compact('roomLists', 'typeRoomLists', 'groupRoomLists', 'groupRoomSelected', 'nameTypeRoom'));
+    }
+
+    function editRoom(Request $request, $id){
+        Room::where('id', $id)
+            ->update(['ten_phong' => $request->ten_phong, 'ma_loai_phong' => $request->loai_phong]);
+        return redirect()->back();
     }
 
 

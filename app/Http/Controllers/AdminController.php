@@ -47,7 +47,7 @@ class AdminController extends Controller
         $reportList = Report::join('phong', 'phong.id', '=', 'nhat_ky.ma_phong')
             ->join('lop', 'lop.id', '=', 'nhat_ky.ma_lop')
             ->join('users', 'users.id', '=', 'nhat_ky.ma_giao_vien')
-            ->orderBy('nhat_ky.trang_thai', 'ASC')->orderBy('nhat_ky.created_at', 'ASC')
+            ->orderBy('nhat_ky.trang_thai', 'ASC')->orderBy('nhat_ky.created_at', 'DESC')
             ->select(
                 'name',
                 'email',
@@ -68,6 +68,13 @@ class AdminController extends Controller
         return view('admin.report', compact('reportList', 'groupDeviceList'));
     }
 
+
+    function updateStatus(Request $request){
+        if($request->id){
+            Report::where('id',$request->id)->update(['trang_thai' => 1]);
+        }
+        return redirect()->back();
+    }
 
 
     function showDevicePage()

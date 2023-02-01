@@ -52,6 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
 
     Route::get('/report', [AdminController::class, 'showReportPage'])->name('admin.report');
     Route::get('/detail_report/{id}', [AdminController::class, 'showDetailReportPage'])->name('admin.report_detail');
+    Route::post('upload_status/{id}', [AdminController::class, 'updateStatus'])->name('admin.update_status');
 
     Route::get('/device', [AdminController::class, 'showDevicePage'])->name('admin.device');
     Route::get('/device_detail/{roomId?}/{typeDeviceId?}', [AdminController::class, 'showDeviceDetail'])->name('admin.device_detail');

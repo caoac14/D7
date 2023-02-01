@@ -169,20 +169,22 @@
                                                     </button>
                                                 </form>
                                             @else
-                                                <button type="button"
+                                            <form action="{{ route('admin.update_status',$report->id)}}" method="POST">
+                                                @csrf
+                                                <button type="submit"
                                                     data-modal-toggle="modal-report-{{ $report->id }}" type="button"
-                                                    class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                                    <div class="flex justify-center items-center space-x-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="19"
-                                                            height="19" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2"
-                                                            stroke-linecap="butt" stroke-linejoin="bevel">
-                                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                                        </svg>
-                                                        <span>Đã xử lý</span>
-                                                    </div>
+                                                    class="flex justify-center items-center space-x-2 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19"
+                                                    height="19" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="butt" stroke-linejoin="bevel">
+                                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                </svg>
+                                                   <span> Đã xử lý</span>
                                                 </button>
+                                            </form>
+                                                
                                             @endif
                                         </div>
                                     </div>

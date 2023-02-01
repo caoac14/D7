@@ -90,11 +90,11 @@
                                                                     <div
                                                                         class=" font-semibold  text-gray-800 dark:text-white">
                                                                         <a href="{{ route('dashboard') }}">
-                                                                            <p class="text-gray-50 text-base">
+                                                                            <p class="text-gray-300 text-base">
                                                                                 Phòng: {{ $roomName->ten_phong }}
                                                                             </p>
                                                                         </a>
-                                                                        <h3 class="text-gray-800 text-2xl mt-2">
+                                                                        <h3 class="text-gray-100 text-2xl mt-2">
                                                                             {{ $device->ten_thiet_bi }}
                                                                         </h3>
                                                                     </div>
@@ -113,16 +113,16 @@
                                                                 </div>
                                                                 <!-- Modal body -->
                                                                 <div class="flex justify-center items-center p-4">
-                                                                    <img src="{{ asset("images/device.png") }}" alt="abc" width="200px">
+                                                                    <img src="{{ asset('images/device.png') }}"
+                                                                        alt="abc" width="200px">
                                                                 </div>
                                                                 <!-- Modal footer -->
                                                                 <div
                                                                     class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                                                    <a
-                                                                        href="{{ route('KL.report') }}"
-                                                                            data-modal-toggle="deviceModal-{{ $device->id }}"
-                                                                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                                            Báo cáo sự cố
+                                                                    <a href="{{ route('KL.report') }}"
+                                                                        data-modal-toggle="deviceModal-{{ $device->id }}"
+                                                                        class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                                        Báo cáo sự cố
                                                                         </button>
                                                                     </a>
                                                                 </div>

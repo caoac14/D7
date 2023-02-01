@@ -2,16 +2,19 @@
 
 @section('report')
     <div>
-        <a href="{{ route('admin.export_report') }}" class="flex justify-end text-sm mt-2">
-            <button type="button"
-                class="flex items-center justify-center  bg-green-600 hover:bg-green-700 shadow-md mr-2 text-white font-bold py-2 px-4 rounded">
-                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" height="20" viewBox="0 0 24 24"
-                    fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
-                    <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
-                </svg>
-                Xuất file Excel
-            </button>
-        </a>
+        <div class="flex justify-end mt-2">
+            <form action="{{ route('admin.export_report') }}" method="POST">
+                @csrf
+                <button type="submit"
+                    class="flex items-center justify-center  bg-green-500 hover:bg-green-600 shadow-md mr-2 text-white font-bold py-1.5 px-6 rounded">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
+                        <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
+                    </svg>
+                    Sổ nhật ký
+                </button>
+            </form>
+        </div>
         <div class="bg-gray-100 mb-6 text-sm">
             <div>
                 <div class="w-full flex items-center font-bold p-3 bg-blue-300 mt-2">
@@ -169,34 +172,38 @@
                                                     </button>
                                                 </form>
                                             @else
-                                            <form action="{{ route('admin.update_status',$report->id)}}" method="POST">
-                                                @csrf
-                                                <button type="submit"
-                                                    data-modal-toggle="modal-report-{{ $report->id }}" type="button"
-                                                    class="flex justify-center items-center space-x-2 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="19"
-                                                    height="19" viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="butt" stroke-linejoin="bevel">
-                                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                                </svg>
-                                                   <span> Đã xử lý</span>
-                                                </button>
-                                            </form>
-                                                
+                                                <form action="{{ route('admin.update_status', $report->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        data-modal-toggle="modal-report-{{ $report->id }}"
+                                                        type="button"
+                                                        class="flex justify-center items-center space-x-2 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="19"
+                                                            height="19" viewBox="0 0 24 24" fill="none"
+                                                            stroke="currentColor" stroke-width="2" stroke-linecap="butt"
+                                                            stroke-linejoin="bevel">
+                                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                                        </svg>
+                                                        <span> Đã xử lý</span>
+                                                    </button>
+                                                </form>
                                             @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="w-48 flex items-center justify-end">
-                                <div x-show="messageHover" class="flex items-center space-x-3" style="display: none;">
-                                    <a href="" class="no-underline flex items-center mr-2">
-                                        <button title="Delete">
+                                <form action="{{ route('admin.delete_report', $report->id) }}" method="POST">
+                                    @csrf
+                                    <div x-show="messageHover"
+                                        class="flex items-center space-x-3 text-red-400 hover:text-red-500"
+                                        style="display: none;">
+                                        <button title="Delete" type="submit">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2"
-                                                stroke-linecap="square" stroke-linejoin="round">
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
                                                 <polyline points="3 6 5 6 21 6"></polyline>
                                                 <path
                                                     d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
@@ -207,8 +214,8 @@
                                                 </line>
                                             </svg>
                                         </button>
-                                    </a>
-                                </div>
+                                    </div>
+                                </form>
                                 <span x-show="!messageHover" class="text-sm text-gray-600">
                                     {{ $report->buoi }} - {{ date('d-m-Y', strtotime($report->ngay)) }}
                                 </span>

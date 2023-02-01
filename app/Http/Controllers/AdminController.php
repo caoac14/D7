@@ -68,6 +68,10 @@ class AdminController extends Controller
         return view('admin.report', compact('reportList', 'groupDeviceList'));
     }
 
+    function deleteReport(Request $request){
+        Report::where('id', $request->id)->delete();
+        return redirect()->back();
+    }
 
     function updateStatus(Request $request){
         if($request->id){

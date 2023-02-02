@@ -195,7 +195,7 @@
                                 </div>
                             </div>
                             <div class="w-48 flex items-center justify-end">
-                                <form action="{{ route('admin.delete_report', $report->id) }}" method="POST">
+                                <form action="{{ route('admin.delete_report', $report->id) }}" method="POST" onclick="return confirm('Xác nhận xóa nhật ký thứ {{ $report->id }}?')">
                                     @csrf
                                     <div x-show="messageHover"
                                         class="flex items-center space-x-3 text-red-400 hover:text-red-500"

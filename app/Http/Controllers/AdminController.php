@@ -69,6 +69,7 @@ class AdminController extends Controller
     }
 
     function deleteReport(Request $request){
+        GroupDevice::where('ma_nhat_ky', $request->id)->delete();
         Report::where('id', $request->id)->delete();
         return redirect()->back();
     }

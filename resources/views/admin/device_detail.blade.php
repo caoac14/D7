@@ -140,8 +140,8 @@
                                                 <!-- Modal footer -->
                                                 <div
                                                     class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                                    <form action="{{ route('admin.delete_device', $device->id) }}"
-                                                        method="POST">
+                                                    <form action="{{ route('admin.delete_device', $device->id) }} "
+                                                        method="POST" onclick="return confirm('Xác nhận xóa thiết bị - {{ $device->ten_thiet_bi }} ?')">
                                                         @csrf
                                                         <input type="text" name="devide" class="hidden"
                                                             value="{{ $device->id }}">

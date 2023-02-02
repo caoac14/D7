@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -47,8 +48,15 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
+        // $listAdmin = (Role::pluck('user_email'));
+        // $str="";
+        // foreach ($listAdmin as $item) {
+        //     $str .= ('"' . $item . '", ');
+        // }
+        // printf($str);
+        // // die;
         return in_array($this->email, [
-            'quochuy@gmail.com',
+            "quochuy@gmail.com",
         ]);
     }
 }

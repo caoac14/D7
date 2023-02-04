@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\GroupDevice;
 use App\Models\Report;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FixNow;
+
+
 
 class UserController extends Controller
 {
@@ -114,8 +118,28 @@ class UserController extends Controller
         }
     }
 
+    function FixNow($name, $time ,$email, $room, $about)
+    {
+        $testMailData = [
+            'name' => $name,
+            'time' => $time,
+            'email' => $email,
+            'room' => $room,
+            'about' => $about,
+        ];
+
+        Mail::to("quochuy@gmail.com")->send(new FixNow($testMailData));
+        return true;
+    }
+
+
     function setDataReport(Request $request)
     {
+
+        if($request->fixNow == "true"){
+            $mailSended = $this->FixNow(Auth::user()->name, $request->dateR, Auth::user()->email, Room::where('id', $request->room)->pluck("ten_phong"), $request->about);
+        }
+
         $report = new Report;
         $report->ma_giao_vien = Auth::user()->id;
         $report->ma_phong = $request->room;

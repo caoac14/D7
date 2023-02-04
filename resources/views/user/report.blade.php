@@ -10,7 +10,7 @@
                                 <h1 class="text-center text-2xl font-bold text-gray-500 mb-5">SỔ NHẬT KÝ</h1>
                                 <div class="space-y-4">
                                     <div>
-                                        <div class="flex items-center">
+                                        <div class="flex items-center justify-between">
                                             <div>
                                                 <select id="countries" name="timeR"
                                                     class="w-32 py-2 px-4 text-lx border-2 border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -23,6 +23,20 @@
                                                 <input type="date" placeholder="name" name="dateR"
                                                     id="datePickerId" required
                                                     class="outline-none border-gray-300 py-2 px-2 text-md border-2 rounded-md" />
+                                            </div>
+                                            <div>
+                                                <label class="relative inline-flex items-center cursor-pointer">
+                                                    <input type="checkbox" name="fixNow" value="true"
+                                                        class="sr-only peer">
+                                                    <div
+                                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600">
+                                                    </div>
+                                                    <span
+                                                        class="ml-3 text-md font-medium text-gray-900 dark:text-gray-300">
+                                                        Khắc phục gấp
+                                                    </span>
+                                                </label>
+
                                             </div>
                                         </div>
                                     </div>
@@ -131,6 +145,7 @@
                                         <textarea id="description" cols="30" name="about" rows="3" placeholder="Sự cố thiết bị gặp phải?"
                                             class="w-full px-4 py-4 text-gray-600 border-gray-300 bg-indigo-50 outline-none rounded-md"></textarea>
                                     </div>
+
 
                                     <button type="submit"
                                         class=" px-4 w-52 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-blue-600  ">

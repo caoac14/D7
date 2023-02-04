@@ -17,6 +17,8 @@ use App\Models\TypeRoom;
 use App\Mail\SendMail;
 use App\Mail\ResetMail;
 use Dflydev\DotAccessData\Data;
+use PhpParser\Node\Expr\Cast\Object_;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class AdminController extends Controller
 {
@@ -34,6 +36,7 @@ class AdminController extends Controller
 
         $mailSended = $this->sendMail("Trương Quốc Huy", "quochuy@gmail.com", $random_pass);
         return redirect()->back();
+        
     }
 
 
@@ -68,15 +71,17 @@ class AdminController extends Controller
         return view('admin.report', compact('reportList', 'groupDeviceList'));
     }
 
-    function deleteReport(Request $request){
+    function deleteReport(Request $request)
+    {
         GroupDevice::where('ma_nhat_ky', $request->id)->delete();
         Report::where('id', $request->id)->delete();
         return redirect()->back();
     }
 
-    function updateStatus(Request $request){
-        if($request->id){
-            Report::where('id',$request->id)->update(['trang_thai' => 1]);
+    function updateStatus(Request $request)
+    {
+        if ($request->id) {
+            Report::where('id', $request->id)->update(['trang_thai' => 1]);
         }
         return redirect()->back();
     }
@@ -115,7 +120,7 @@ class AdminController extends Controller
         $roomName = Room::where('id', $idRoomRequest)->first();
         $typeDeviceName = TypeDevice::where('id', $idTypeDeviceRequest)->first();
 
-        $typeDeviceLists = Device::orderBy('ten_thiet_bi', 'ASC')->where('ma_phong', $idRoomRequest)->where('ma_loai_thiet_bi', $request->typeDeviceId)->get();
+        $typeDeviceLists = Device::where('ma_phong', $idRoomRequest)->where('ma_loai_thiet_bi', $request->typeDeviceId)->orderBy('ten_thiet_bi', 'ASC')->get();
 
         return view('admin.device_detail', compact('typeDeviceLists', 'roomName', 'typeDeviceName'));
     }
@@ -173,16 +178,17 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    function uploadImageRoom(Request $request){
+    function uploadImageRoom(Request $request)
+    {
         $request->validate([
             'room_image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
         ]);
-        
-        $imageName = time().'.'.$request->room_image->extension();
-        
+
+        $imageName = time() . '.' . $request->room_image->extension();
+
         $request->room_image->move(public_path('images/room'), $imageName);
-        $getImage = 'images/room/'.$imageName;
-        Room::where('id',$request->id)->update(['so_do_bo_tri' => $getImage]);
+        $getImage = 'images/room/' . $imageName;
+        Room::where('id', $request->id)->update(['so_do_bo_tri' => $getImage]);
 
         return back();
         // return back()->with('success', 'Image uploaded Successfully!')
@@ -199,7 +205,7 @@ class AdminController extends Controller
         foreach ($typeRoomLists as $i) {
             array_push($roomLists, Room::where('ma_nhom_phong', $id)->where('ma_loai_phong', $i->id)
                 ->join('loai_phong', 'loai_phong.id', '=', 'phong.ma_loai_phong')
-                ->select('phong.id', 'ten_phong', 'ten_loai_phong')->get());
+                ->select('phong.id', 'ten_phong', 'ten_loai_phong')->orderBy('ten_phong', 'ASC')->get());
         }
 
         $groupRoomSelected = GroupRoom::where('id', $id)->first();
@@ -208,7 +214,8 @@ class AdminController extends Controller
         return view('admin.room', compact('roomLists', 'typeRoomLists', 'groupRoomLists', 'groupRoomSelected', 'nameTypeRoom'));
     }
 
-    function editRoom(Request $request, $id){
+    function editRoom(Request $request, $id)
+    {
         Room::where('id', $id)
             ->update(['ten_phong' => $request->ten_phong, 'ma_loai_phong' => $request->loai_phong]);
         return redirect()->back();
@@ -341,5 +348,20 @@ class AdminController extends Controller
         } else {
             return redirect('admin/register_account');
         }
+    }
+
+    function showInfor()
+    {
+        return view('admin.infor');
+    }
+
+
+    // PDF
+    public function downloadPDF(Request $request)
+    {
+        
+    	$data = ['tenGV' => $request->tenGV, 'emailGV'=>$request->emailGV, 'tenPhongLop'=>$request->tenPhongLop, 'thoiGian'=>$request->thoiGian, 'moTa'=>$request->moTa, 'id'=>$request->id];	
+    	$pdf = PDF::loadView('admin.exportPDF',  compact('data'));
+    		return $pdf->download('exportPDF.pdf');
     }
 }

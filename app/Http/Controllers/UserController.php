@@ -50,7 +50,7 @@ class UserController extends Controller
     function showRoom(Request $request)
     {
         $id = $request->id;
-        $check = Room::where('id',$id)->first();
+        $check = Room::where('id', $id)->first();
         if ($check) {
             $idDevices = TypeDevice::pluck('id');
 
@@ -71,7 +71,7 @@ class UserController extends Controller
 
     function showDevice(Request $request)
     {
-        $id= $request->id;
+        $id = $request->id;
         $idRoomRequest = $request->roomId;
         $idTypeDeviceRequest = $request->typeDeviceId;
 
@@ -86,7 +86,8 @@ class UserController extends Controller
 
 
 
-    function pageReport(Request $request){
+    function pageReport(Request $request)
+    {
         $deviceId = $request->devide;
         $deviceName = Device::where('id', $deviceId)->pluck('ten_thiet_bi');
 
@@ -97,7 +98,8 @@ class UserController extends Controller
         return view('user.report', compact('listRooms', 'deviceName', 'classNames'));
     }
 
-    function showRoomAjax(Request  $request){
+    function showRoomAjax(Request  $request)
+    {
         if ($request->ajax()) {
             $rooms = Room::where('ma_nhom_phong', $request->groupRoom_id)->orderBy('ten_phong', 'ASC')->get();
             return response()->json($rooms);
@@ -112,27 +114,36 @@ class UserController extends Controller
         }
     }
 
-    function setDataReport(Request $request){
+    function setDataReport(Request $request)
+    {
         $report = new Report;
         $report->ma_giao_vien = Auth::user()->id;
         $report->ma_phong = $request->room;
         $report->ma_lop = $request->class;
-        $report->mo_ta_loi = $request->about;
+        if($report->mo_ta_loi != ""){
+            $report->mo_ta_loi = $request->about;
+            $report->trang_thai = 0;
+        }else{
+            $report->mo_ta_loi = "OK";
+            $report->trang_thai = 1;
+        }
+
         $report->buoi = $request->timeR;
         $report->ngay = $request->dateR;
         $report->ghi_chu = "";
-        $report->trang_thai = 0;
         $report->save();
 
-        
+
         $idLastReport = Report::get()->last()->id;
-        foreach($request->device as $device){
-            $groupDevice = new GroupDevice();
-            $groupDevice->ma_nhat_ky = $idLastReport;
-            $groupDevice->ma_thiet_bi = $device;
-            $groupDevice->save();
+        if ($request->device) {
+            foreach ($request->device as $device) {
+                $groupDevice = new GroupDevice();
+                $groupDevice->ma_nhat_ky = $idLastReport;
+                $groupDevice->ma_thiet_bi = $device;
+                $groupDevice->save();
+            }
         }
-        
+
         return redirect()->back();
     }
 }

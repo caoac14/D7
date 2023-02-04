@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
@@ -35,13 +36,13 @@ Route::group(['prefix' => 'KL', 'middleware' => ['auth', 'verified']], function 
     Route::get('/showDeviceAjax', [UserController::class, 'showDeviceAjax'])->name('KL.showDeviceAjax');
 
     Route::post('/setDataReport', [UserController::class, 'setDataReport'])->name('KL.setDataReport');
-
 });
 
-Route::get('create_admin',[AdminController::class, 'createAdmin']);
+Route::get('create_admin', [AdminController::class, 'createAdmin']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profileAdmin', [ProfileAdminController::class, 'edit'])->name('admin.profileAdmin');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -83,7 +84,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::get('/send-mail', [AdminController::class, 'sendMail'])->name('admin.send_mail');
 
     Route::post('/export_report/{id?}', [ExportExcel::class, 'exportReport'])->name('admin.export_report');
+
+    Route::get('/infor', [AdminController::class, 'showInfor'])->name('admin.infor');
+
+
+    Route::post('/download_pdf', [AdminController::class, 'downloadPDF'])->name('admin.download_pdf');
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

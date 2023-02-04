@@ -54,9 +54,6 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Thông tin') }}
-                            </x-dropdown-link>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -97,6 +94,7 @@
                         @yield('chart')
                         @yield('account')
                         @yield('report') 
+                        @yield('infor') 
                         @yield('report_detail')
                         @yield('account_detail')
                         @yield('device_detail')

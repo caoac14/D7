@@ -99,74 +99,100 @@
                                             </button>
                                         </div>
                                         <!-- Modal body -->
-                                        <div class="p-6 space-y-6">
-                                            <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-                                                <div class="border-t  border-gray-200">
-                                                    <dl class="bg-gray-300">
-                                                        <div
-                                                            class="bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                            <dt class="text-base font-medium text-gray-600">Tên giáo viên
-                                                            </dt>
-                                                            <dd class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0">
-                                                                {{ $report->name }}
-                                                            </dd>
-                                                        </div>
-                                                        <div
-                                                            class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                            <dt class="text-base font-medium text-gray-600">Email</dt>
-                                                            <dd class="mt-1 text-base text-blue-500 sm:col-span-2  sm:mt-0">
-                                                                {{ $report->email }}
-                                                            </dd>
-                                                        </div>
-                                                        <div
-                                                            class="bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                            <dt class="text-base font-medium text-gray-600">Tên phòng - Mã
-                                                                Lớp
-                                                            </dt>
-                                                            <dd class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0">
-                                                                {{ $report->ten_phong }} - {{ $report->ten_lop }}
-                                                            </dd>
-                                                        </div>
-                                                        <div
-                                                            class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                            <dt class="text-base font-medium text-gray-600">Thời gian</dt>
-                                                            <dd class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0">
-                                                                {{ $report->buoi }} -
-                                                                {{ date('d-m-Y', strtotime($report->ngay)) }}
-                                                            </dd>
-                                                        </div>
+                                        <form action="{{ route('admin.download_pdf') }}" method="POST">
+                                            @csrf
+                                            <div class="px-6 py-4 space-y-6">
+                                                <div class="flex justify-end">
+                                                    <button type="submit"
+                                                        class="flex items-center justify-center  bg-blue-500 hover:bg-blue-600 shadow-md text-white font-bold py-1.5 px-4 rounded">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-2"
+                                                            width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                                            stroke="#ffffff" stroke-width="2" stroke-linecap="square"
+                                                            stroke-linejoin="round">
+                                                            <path
+                                                                d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
+                                                        </svg>
+                                                        Xuất phiếu
+                                                    </button>
+                                                </div>
+                                                <div class="overflow-hidden bg-white shadow sm:rounded-lg">
+                                                    <div class="border-t  border-gray-200">
+                                                        <dl class="bg-gray-300">
+                                                            <input type="text" name="id" value="{{$report->id}}" class="hidden" readonly>
+                                                            <div
+                                                                class="bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                                <dt class="text-base font-medium text-gray-600">Tên giáo
+                                                                    viên
+                                                                </dt>
+                                                                <input name="tenGV"
+                                                                    class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-200 outline-0"
+                                                                    value="{{ $report->name }}" readonly>
+                                                            </div>
+                                                            <div
+                                                                class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                                <dt class="text-base font-medium text-gray-600">Email</dt>
+                                                                <input name="emailGV"
+                                                                    class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-100 outline-0"
+                                                                    value="{{ $report->email }}" readonly>
+                                                            </div>
+                                                            <div
+                                                                class="bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                                <dt class="text-base font-medium text-gray-600">Tên phòng -
+                                                                    MãLớp
+                                                                </dt>
+                                                                <input name="tenPhongLop"
+                                                                    class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-200 outline-0"
+                                                                    value="{{ $report->ten_phong }} - {{ $report->ten_lop }}"
+                                                                    readonly>
+                                                            </div>
+                                                            <div
+                                                                class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                                <dt class="text-base font-medium text-gray-600">Thời gian
+                                                                </dt>
+                                                                <input name="thoiGian"
+                                                                    class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-100 outline-0"
+                                                                    value="{{ $report->buoi }} - {{ date('d-m-Y', strtotime($report->ngay)) }}"
+                                                                    readonly>
+                                                            </div>
 
-                                                        <div
-                                                            class="bg-gray-200 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                            <dt class="text-base font-medium text-gray-600">Tên thiết bị
-                                                            </dt>
-                                                            <dd class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0">
-                                                                <span class="space-y-2">
-                                                                    @foreach ($groupDeviceList as $item)
-                                                                        @if ($item->ma_nhat_ky == $report->id)
-                                                                            <span class="block text-gray-900">
-                                                                                {{ $item->ten_thiet_bi }}
-                                                                            </span>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </span>
-                                                            </dd>
-                                                        </div>
-                                                        <div
-                                                            class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                                            <dt class="text-base font-medium text-gray-600">Ghi chú</dt>
-                                                            <dd class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0">
-                                                                {{ $report->mo_ta_loi }}
-                                                            </dd>
-                                                        </div>
-                                                    </dl>
+                                                            <div
+                                                                class="bg-gray-200 px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                                <dt class="text-base font-medium text-gray-600">
+                                                                    Tên thiết bị
+                                                                </dt>
+                                                                <div
+                                                                    class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0">
+                                                                    <span class="space-y-2">
+                                                                        @foreach ($groupDeviceList as $item)
+                                                                            @if ($item->ma_nhat_ky == $report->id)
+                                                                                <input name="ten_thiet_bi"
+                                                                                    class="block text-gray-900"
+                                                                                    value="{{ $item->ten_thiet_bi }}">
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                                                <dt class="text-base font-medium text-gray-600">Ghi chú
+                                                                </dt>
+                                                                <input name="thoiGian" name="moTa"
+                                                                    class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-100 outline-0"
+                                                                    value="{{ $report->mo_ta_loi }}" readonly>
+                                                            </div>
+                                                        </dl>
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </form>
+                                        <div class="pb-4 px-4 my-4 mx-2">
                                             @if ($report->trang_thai != 0)
                                                 <form action="" method="POST">
                                                     @csrf
                                                     <button type="button"
-                                                        data-modal-toggle="modal-report-{{ $report->id }}" type="button"
+                                                        data-modal-toggle="modal-report-{{ $report->id }}"
+                                                        type="button"
                                                         class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                         Xong
                                                     </button>
@@ -191,11 +217,13 @@
                                                 </form>
                                             @endif
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="w-48 flex items-center justify-end">
-                                <form action="{{ route('admin.delete_report', $report->id) }}" method="POST" onclick="return confirm('Xác nhận xóa nhật ký thứ {{ $report->id }}?')">
+                                <form action="{{ route('admin.delete_report', $report->id) }}" method="POST"
+                                    onclick="return confirm('Xác nhận xóa nhật ký thứ {{ $report->id }}?')">
                                     @csrf
                                     <div x-show="messageHover"
                                         class="flex items-center space-x-3 text-red-400 hover:text-red-500"

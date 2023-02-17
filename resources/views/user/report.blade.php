@@ -126,11 +126,13 @@
                                                             <div id="deviceLists">
 
                                                             </div>
-                                                            <div class="flex justify-center">
+                                                            <div class="flex justify-center ">
                                                                 <button data-modal-toggle="crypto-modal"
-                                                                    type="button"
-                                                                    class=" px-4 w-full mb-4 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-blue-600 hover:bg-blue-500  ">
-                                                                    Xong
+                                                                    class="relative w-full inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                                                    <span
+                                                                        class="relative w-full  px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                                        Xong
+                                                                    </span>
                                                                 </button>
                                                             </div>
                                                         </ul>
@@ -199,21 +201,41 @@
                 },
                 success: function(data) {
                     $("#deviceLists").html('');
-                    $.each(data, function(key, value) {
+                    $.each(data[0], function(key, value) {
                         $("#deviceLists").append(
-                            `<li>
-                                <div
-                                    class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-blue-300 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
-                                    <input id="default-${value.id}" type="checkbox" name="device[]"
-                                        value="${value.id}"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="default-${value.id}"
-                                        class="flex-1 ml-3 whitespace-nowrap">
-                                        ${value.ten_thiet_bi}
-                                    </label>
-                                </div>
-                            </li> `
+                            `
+                            <div>
+                                <button  data-dropdown-toggle="dropdown" class="block mb-2 w-full  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                    <svg class="w-4 h-4 mr-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    ${value.ten_loai_thiet_bi}
+                                    </button>
+                                <div id="deviceh${value.id}"> </div>
+                            </div>
+                            `
                         );
+                        $.each(data[1], function(key2, value2) {
+                            if (value.id == value2.ma_loai_thiet_bi) {
+                                const temp = `#deviceh${value.id}`;
+                                $(temp).append(
+                                    `
+                            <div>
+                                <li>
+                                    <div
+                                        class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-blue-300 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                                        <input id="default-${value2.id}" type="checkbox" name="device[]"
+                                            value="${value2.id}"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <label for="default-${value2.id}"
+                                            class="flex-1 ml-3 whitespace-nowrap">
+                                            ${value2.ten_thiet_bi}
+                                        </label>
+                                    </div>
+                                </li>
+                            </div>
+                            `
+                                )
+                            }
+                        });
                     });
                 }
             });

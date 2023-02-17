@@ -113,8 +113,10 @@ class UserController extends Controller
     function showDeviceAjax(Request $request)
     {
         if ($request->ajax()) {
-            $devices = Device::where('ma_phong', $request->room_id)->orderBy('ten_thiet_bi', 'ASC')->get();
-            return response()->json($devices);
+            $typeDevices = TypeDevice::select('id', 'ten_loai_thiet_bi')->get();
+            $devices = Device::where('ma_phong', $request->room_id)->orderBy('ten_thiet_bi', 'ASC')->select('id','ma_loai_thiet_bi','ten_thiet_bi')->get();
+            return response()->json([$typeDevices, $devices]);
+
         }
     }
 
@@ -144,11 +146,11 @@ class UserController extends Controller
         $report->ma_giao_vien = Auth::user()->id;
         $report->ma_phong = $request->room;
         $report->ma_lop = $request->class;
-        if($report->mo_ta_loi != ""){
-            $report->mo_ta_loi = $request->about;
+        if(is_null($request->device)){
+            $report->mo_ta_loi = "Bình thường";
             $report->trang_thai = 0;
         }else{
-            $report->mo_ta_loi = "OK";
+            $report->mo_ta_loi = $request->about;
             $report->trang_thai = 1;
         }
 
@@ -170,4 +172,5 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+
 }

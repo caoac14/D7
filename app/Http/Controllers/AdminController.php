@@ -50,7 +50,7 @@ class AdminController extends Controller
         $reportList = Report::join('phong', 'phong.id', '=', 'nhat_ky.ma_phong')
             ->join('lop', 'lop.id', '=', 'nhat_ky.ma_lop')
             ->join('users', 'users.id', '=', 'nhat_ky.ma_giao_vien')
-            ->orderBy('nhat_ky.trang_thai', 'ASC')->orderBy('nhat_ky.created_at', 'DESC')
+            ->orderBy('nhat_ky.trang_thai', 'DESC')->orderBy('nhat_ky.ngay', 'DESC')
             ->select(
                 'name',
                 'email',
@@ -81,7 +81,7 @@ class AdminController extends Controller
     function updateStatus(Request $request)
     {
         if ($request->id) {
-            Report::where('id', $request->id)->update(['trang_thai' => 1]);
+            Report::where('id', $request->id)->update(['trang_thai' => 0]);
         }
         return redirect()->back();
     }
@@ -359,9 +359,8 @@ class AdminController extends Controller
     // PDF
     public function downloadPDF(Request $request)
     {
-        
-    	$data = ['tenGV' => $request->tenGV, 'emailGV'=>$request->emailGV, 'tenPhongLop'=>$request->tenPhongLop, 'thoiGian'=>$request->thoiGian, 'moTa'=>$request->moTa, 'id'=>$request->id];	
+    	$data = ['tenGV' => $request->tenGV,'ten_thiet_bi'=>$request->ten_thiet_bi ,'emailGV'=>$request->emailGV, 'tenPhongLop'=>$request->tenPhongLop, 'thoiGian'=>$request->thoiGian, 'moTa'=>$request->moTa, 'id'=>$request->id];	
     	$pdf = PDF::loadView('admin.exportPDF',  compact('data'));
-    		return $pdf->download('exportPDF.pdf');
+    		return $pdf->download('Nhật ký '.$request->id.'.pdf');
     }
 }

@@ -90,20 +90,15 @@
                         @foreach ($roomLists[$i] as $room[$i])
                             <div class="relative">
                                 <a href="{{ route('admin.device_of_room', $room[$i]->id) }}">
-                                    <button type="button"
-                                        class=" shadow-md shadow-blue-500 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
-                                        <span>{{ $room[$i]->ten_phong }}</span>
-                                    </button>
+                                    <button class="w-full relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                        <span class="w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                            {{ $room[$i]->ten_phong }}
+                                        </span>
+                                      </button>
                                 </a>
                                 <span data-modal-toggle="modal_edit_room_{{ $room[$i]->id }}"
-                                    class="absolute -top-2 -right-2 text-orange-400 hover:text-orange-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34">
-                                        </path>
-                                        <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
-                                    </svg>
+                                    class="absolute -top-1 right-1 text-blue-400 hover:text-blue-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                                 </span>
                                 <div id="modal_edit_room_{{ $room[$i]->id }}" tabindex="-1" aria-hidden="true"
                                     class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
@@ -112,7 +107,7 @@
                                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                             <!-- Modal header -->
                                             <div
-                                                class="flex items-center justify-between bg-orange-500 p-4 border-b rounded-t dark:border-gray-600">
+                                                class="flex items-center justify-between bg-blue-500 p-4 border-b rounded-t dark:border-gray-600">
                                                 <h3 class="text-xl font-semibold mt-2  text-gray-100 dark:text-white">
                                                     Phòng<span class="ml-2">{{ $room[$i]->ten_phong }}</span>
                                                 </h3>
@@ -139,7 +134,7 @@
                                                         </label>
                                                         <input type="text" id="ten_phong" name="ten_phong" required
                                                             value="{{ $room[$i]->ten_phong }}"
-                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500">
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                     </div>
                                                     <div class="mt-4 mb-8">
                                                         <label for="loai_phong"
@@ -156,7 +151,7 @@
                                                         </select>
                                                     </div>
                                                     <button type="submit"
-                                                        class="w-full text-white bg-orange-500 hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm sm:w-auto px-6 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">
+                                                        class="w-full text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                         Cập nhật
                                                     </button>
                                                 </form>

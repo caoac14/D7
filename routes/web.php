@@ -21,8 +21,9 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+Route::get('/redirect_back', [UserController::class, 'redirectBack'])->name('redirect_back');
 
 // Route of User 
 Route::group(['prefix' => 'KL', 'middleware' => ['auth', 'verified']], function () {
@@ -50,6 +51,8 @@ Route::middleware('auth')->group(function () {
 // Route of Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {
     Route::get('/', [AdminController::class, 'showHomePage'])->name('admin.home');
+
+
 
     Route::get('/report', [AdminController::class, 'showReportPage'])->name('admin.report');
     Route::get('/detail_report/{id}', [AdminController::class, 'showDetailReportPage'])->name('admin.report_detail');

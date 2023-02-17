@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2023 at 05:06 AM
+-- Generation Time: Feb 17, 2023 at 10:40 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -113,8 +113,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2022_12_07_031831_create_lop_table', 1),
 (8, '2022_12_07_031832_create_thiet_bi_table', 1),
 (9, '2022_12_07_031840_create_nhat_ky_table', 1),
-(10, '2022_12_07_031841_create_nhom_thiet_bi_table', 1),
-(11, '2023_02_02_003238_create_phan_quyen_table', 1);
+(10, '2022_12_07_031842_create_su_co_table', 1),
+(11, '2022_12_07_031846_create_nhom_thiet_bi_table', 1),
+(12, '2023_02_02_003238_create_phan_quyen_table', 1);
 
 -- --------------------------------------------------------
 
@@ -141,12 +142,9 @@ CREATE TABLE `nhat_ky` (
 --
 
 INSERT INTO `nhat_ky` (`id`, `ma_giao_vien`, `ma_phong`, `ma_lop`, `mo_ta_loi`, `buoi`, `trang_thai`, `ngay`, `ghi_chu`, `created_at`, `updated_at`) VALUES
-(1, 17, 9, 1, 'Không kết nối được internet', 'Sáng', '1', '2023-02-04', '', '2023-02-03 20:06:34', '2023-02-03 20:59:52'),
-(2, 17, 14, 2, 'Máy chiếu bị mờ, hay giật lag', 'Chiều', '0', '2023-02-02', '', '2023-02-03 20:07:24', '2023-02-03 20:07:24'),
-(3, 18, 9, 2, 'Chân bàn lung lay', 'Sáng', '1', '2023-02-04', '', '2023-02-03 20:08:29', '2023-02-03 20:16:35'),
-(4, 20, 9, 1, 'Đèn không hoạt động', 'Sáng', '0', '2023-02-04', '', '2023-02-03 20:09:34', '2023-02-03 20:09:34'),
-(5, 21, 9, 2, 'Không vào được ứng dụng TVU', 'Chiều', '0', '2023-02-04', '', '2023-02-03 20:10:26', '2023-02-03 20:10:26'),
-(8, 25, 9, 1, 'OK', 'Sáng', '1', '2023-02-04', '', '2023-02-03 20:15:37', '2023-02-03 20:15:37');
+(9, 1, 9, 1, 'Bàn gãy chân', 'Sáng', '1', '2023-02-17', '', '2023-02-16 21:34:32', '2023-02-16 21:34:32'),
+(11, 1, 9, 2, 'ds', 'Sáng', '1', '2023-02-16', '', '2023-02-17 00:26:08', '2023-02-17 00:26:08'),
+(12, 1, 9, 1, NULL, 'Tối', '0', '2023-02-17', '', '2023-02-17 00:29:38', '2023-02-17 00:30:08');
 
 -- --------------------------------------------------------
 
@@ -207,14 +205,10 @@ CREATE TABLE `nhom_thiet_bi` (
 --
 
 INSERT INTO `nhom_thiet_bi` (`id`, `ma_nhat_ky`, `ma_thiet_bi`, `created_at`, `updated_at`) VALUES
-(1, 1, 90, '2023-02-03 20:06:34', '2023-02-03 20:06:34'),
-(2, 1, 91, '2023-02-03 20:06:34', '2023-02-03 20:06:34'),
-(3, 1, 92, '2023-02-03 20:06:34', '2023-02-03 20:06:34'),
-(4, 2, 251, '2023-02-03 20:07:24', '2023-02-03 20:07:24'),
-(5, 3, 83, '2023-02-03 20:08:29', '2023-02-03 20:08:29'),
-(6, 3, 84, '2023-02-03 20:08:29', '2023-02-03 20:08:29'),
-(7, 4, 63, '2023-02-03 20:09:34', '2023-02-03 20:09:34'),
-(8, 5, 1, '2023-02-03 20:10:26', '2023-02-03 20:10:26');
+(9, 9, 76, '2023-02-16 21:34:32', '2023-02-16 21:34:32'),
+(11, 11, 1, '2023-02-17 00:26:08', '2023-02-17 00:26:08'),
+(12, 11, 2, '2023-02-17 00:26:08', '2023-02-17 00:26:08'),
+(13, 12, 64, '2023-02-17 00:29:38', '2023-02-17 00:29:38');
 
 -- --------------------------------------------------------
 
@@ -295,7 +289,27 @@ INSERT INTO `phong` (`id`, `ma_nhom_phong`, `ma_loai_phong`, `ten_phong`, `so_do
 (19, 6, 1, 'B31.106', '', '2023-02-03 19:34:48', '2023-02-03 19:34:48'),
 (20, 6, 1, 'B31.107', '', '2023-02-03 19:34:48', '2023-02-03 19:34:48'),
 (21, 6, 1, 'B31.108', '', '2023-02-03 19:34:48', '2023-02-03 19:34:48'),
-(22, 6, 1, 'B31.109', '', '2023-02-03 19:34:48', '2023-02-03 19:34:48');
+(22, 6, 1, 'B31.109', '', '2023-02-03 19:34:48', '2023-02-03 19:34:48'),
+(23, 1, 1, 'A11.101', '', '2023-02-16 23:54:31', '2023-02-16 23:54:31'),
+(24, 1, 1, 'A11.102', '', '2023-02-16 23:56:51', '2023-02-16 23:56:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `su_co`
+--
+
+CREATE TABLE `su_co` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `ma_giao_vien` bigint(20) UNSIGNED NOT NULL,
+  `ma_phong` bigint(20) UNSIGNED NOT NULL,
+  `ma_thiet_bi` bigint(20) UNSIGNED NOT NULL,
+  `mo_ta_loi` varchar(255) DEFAULT NULL,
+  `trang_thai` varchar(255) NOT NULL,
+  `ngay` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -436,7 +450,10 @@ INSERT INTO `thiet_bi` (`id`, `ma_phong`, `ma_loai_thiet_bi`, `ten_thiet_bi`, `c
 (248, 14, 2, 'D71.111-BG30', '2023-02-03 19:41:10', '2023-02-03 19:41:10'),
 (249, 14, 4, 'B31.101-ML01', '2023-02-03 19:41:27', '2023-02-03 19:41:27'),
 (250, 14, 4, 'B31.101-ML02', '2023-02-03 19:41:32', '2023-02-03 19:41:32'),
-(251, 14, 4, 'B31.101-MC-Canon', '2023-02-03 19:41:43', '2023-02-03 19:41:43');
+(251, 14, 4, 'B31.101-MC-Canon', '2023-02-03 19:41:43', '2023-02-03 19:41:43'),
+(252, 23, 1, 'Máy tính 01', '2023-02-16 23:54:39', '2023-02-16 23:54:39'),
+(253, 23, 2, 'Bàn ghế 01', '2023-02-16 23:54:57', '2023-02-16 23:54:57'),
+(254, 23, 3, 'Đèn 01', '2023-02-16 23:55:09', '2023-02-16 23:55:09');
 
 -- --------------------------------------------------------
 
@@ -566,6 +583,15 @@ ALTER TABLE `phong`
   ADD KEY `phong_ma_loai_phong_foreign` (`ma_loai_phong`);
 
 --
+-- Indexes for table `su_co`
+--
+ALTER TABLE `su_co`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `su_co_ma_giao_vien_foreign` (`ma_giao_vien`),
+  ADD KEY `su_co_ma_phong_foreign` (`ma_phong`),
+  ADD KEY `su_co_ma_thiet_bi_foreign` (`ma_thiet_bi`);
+
+--
 -- Indexes for table `thiet_bi`
 --
 ALTER TABLE `thiet_bi`
@@ -606,13 +632,13 @@ ALTER TABLE `lop`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `nhat_ky`
 --
 ALTER TABLE `nhat_ky`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `nhom_phong`
@@ -624,7 +650,7 @@ ALTER TABLE `nhom_phong`
 -- AUTO_INCREMENT for table `nhom_thiet_bi`
 --
 ALTER TABLE `nhom_thiet_bi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -642,13 +668,19 @@ ALTER TABLE `phan_quyen`
 -- AUTO_INCREMENT for table `phong`
 --
 ALTER TABLE `phong`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `su_co`
+--
+ALTER TABLE `su_co`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `thiet_bi`
 --
 ALTER TABLE `thiet_bi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=255;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -681,6 +713,14 @@ ALTER TABLE `nhom_thiet_bi`
 ALTER TABLE `phong`
   ADD CONSTRAINT `phong_ma_loai_phong_foreign` FOREIGN KEY (`ma_loai_phong`) REFERENCES `loai_phong` (`id`),
   ADD CONSTRAINT `phong_ma_nhom_phong_foreign` FOREIGN KEY (`ma_nhom_phong`) REFERENCES `nhom_phong` (`id`);
+
+--
+-- Constraints for table `su_co`
+--
+ALTER TABLE `su_co`
+  ADD CONSTRAINT `su_co_ma_giao_vien_foreign` FOREIGN KEY (`ma_giao_vien`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `su_co_ma_phong_foreign` FOREIGN KEY (`ma_phong`) REFERENCES `phong` (`id`),
+  ADD CONSTRAINT `su_co_ma_thiet_bi_foreign` FOREIGN KEY (`ma_thiet_bi`) REFERENCES `thiet_bi` (`id`);
 
 --
 -- Constraints for table `thiet_bi`

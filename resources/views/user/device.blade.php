@@ -71,11 +71,12 @@
                                                 <div class="w-full flex items-center justify-center">
                                                     <!-- Modal toggle -->
                                                     <button data-modal-toggle="deviceModal-{{ $device->id }}"
-                                                     class="w-full relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                                                        <span class="w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                        class="w-full relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                                        <span
+                                                            class="w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                                                             {{ $device->ten_thiet_bi }}
                                                         </span>
-                                                      </button>
+                                                    </button>
                                                     <!-- Main modal -->
                                                     <div id="deviceModal-{{ $device->id }}" tabindex="-1"
                                                         aria-hidden="true"
@@ -112,19 +113,30 @@
                                                                     </button>
                                                                 </div>
                                                                 <!-- Modal body -->
-                                                                <div class="flex justify-center items-center p-4">
+                                                                {{-- <div class="flex justify-center items-center p-4">
                                                                     <img src="{{ asset('images/device.png') }}"
                                                                         alt="abc" width="200px">
-                                                                </div>
+                                                                </div> --}}
                                                                 <!-- Modal footer -->
                                                                 <div
-                                                                    class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                                                    <a href="{{ route('KL.report') }}"
-                                                                        data-modal-toggle="deviceModal-{{ $device->id }}"
-                                                                        class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                                        Báo cáo sự cố
+                                                                    class=" flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                                    <form class="w-full"
+                                                                        action="{{ route('KL.problem_report', $device->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        <textarea name="mo_ta_loi" id="message" rows="4"
+                                                                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg mb-4 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                            placeholder="Mô tả về lỗi thiết bị gặp phải..."></textarea>
+                                                                        <input type="text" class="hidden" readonly
+                                                                            name="phong"
+                                                                            value="{{ $roomName->id }}">
+                                                                        <button
+                                                                            data-modal-toggle="deviceModal-{{ $device->id }}"
+                                                                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                                            type="submit">
+                                                                            Báo cáo sự cố
                                                                         </button>
-                                                                    </a>
+                                                                    </form>
                                                                 </div>
                                                             </div>
                                                         </div>

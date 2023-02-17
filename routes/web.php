@@ -37,6 +37,8 @@ Route::group(['prefix' => 'KL', 'middleware' => ['auth', 'verified']], function 
     Route::get('/showDeviceAjax', [UserController::class, 'showDeviceAjax'])->name('KL.showDeviceAjax');
 
     Route::post('/setDataReport', [UserController::class, 'setDataReport'])->name('KL.setDataReport');
+
+    Route::post('/problemReport/{id?}', [UserController::class, 'problemReport'])->name('KL.problem_report');
 });
 
 Route::get('create_admin', [AdminController::class, 'createAdmin']);

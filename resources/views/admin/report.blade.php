@@ -20,7 +20,7 @@
                 <div class="w-full flex items-center font-bold p-3 bg-blue-300 mt-2">
                     <div class="w-full flex items-center">
                         <span class="w-44 pr-2 ml-8 truncate">Tên giáo viên</span>
-                        <span class="w-32 truncate">Tên phòng</span>
+                        <span class="w-32 ml-2 truncate">Tên phòng</span>
                         <span class="w-44 truncate">Thiết bị</span>
                         <span class="w-52 ml-2">Ghi chú</span>
                         <span class="w-24 ml-2">Trạng thái</span>
@@ -52,7 +52,7 @@
                                     </span>
                                     <span class="mx-1">-</span>
                                     <span class="w-52 text-gray-600 text-sm truncate">{{ $report->mo_ta_loi }}</span>
-                                    @if ($report->trang_thai == "1" )
+                                    @if ($report->trang_thai == '1')
                                         <div>
                                             <span
                                                 class="relative inline-block px-3 py-1 font-semibold text-red-800 leading-tight">
@@ -102,25 +102,26 @@
                                         <form action="{{ route('admin.download_pdf') }}" method="POST">
                                             @csrf
                                             <div class="px-6 py-4 space-y-6">
-                                               @if ($report->trang_thai != "0")
-                                               <div class="flex justify-end">
-                                                <button type="submit"
-                                                    class="flex items-center justify-center  bg-blue-500 hover:bg-blue-600 shadow-md text-white font-bold py-1.5 px-4 rounded">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2"
-                                                        width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                                        stroke="#ffffff" stroke-width="2" stroke-linecap="square"
-                                                        stroke-linejoin="round">
-                                                        <path
-                                                            d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
-                                                    </svg>
-                                                    Xuất phiếu
-                                                </button>
-                                            </div>
-                                               @endif
+                                                @if ($report->trang_thai != '0')
+                                                    <div class="flex justify-end">
+                                                        <button type="submit"
+                                                            class="flex items-center justify-center  bg-blue-500 hover:bg-blue-600 shadow-md text-white font-bold py-1.5 px-4 rounded">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2"
+                                                                width="20" height="20" viewBox="0 0 24 24"
+                                                                fill="none" stroke="#ffffff" stroke-width="2"
+                                                                stroke-linecap="square" stroke-linejoin="round">
+                                                                <path
+                                                                    d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
+                                                            </svg>
+                                                            Xuất phiếu
+                                                        </button>
+                                                    </div>
+                                                @endif
                                                 <div class="overflow-hidden bg-white shadow sm:rounded-lg">
                                                     <div class="border-t  border-gray-200">
                                                         <dl class="bg-gray-300">
-                                                            <input type="text" name="id" value="{{$report->id}}" class="hidden" readonly>
+                                                            <input type="text" name="id"
+                                                                value="{{ $report->id }}" class="hidden" readonly>
                                                             <div
                                                                 class="bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                                                 <dt class="text-base font-medium text-gray-600">Tên giáo
@@ -179,7 +180,7 @@
                                                                 class="bg-gray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                                                 <dt class="text-base font-medium text-gray-600">Ghi chú
                                                                 </dt>
-                                                                <input name="moTa" 
+                                                                <input name="moTa"
                                                                     class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-100 outline-0"
                                                                     value="{{ $report->mo_ta_loi }}" readonly>
                                                             </div>
@@ -189,7 +190,7 @@
                                             </div>
                                         </form>
                                         <div class="pb-4 px-4 my-4 mx-2">
-                                            @if ($report->trang_thai == "0  ")
+                                            @if ($report->trang_thai == '0  ')
                                                 <form action="" method="POST">
                                                     @csrf
                                                     <button type="button"

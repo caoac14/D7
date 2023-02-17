@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2023 at 10:40 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Feb 17, 2023 at 03:59 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `loai_phong` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_loai_phong` varchar(255) NOT NULL,
+  `ten_loai_phong` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -50,7 +50,7 @@ INSERT INTO `loai_phong` (`id`, `ten_loai_phong`, `created_at`, `updated_at`) VA
 
 CREATE TABLE `loai_thiet_bi` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_loai_thiet_bi` varchar(255) NOT NULL,
+  `ten_loai_thiet_bi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -74,7 +74,7 @@ INSERT INTO `loai_thiet_bi` (`id`, `ten_loai_thiet_bi`, `created_at`, `updated_a
 
 CREATE TABLE `lop` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_lop` varchar(255) NOT NULL,
+  `ten_lop` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -95,7 +95,7 @@ INSERT INTO `lop` (`id`, `ten_lop`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -128,11 +128,11 @@ CREATE TABLE `nhat_ky` (
   `ma_giao_vien` bigint(20) UNSIGNED NOT NULL,
   `ma_phong` bigint(20) UNSIGNED NOT NULL,
   `ma_lop` bigint(20) UNSIGNED NOT NULL,
-  `mo_ta_loi` varchar(255) DEFAULT NULL,
-  `buoi` varchar(255) NOT NULL,
-  `trang_thai` varchar(255) NOT NULL,
+  `mo_ta_loi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `buoi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `trang_thai` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ngay` date NOT NULL,
-  `ghi_chu` varchar(255) NOT NULL,
+  `ghi_chu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -154,7 +154,7 @@ INSERT INTO `nhat_ky` (`id`, `ma_giao_vien`, `ma_phong`, `ma_lop`, `mo_ta_loi`, 
 
 CREATE TABLE `nhom_phong` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ten_day_phong` varchar(255) NOT NULL,
+  `ten_day_phong` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -218,11 +218,11 @@ INSERT INTO `nhom_thiet_bi` (`id`, `ma_nhat_ky`, `ma_thiet_bi`, `created_at`, `u
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `token` varchar(64) NOT NULL,
-  `abilities` text DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -237,7 +237,7 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `phan_quyen` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `user_email` varchar(255) NOT NULL,
+  `user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -260,8 +260,8 @@ CREATE TABLE `phong` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `ma_nhom_phong` bigint(20) UNSIGNED NOT NULL,
   `ma_loai_phong` bigint(20) UNSIGNED NOT NULL,
-  `ten_phong` varchar(255) NOT NULL,
-  `so_do_bo_tri` varchar(255) NOT NULL,
+  `ten_phong` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `so_do_bo_tri` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -304,12 +304,19 @@ CREATE TABLE `su_co` (
   `ma_giao_vien` bigint(20) UNSIGNED NOT NULL,
   `ma_phong` bigint(20) UNSIGNED NOT NULL,
   `ma_thiet_bi` bigint(20) UNSIGNED NOT NULL,
-  `mo_ta_loi` varchar(255) DEFAULT NULL,
-  `trang_thai` varchar(255) NOT NULL,
+  `mo_ta_loi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trang_thai` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ngay` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `su_co`
+--
+
+INSERT INTO `su_co` (`id`, `ma_giao_vien`, `ma_phong`, `ma_thiet_bi`, `mo_ta_loi`, `trang_thai`, `ngay`, `created_at`, `updated_at`) VALUES
+(1, 1, 9, 2, 'f', '1', '2023-02-17', '2023-02-17 06:32:59', '2023-02-17 06:32:59');
 
 -- --------------------------------------------------------
 
@@ -321,7 +328,7 @@ CREATE TABLE `thiet_bi` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `ma_phong` bigint(20) UNSIGNED NOT NULL,
   `ma_loai_thiet_bi` bigint(20) UNSIGNED NOT NULL,
-  `ten_thiet_bi` varchar(255) NOT NULL,
+  `ten_thiet_bi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -463,14 +470,14 @@ INSERT INTO `thiet_bi` (`id`, `ma_phong`, `ma_loai_thiet_bi`, `ten_thiet_bi`, `c
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `chuc_vu` varchar(255) NOT NULL,
-  `hoc_vi` varchar(255) NOT NULL,
-  `sdt` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `chuc_vu` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hoc_vi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sdt` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -674,7 +681,7 @@ ALTER TABLE `phong`
 -- AUTO_INCREMENT for table `su_co`
 --
 ALTER TABLE `su_co`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `thiet_bi`

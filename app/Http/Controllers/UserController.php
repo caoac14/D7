@@ -12,6 +12,7 @@ use App\Models\ClassName;
 use Illuminate\Support\Facades\Auth;
 use App\Models\GroupDevice;
 use App\Models\Report;
+use App\Models\Problem;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FixNow;
@@ -169,6 +170,25 @@ class UserController extends Controller
                 $groupDevice->save();
             }
         }
+
+        return redirect()->back();
+    }
+
+
+    function problemReport(Request $request, $id){
+        if($request->id == null){
+            abort(403);
+        }
+
+
+        $problem = new Problem;
+        $problem->ma_giao_vien = Auth::user()->id;
+        $problem->ma_phong = $request->phong;
+        $problem->mo_ta_loi = $request->mo_ta_loi;
+        $problem->ma_thiet_bi = $id;
+        $problem->ngay = date('Y-m-d H:i:s');
+        $problem->trang_thai = "1";
+        $problem->save();
 
         return redirect()->back();
     }

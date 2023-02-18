@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId("ma_giao_vien")->constrained("users");
             $table->foreignId("ma_phong")->constrained("phong");
-            $table->foreignId("ma_lop")->constrained("lop");
+            // $table->foreignId("ma_lop")->constrained("lop");
+            $table->string("ma_lop");
             $table->string("mo_ta_loi")->nullable();
             $table->string("buoi");
             $table->string("trang_thai");

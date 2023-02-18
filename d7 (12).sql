@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2023 at 02:53 AM
+-- Generation Time: Feb 18, 2023 at 09:56 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -127,7 +127,7 @@ CREATE TABLE `nhat_ky` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `ma_giao_vien` bigint(20) UNSIGNED NOT NULL,
   `ma_phong` bigint(20) UNSIGNED NOT NULL,
-  `ma_lop` bigint(20) UNSIGNED NOT NULL,
+  `ma_lop` varchar(255) NOT NULL,
   `mo_ta_loi` varchar(255) DEFAULT NULL,
   `buoi` varchar(255) NOT NULL,
   `trang_thai` varchar(255) NOT NULL,
@@ -142,9 +142,10 @@ CREATE TABLE `nhat_ky` (
 --
 
 INSERT INTO `nhat_ky` (`id`, `ma_giao_vien`, `ma_phong`, `ma_lop`, `mo_ta_loi`, `buoi`, `trang_thai`, `ngay`, `ghi_chu`, `created_at`, `updated_at`) VALUES
-(9, 1, 9, 1, 'Bàn gãy chân', 'Sáng', '1', '2023-02-17', '', '2023-02-16 21:34:32', '2023-02-16 21:34:32'),
-(11, 1, 9, 2, 'ds', 'Sáng', '1', '2023-02-16', '', '2023-02-17 00:26:08', '2023-02-17 00:26:08'),
-(12, 1, 9, 1, NULL, 'Tối', '0', '2023-02-17', '', '2023-02-17 00:29:38', '2023-02-17 00:30:08');
+(9, 1, 9, 'DA19TTA', 'Bàn gãy chân', 'Sáng', '1', '2023-02-17', '', '2023-02-16 21:34:32', '2023-02-16 21:34:32'),
+(11, 1, 9, 'DA19TTB', 'ds', 'Sáng', '1', '2023-02-16', '', '2023-02-17 00:26:08', '2023-02-17 00:26:08'),
+(12, 1, 9, 'DA20TTA', NULL, 'Tối', '0', '2023-02-17', '', '2023-02-17 00:29:38', '2023-02-17 00:30:08'),
+(13, 1, 7, 'DA19TTA', 'Bình thường', 'Chiều', '0', '2023-02-18', '', '2023-02-18 01:29:45', '2023-02-18 01:29:45');
 
 -- --------------------------------------------------------
 
@@ -553,8 +554,7 @@ ALTER TABLE `migrations`
 ALTER TABLE `nhat_ky`
   ADD PRIMARY KEY (`id`),
   ADD KEY `nhat_ky_ma_giao_vien_foreign` (`ma_giao_vien`),
-  ADD KEY `nhat_ky_ma_phong_foreign` (`ma_phong`),
-  ADD KEY `nhat_ky_ma_lop_foreign` (`ma_lop`);
+  ADD KEY `nhat_ky_ma_phong_foreign` (`ma_phong`);
 
 --
 -- Indexes for table `nhom_phong`
@@ -648,7 +648,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nhat_ky`
 --
 ALTER TABLE `nhat_ky`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `nhom_phong`
@@ -707,7 +707,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `nhat_ky`
   ADD CONSTRAINT `nhat_ky_ma_giao_vien_foreign` FOREIGN KEY (`ma_giao_vien`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `nhat_ky_ma_lop_foreign` FOREIGN KEY (`ma_lop`) REFERENCES `lop` (`id`),
   ADD CONSTRAINT `nhat_ky_ma_phong_foreign` FOREIGN KEY (`ma_phong`) REFERENCES `phong` (`id`);
 
 --

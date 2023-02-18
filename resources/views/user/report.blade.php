@@ -11,20 +11,19 @@
                                 <div class="space-y-4">
                                     <div>
                                         <div class="flex items-center justify-between">
-                                            <div>
-                                                <select id="countries" name="timeR"
-                                                    class="w-32 py-2 px-4 text-lx border-2 border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                    <option value="Sáng" selected>Sáng</option>
-                                                    <option value="Chiều">Chiều</option>
-                                                    <option value="Tối">Tối</option>
-                                                </select>
+                                            <div class="flex space-x-2 items-center">
+                                                <label for="buoi" class="text-lx">Buổi: <span class="text-red-500">(*)</span></label>
+                                                <input type="text" id="buoi" name="timeR" required
+                                                class=" outline-none w-1/2 border-gray-300 py-2 px-4 text-md border-2 rounded-md cursor-default" />
+
                                             </div>
-                                            <div class="ml-8">
+                                            <div class="flex space-x-2 items-center">
+                                                <label for="datePickerId" class="text-lx">Ngày: <span class="text-red-500">(*)</span></label>
                                                 <input type="date" placeholder="name" name="dateR"
                                                     id="datePickerId" required
                                                     class="outline-none border-gray-300 py-2 px-2 text-md border-2 rounded-md" />
                                             </div>
-                                            <div>
+                                            {{-- <div>
                                                 <label class="relative inline-flex items-center cursor-pointer">
                                                     <input type="checkbox" name="fixNow" value="true"
                                                         class="sr-only peer">
@@ -37,7 +36,7 @@
                                                     </span>
                                                 </label>
 
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                     <div>
@@ -47,17 +46,12 @@
                                             disabled value="{{ Auth::user()->name }}" />
                                     </div>
                                     <div>
-                                        <label for="title" class="text-lx">Mã lớp:</label>
-                                        <select id="class" name="class" required
-                                            class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-lx rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected hidden value="">--Chọn--</option>
-                                            @foreach ($classNames as $class)
-                                                <option value="{{ $class->id }}">{{ $class->ten_lop }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="title" class="text-lx">Tên lớp: <span class="text-red-500">(*)</span></label>
+                                        <input type="text" placeholder="VD: DA19TTA" id="class" name="class"
+                                            class="block outline-none w-full border-gray-300 py-2 px-4 text-md border-2 rounded-md cursor-default" />
                                     </div>
                                     <div>
-                                        <label for="title" class="text-lx">Dãy phòng:</label>
+                                        <label for="title" class="text-lx">Dãy phòng: <span class="text-red-500">(*)</span></label>
                                         <select id="groupRoom" name="groupRoom" required
                                             class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-lx rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                             <option selected hidden value="">--Chọn--</option>
@@ -68,7 +62,7 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <label for="title" class="text-lx">Phòng:</label>
+                                        <label for="title" class="text-lx">Phòng: <span class="text-red-500">(*)</span></label>
                                         <select id="room" name="room" required
                                             class=" outline-none py-2 px-4 text-md border-2 border-gray-300 text-gray-900 text-lx rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                             <option selected hidden value="">--Chọn--</option>
@@ -144,7 +138,7 @@
                                     </div>
 
                                     <div>
-                                        <label for="description" class="block mb-2 text-lx">Mô tả:</label>
+                                        <label for="description" class="block mb-2 text-lx">Tình trạng:</label>
                                         <textarea id="description" cols="30" name="about" rows="3" placeholder="Sự cố thiết bị gặp phải?"
                                             class="w-full px-4 py-4 text-gray-600 border-gray-300 bg-indigo-50 outline-none rounded-md"></textarea>
                                     </div>
@@ -163,8 +157,30 @@
         </div>
     </div>
     <script type="text/javascript">
-        datePickerId.min = "2023-01-01";
+        var today = new Date()
+        var curHr = today.getHours()
+        var time = null;
+
+        if (curHr < 12) {
+            var time = "Sáng";
+        } else if (curHr < 18) {
+            var time = "Chiều";
+        } else {
+            var time = "Tối";
+        }
+
+        document.getElementById("buoi").value = time;
+
+        var date = new Date();
+        const datePickerId = document.getElementById('datePickerId')
+        datePickerId.value = date.toISOString().substring(0, 10);
+
+
+        datePickerId.min = "2023-02-10";
         datePickerId.max = new Date().toISOString().split("T")[0];
+
+
+
 
         var url2 = "{{ route('KL.showRoomAjax') }}";
         $("select[name='groupRoom']").change(function() {

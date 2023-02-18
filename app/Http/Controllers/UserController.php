@@ -98,9 +98,9 @@ class UserController extends Controller
 
         $listRooms = GroupRoom::orderBy('ten_day_phong', 'ASC')->get();
 
-        $classNames = ClassName::orderBy('ten_lop', 'ASC')->get();
+        // $classNames = ClassName::orderBy('ten_lop', 'ASC')->get();
 
-        return view('user.report', compact('listRooms', 'deviceName', 'classNames'));
+        return view('user.report', compact('listRooms', 'deviceName'));
     }
 
     function showRoomAjax(Request  $request)

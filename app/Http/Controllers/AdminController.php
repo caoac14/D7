@@ -75,7 +75,6 @@ class AdminController extends Controller
     function showReportPage()
     {
         $reportList = Report::join('phong', 'phong.id', '=', 'nhat_ky.ma_phong')
-            ->join('lop', 'lop.id', '=', 'nhat_ky.ma_lop')
             ->join('users', 'users.id', '=', 'nhat_ky.ma_giao_vien')
             ->orderBy('nhat_ky.trang_thai', 'DESC')->orderBy('nhat_ky.ngay', 'DESC')
             ->select(
@@ -83,7 +82,6 @@ class AdminController extends Controller
                 'email',
                 'ten_phong',
                 'ma_lop',
-                'ten_lop',
                 'buoi',
                 'ngay',
                 'mo_ta_loi',

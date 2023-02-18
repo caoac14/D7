@@ -145,7 +145,7 @@
                                                                 </dt>
                                                                 <input name="tenPhongLop"
                                                                     class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0 bg-gray-200 outline-0"
-                                                                    value="{{ $report->ten_phong }} - {{ $report->ten_lop }}"
+                                                                    value="{{ $report->ten_phong }} - {{ $report->ma_lop }}"
                                                                     readonly>
                                                             </div>
                                                             <div

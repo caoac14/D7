@@ -54,7 +54,8 @@ Route::middleware('auth')->group(function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {
     Route::get('/', [AdminController::class, 'showHomePage'])->name('admin.home');
 
-
+    
+    Route::post('update_status_problem/{id}', [AdminController::class, 'updateStatusProblem'])->name('admin.update_status_problem');
 
     Route::get('/report', [AdminController::class, 'showReportPage'])->name('admin.report');
     Route::get('/detail_report/{id}', [AdminController::class, 'showDetailReportPage'])->name('admin.report_detail');

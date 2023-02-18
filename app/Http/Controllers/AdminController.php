@@ -11,13 +11,12 @@ use App\Models\User;
 use App\Models\Device;
 use App\Models\Room;
 use App\Models\GroupDevice;
+use App\Models\Problem;
 use App\Models\TypeDevice;
 use App\Models\GroupRoom;
 use App\Models\TypeRoom;
 use App\Mail\SendMail;
 use App\Mail\ResetMail;
-use Dflydev\DotAccessData\Data;
-use PhpParser\Node\Expr\Cast\Object_;
 use Barryvdh\DomPDF\Facade\PDF;
 
 class AdminController extends Controller
@@ -42,7 +41,35 @@ class AdminController extends Controller
 
     function showHomePage()
     {
-        return view('admin.home');
+        $problemListAll = Problem::join('phong', 'phong.id', '=', 'su_co.ma_phong')
+            ->join('thiet_bi', 'thiet_bi.id', '=', 'su_co.ma_thiet_bi')
+            ->join('users', 'users.id', '=', 'su_co.ma_giao_vien')
+            ->orderBy('su_co.ngay', 'DESC')
+            ->select(
+                'name',
+                'email',
+                'ten_phong',
+                'ma_thiet_bi',
+                'ten_thiet_bi',
+                'ngay',
+                'su_co.created_at',
+                'mo_ta_loi',
+                'trang_thai',
+                'su_co.id'
+            )->get();
+
+            $problemList = $problemListAll->where('trang_thai', '1');
+            $problemListed = $problemListAll->where('trang_thai', '0');
+
+        return view('admin.home',compact('problemList', 'problemListed'));
+
+    }
+
+    function updateStatusProblem($id){
+        if ($id) {
+            Problem::where('id', $id)->update(['trang_thai' => 0]);
+        }
+        return redirect()->back();
     }
 
     function showReportPage()
@@ -363,4 +390,6 @@ class AdminController extends Controller
     	$pdf = PDF::loadView('admin.exportPDF',  compact('data'));
     		return $pdf->download('Nhật ký '.$request->id.'.pdf');
     }
+
+    //Main
 }

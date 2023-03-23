@@ -42,7 +42,7 @@ class UserController extends Controller
             foreach ($typeRoomLists as $i) {
                 array_push($roomLists, Room::where('ma_nhom_phong', $id)->where('ma_loai_phong', $i->id)
                     ->join('loai_phong', 'loai_phong.id', '=', 'phong.ma_loai_phong')
-                    ->select('phong.id', 'ten_phong', 'ten_loai_phong')->get());
+                    ->select('phong.id', 'ten_phong', 'ten_loai_phong')->orderBy('ten_phong', 'ASC')->get());
             }
             $groupRoomSelected = GroupRoom::where('id', $id)->first();
 
@@ -83,7 +83,7 @@ class UserController extends Controller
         $roomName = Room::where('id', $idRoomRequest)->first();
         $typeDeviceName = TypeDevice::where('id', $idTypeDeviceRequest)->first();
 
-        $typeDeviceLists = Device::orderBy('ten_thiet_bi', 'ASC')->where('ma_phong', $idRoomRequest)->where('ma_loai_thiet_bi', $request->typeDeviceId)->get();
+        $typeDeviceLists = Device::orderBy('ten_thiet_bi', 'DESC')->where('ma_phong', $idRoomRequest)->where('ma_loai_thiet_bi', $request->typeDeviceId)->get();
 
         return view('user.device', compact('typeDeviceLists', 'roomName', 'typeDeviceName'));
     }
@@ -93,15 +93,60 @@ class UserController extends Controller
 
     function pageReport(Request $request)
     {
+        $IdUser = Auth::user()->id;
         $deviceId = $request->devide;
         $deviceName = Device::where('id', $deviceId)->pluck('ten_thiet_bi');
 
         $listRooms = GroupRoom::orderBy('ten_day_phong', 'ASC')->get();
 
-        // $classNames = ClassName::orderBy('ten_lop', 'ASC')->get();
+        $historyReport = Report::join('phong', 'phong.id', '=', 'nhat_ky.ma_phong')
+            ->join('users', 'users.id', '=', 'nhat_ky.ma_giao_vien')
+            ->orderBy('nhat_ky.trang_thai', 'DESC')->orderBy('nhat_ky.created_at', 'DESC')
+            ->select(
+                'ten_phong',
+                'ma_lop',
+                'buoi',
+                'ngay',
+                'mo_ta_loi',
+                'trang_thai',
+                'nhat_ky.id'
+            )->where('ma_giao_vien', $IdUser)->take(5)->get();
+        $rooms = Room::orderBy('ten_phong', 'ASC')->get();
 
-        return view('user.report', compact('listRooms', 'deviceName'));
+        return view('user.report', compact('listRooms', 'deviceName', 'historyReport', 'rooms'));
     }
+
+    function editReport(Request $request, $id)
+    {
+        $mo_ta_loi = $request->mo_ta_loi;
+        $oldAbout = Report::where('id', $id)->pluck('mo_ta_loi');
+        if ($oldAbout[0] != $mo_ta_loi) {
+            printf("Cos thay ddoi");
+            Report::where('id', $id)->update(['mo_ta_loi' => $mo_ta_loi]);
+        } else {
+            return redirect()->back();
+        }
+        return redirect()->back();
+    }
+
+    function deleteReport($id)
+    {
+
+        GroupDevice::where('ma_nhat_ky', $id)->delete();
+        Report::where('id', $id)->delete();
+        return redirect()->back();
+    }
+
+    function showImage(Request $request)
+    {
+        $soDoBoTri = Room::where('id', $request->so_do)->pluck('so_do_bo_tri');
+        if ($soDoBoTri[0] != null) {
+            return redirect()->away(asset($soDoBoTri[0]));
+        } else {
+            return redirect()->back();
+        }
+    }
+
 
     function showRoomAjax(Request  $request)
     {
@@ -115,13 +160,12 @@ class UserController extends Controller
     {
         if ($request->ajax()) {
             $typeDevices = TypeDevice::select('id', 'ten_loai_thiet_bi')->get();
-            $devices = Device::where('ma_phong', $request->room_id)->orderBy('ten_thiet_bi', 'ASC')->select('id','ma_loai_thiet_bi','ten_thiet_bi')->get();
+            $devices = Device::where('ma_phong', $request->room_id)->orderBy('ten_thiet_bi', 'ASC')->select('id', 'ma_loai_thiet_bi', 'ten_thiet_bi')->get();
             return response()->json([$typeDevices, $devices]);
-
         }
     }
 
-    function FixNow($name, $time ,$email, $room, $about)
+    function FixNow($name, $time, $email, $room, $about)
     {
         $testMailData = [
             'name' => $name,
@@ -139,7 +183,7 @@ class UserController extends Controller
     function setDataReport(Request $request)
     {
 
-        if($request->fixNow == "true"){
+        if ($request->fixNow == "true") {
             $mailSended = $this->FixNow(Auth::user()->name, $request->dateR, Auth::user()->email, Room::where('id', $request->room)->pluck("ten_phong"), $request->about);
         }
 
@@ -147,10 +191,10 @@ class UserController extends Controller
         $report->ma_giao_vien = Auth::user()->id;
         $report->ma_phong = $request->room;
         $report->ma_lop = $request->class;
-        if(is_null($request->device)){
+        if (is_null($request->device)) {
             $report->mo_ta_loi = "Bình thường";
             $report->trang_thai = 0;
-        }else{
+        } else {
             $report->mo_ta_loi = $request->about;
             $report->trang_thai = 1;
         }
@@ -171,12 +215,13 @@ class UserController extends Controller
             }
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('saved', 'Đã lưu thành công nhật ký ngày ' . date('d-m-Y', strtotime($report->ngay)));
     }
 
 
-    function problemReport(Request $request, $id){
-        if($request->id == null){
+    function problemReport(Request $request, $id)
+    {
+        if ($request->id == null) {
             abort(403);
         }
 
@@ -190,7 +235,6 @@ class UserController extends Controller
         $problem->trang_thai = "1";
         $problem->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('problemed', 'Báo cáo sự cố thành công. Đang đợi xử lý... ');
     }
-
 }

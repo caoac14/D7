@@ -90,15 +90,23 @@
                         @foreach ($roomLists[$i] as $room[$i])
                             <div class="relative">
                                 <a href="{{ route('admin.device_of_room', $room[$i]->id) }}">
-                                    <button class="w-full relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                                        <span class="w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                    <button
+                                        class="w-full relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                        <span
+                                            class="w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                                             {{ $room[$i]->ten_phong }}
                                         </span>
-                                      </button>
+                                    </button>
                                 </a>
                                 <span data-modal-toggle="modal_edit_room_{{ $room[$i]->id }}"
                                     class="absolute -top-1 right-1 text-blue-400 hover:text-blue-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="butt" stroke-linejoin="bevel"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                        stroke-linecap="butt" stroke-linejoin="bevel">
+                                        <circle cx="12" cy="12" r="1"></circle>
+                                        <circle cx="19" cy="12" r="1"></circle>
+                                        <circle cx="5" cy="12" r="1"></circle>
+                                    </svg>
                                 </span>
                                 <div id="modal_edit_room_{{ $room[$i]->id }}" tabindex="-1" aria-hidden="true"
                                     class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
@@ -125,7 +133,8 @@
                                             </div>
                                             <!-- Modal body -->
                                             <div class="p-6 space-y-6">
-                                                <form action="{{ route('admin.edit_room', $room[$i]->id) }}" method="POST" enctype="multipart/form-data">
+                                                <form action="{{ route('admin.edit_room', $room[$i]->id) }}"
+                                                    method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="mt-4 mb-8">
                                                         <label for="ten_phong"
@@ -165,4 +174,5 @@
                 </div>
             @endfor
         </div>
+        <script></script>
     @endsection

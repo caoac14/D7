@@ -17,3 +17,4 @@ class ExportAccount implements FromCollection
         return $dataReport;
     }
 }
+?>

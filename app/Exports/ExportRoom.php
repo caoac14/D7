@@ -20,3 +20,5 @@ class ExportRoom implements FromCollection
         return $dataReport;
     }
 }
+
+?>

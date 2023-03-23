@@ -13,7 +13,7 @@
                 Xem lịch sử
             </button>
 
-            
+
 
             <!-- Main modal -->
             <div id="crypto-modal" tabindex="-1" aria-hidden="true"
@@ -21,7 +21,7 @@
                 <div class="relative w-full h-full max-w-xl md:h-auto">
                     <!-- Modal content -->
                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        
+
                         <!-- Modal header -->
                         <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
                             <h3 class="text-base font-semibold text-gray-900 lg:text-xl dark:text-white">
@@ -29,24 +29,43 @@
                             </h3>
                         </div>
                         <!-- Modal body -->
-                        <div class="p-6">
+                        <div class="px-6 pb-6 pt-2">
+                            {{-- <div class="flex justify-end items-center">
+                                <button
+                                    class="relative inline-flex items-center mb-2 justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                    <span
+                                        class="relative px-5 py-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                        Xuất Excel
+                                    </span>
+                                </button>
+                            </div> --}}
                             <ul class="mb-4 space-y-3">
                                 @foreach ($problemListed as $item)
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
-                                        <svg aria-hidden="true" class="h-4" viewBox="0 0 96 96" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M72.0998 0.600098H48.3998H24.5998H0.799805V24.4001V48.2001V49.7001V71.8001V71.9001V95.5001H24.5998V72.0001V71.9001V49.8001V48.3001V24.5001H48.3998H72.1998H95.9998V0.700104H72.0998V0.600098Z"
-                                                fill="#617BFF" />
-                                            <path
-                                                d="M48.5 71.8002H72.1V95.6002H73C79.1 95.6002 84.9 93.2002 89.2 88.9002C93.5 84.6002 95.9 78.8002 95.9 72.7002V48.2002H48.5V71.8002Z"
-                                                fill="#617BFF" />
-                                        </svg>
-                                        <span class="flex-1 ml-3 whitespace-nowrap">Ngày: {{date('d-m-Y', strtotime($item->created_at))}} - Phòng:{{$item->ten_phong}} - {{$item->ten_thiet_bi}}</span>
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="#"
+                                            class="flex items-center p-3 text-base font-semibold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                                            <svg aria-hidden="true" class="h-4" viewBox="0 0 96 96" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M72.0998 0.600098H48.3998H24.5998H0.799805V24.4001V48.2001V49.7001V71.8001V71.9001V95.5001H24.5998V72.0001V71.9001V49.8001V48.3001V24.5001H48.3998H72.1998H95.9998V0.700104H72.0998V0.600098Z"
+                                                    fill="#617BFF" />
+                                                <path
+                                                    d="M48.5 71.8002H72.1V95.6002H73C79.1 95.6002 84.9 93.2002 89.2 88.9002C93.5 84.6002 95.9 78.8002 95.9 72.7002V48.2002H48.5V71.8002Z"
+                                                    fill="#617BFF" />
+                                            </svg>
+                                            <div>
+                                                <span class="flex-1 ml-4 whitespace-nowrap">Ngày:
+                                                    <span
+                                                        class="mr-4 text-red-600">{{ date('d-m-Y', strtotime($item->created_at)) }}</span>
+                                                    Phòng: <span class="text-blue-500">{{ $item->ten_phong }} </span>-
+                                                    {{ $item->ten_thiet_bi }}
+                                                </span>
+                                                <span class="block ml-4 font-normal truncate">
+                                                    Ghi chú: {{ $item->mo_ta_loi }}
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
                             <div>
@@ -97,22 +116,19 @@
                                         class="w-40 text-gray-600 text-sm truncate">{{ date('H:i:s d-m-Y', strtotime($problem->created_at)) }}</span>
                                 </div>
                             </div>
-                            <button
-                                class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-                                <span
-                                    class="flex items-center relative px-6 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="18" height="18"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="square" stroke-linejoin="round">
-                                        <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
-                                    </svg>
-
-                                    Xuất phiếu
-                                </span>
-                            </button>
+                            <form action="{{ route('admin.update_status_problem', $problem->id) }}" method="POST">
+                                @csrf
+                                <button data-modal-toggle="modal-report-{{ $problem->id }}" type="submit"
+                                    class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                                    <span
+                                        class="flex items-center relative px-6 py-1 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                        Đã sửa
+                                    </span>
+                                </button>
+                            </form>
                             <div id="modal-report-{{ $problem->id }}" tabindex="-1" aria-hidden="true"
                                 class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-                                <div class="relative w-full h-full max-w-2xl md:h-auto">
+                                <div class="relative w-full h-full max-w-xl md:h-auto">
                                     <!-- Modal content -->
                                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                         <!-- Modal header -->
@@ -155,20 +171,6 @@
                                             <span class="block text-base font-normal text-gray-700 dark:text-gray-400">
                                                 Ghi chú: "{{ $problem->mo_ta_loi }}""
                                             </span>
-                                            <div>
-                                                <form action="{{ route('admin.update_status_problem', $problem->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <button data-modal-toggle="modal-report-{{ $problem->id }}"
-                                                        type="submit"
-                                                        class="w-full relative mt-8  inline-flex items-center justify-center p-0.5 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                                                        <span
-                                                            class="w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                                            Đã sửa
-                                                        </span>
-                                                    </button>
-                                                </form>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

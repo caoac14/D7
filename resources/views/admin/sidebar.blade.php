@@ -9,7 +9,7 @@
                         <path d="M21.5 12H12V2.5" />
                         <circle cx="12" cy="12" r="10" />
                     </svg>
-                    <span class="ml-3">Trang chủ</span>
+                    <span class="ml-3">Sự cố</span>
                 </a>
             </li>
 
@@ -76,16 +76,17 @@
                 </a>
             </li>
             <li>
-                <a href="#"
+                <a href="{{ route('admin.division') }}"
                     class="flex items-center p-2 text-sm font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                         fill="none" stroke="#000000" stroke-width="2" stroke-linecap="square"
                         stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5" />
-                        <path
-                            d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Khác</span>
+                    <span class="flex-1 ml-3 whitespace-nowrap">Phân công</span>
                 </a>
             </li>
         </ul>

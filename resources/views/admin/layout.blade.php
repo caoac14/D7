@@ -93,12 +93,13 @@
                         @yield('device')
                         @yield('chart')
                         @yield('account')
-                        @yield('report') 
-                        @yield('infor') 
+                        @yield('report')
+                        @yield('infor')
                         @yield('report_detail')
                         @yield('account_detail')
                         @yield('device_detail')
                         @yield('register_account')
+                        @yield('division')
                     </main>
                 </div>
             </div>

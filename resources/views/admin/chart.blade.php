@@ -1,19 +1,44 @@
 @extends('admin.layout')
 
 @section('chart')
-    <div>
+    <div class="relative">
+        <div class="absolute right-4">
+            @if (\Session::has('noData'))
+                <div id="alert-2" class="flex p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                    role="alert">
+                    <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div class="ml-3 text-sm font-medium">
+                        {!! \Session::get('noData') !!}
+                    </div>
+                    <button type="button"
+                        class="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+                        data-dismiss-target="#alert-2" aria-label="Close">
+                        <span class="sr-only">Close</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+            @endif
+        </div>
         <div class="flex justify-between items-center p-4 m-2">
             <span class=" font-semibold text-xl">
                 THỐNG KÊ THÁNG {{ now()->month }} NĂM {{ now()->year }}
             </span>
-
             <div>
                 <div
                     class="w-full bg-green-500
                hover:bg-green-600 text-gray-50 text-base font-normal py-1.5 px-4 rounded inline-flex justify-center shadow-md shadow-green-300
                items-center">
-                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20">
+                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
                     </svg>
                     <span data-modal-toggle="modal_excel">Xuất file Excel</span>
@@ -34,8 +59,8 @@
                                     <button type="button"
                                         class="text-gray-200 bg-transparent hover:bg-green-400 hover:text-gray-200 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                         data-modal-toggle="modal_excel">
-                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
                                                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                                 clip-rule="evenodd"></path>
@@ -47,39 +72,67 @@
                                 <form method="post" action="{{ route('admin.export_report') }}"
                                     class="flex items-center px-6 py-1">
                                     @csrf
-                                    <div class="p-6">
+                                    <div class="p-6 w-full">
                                         <h4 class="text-gray-800 text-xl">Xuất file theo:</h4>
 
-                                        <div class="flex items-center my-2">
-                                            <input checked id="rdo_report" type="radio"
-                                                value="rdo_report" name="rdo_excel"
-                                                class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            <label for="rdo_report"
-                                                class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
-                                                Xuất sổ nhật ký
-                                            </label>
+                                        <div class="flex items-center my-4 ">
+                                            <div class="flex-1">
+                                                <input checked id="rdo_report" type="radio" value="rdo_report"
+                                                    name="rdo_excel"
+                                                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                <label for="rdo_report"
+                                                    class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
+                                                    Xuất sổ nhật ký
+                                                </label>
+                                            </div>
+
+                                            <div class="flex-1 ml-4">
+                                                <select name="nhatky_nam"
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                                    <option selected disabled> - Năm - </option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2022">2022</option>
+                                                    <option value="2021">2021</option>
+                                                </select>
+                                            </div>
+                                            <div class="flex-1 ml-4">
+                                                <select name="nhatky_thang"
+                                                    class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                                                    <option selected disabled> - Tháng - </option>
+                                                    <option value="1">Tháng 1</option>
+                                                    <option value="2">Tháng 2</option>
+                                                    <option value="3">Tháng 3</option>
+                                                    <option value="4">Tháng 4</option>
+                                                    <option value="5">Tháng 5</option>
+                                                    <option value="6">Tháng 6</option>
+                                                    <option value="7">Tháng 7</option>
+                                                    <option value="8">Tháng 8</option>
+                                                    <option value="9">Tháng 9</option>
+                                                    <option value="10">Tháng 10</option>
+                                                    <option value="11">Tháng 11</option>
+                                                    <option value="12">Tháng 12</option>
+                                                </select>
+                                            </div>
+
                                         </div>
-                                        <div class="flex items-center my-2">
-                                            <input id="rdo_account" type="radio" value="rdo_account"
-                                                name="rdo_excel"
+                                        <div class="flex items-center my-4">
+                                            <input id="rdo_account" type="radio" value="rdo_account" name="rdo_excel"
                                                 class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="rdo_account"
                                                 class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
                                                 Xuất danh sách tài khoản
                                             </label>
                                         </div>
-                                        <div class="flex items-center my-2">
-                                            <input id="rdo_device" type="radio" value="rdo_device"
-                                                name="rdo_excel"
+                                        <div class="flex items-center my-4">
+                                            <input id="rdo_device" type="radio" value="rdo_device" name="rdo_excel"
                                                 class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="rdo_device"
                                                 class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">
                                                 Xuất danh sách thiết bị
                                             </label>
                                         </div>
-                                        <div class="flex items-center my-2">
-                                            <input id="rdo_room" type="radio" value="rdo_room"
-                                                name="rdo_excel"
+                                        <div class="flex items-center my-4">
+                                            <input id="rdo_room" type="radio" value="rdo_room" name="rdo_excel"
                                                 class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="rdo_room"
                                                 class="ml-2 text-lg font-medium text-gray-900 dark:text-gray-300">

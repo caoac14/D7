@@ -18,11 +18,12 @@
             <div>
                 <div class="w-full bg-blue-300 flex items-center font-bold py-3">
                     <div class="w-full flex items-center ml-2">
-                        <span class="w-56 pr-2 ml-8 truncate">Tên giáo viên</span>
-                        <span class="w-52">Email</span>
-                        <span class="w-56 truncate">Chức vụ</span>
+                        <span class="w-48 pr-2 ml-8 truncate">Tên giáo viên</span>
+                        <span class="w-44">Email</span>
+                        <span class="w-40 truncate">Chức vụ</span>
                         <span class="w-40">Học vị</span>
                         <span class="w-32 truncate">Số điện thoại</span>
+                        <span class="w-56 ml-2">Quyền</span>
                     </div>
                 </div>
             </div>
@@ -35,11 +36,24 @@
                             class="w-full flex items-center justify-between p-1 my-1 cursor-pointer">
                             <div data-modal-toggle="modal-{{ $user->id }}">
                                 <div class="flex items-center">
-                                    <span class="w-56 pr-2 truncate">{{ $user->name }}</span>
-                                    <span class="w-52 truncate">{{ $user->email }}</span>
-                                    <span class="w-56 truncate">{{ $user->chuc_vu }}</span>
+                                    <span class="w-48 pr-2 truncate">{{ $user->name }}</span>
+                                    <span class="w-44 truncate">{{ $user->email }}</span>
+                                    <span class="w-40 truncate">{{ $user->chuc_vu }}</span>
                                     <span class="w-40 truncate">{{ $user->hoc_vi }}</span>
                                     <span class="w-32 text-gray-600 text-sm truncate">{{ $user->sdt }}</span>
+                                    <span class="w-40 py-1 truncate">
+                                        @if ($user->role == 0)
+                                            <span
+                                                class=" bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400">
+                                                Người dùng
+                                            </span>
+                                        @else
+                                            <span
+                                                class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400">
+                                                Quản trị
+                                            </span>
+                                        @endif
+                                    </span>
                                 </div>
                             </div>
                             <div class="w-1 flex items-center justify-end">
@@ -124,6 +138,25 @@
                                         <div class="mb-6">
                                             <label for="text"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Quyền
+                                            </label>
+                                            @if ($user->role == 1)
+                                                <select name="role"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                    <option value="1" selected hidden>Quản trị</option>
+                                                    <option value="0">Người dùng</option>
+                                                </select>
+                                            @else
+                                                <select name="role"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                    <option value="0" selected hidden>Người dùng</option>
+                                                    <option value="1">Quản trị</option>
+                                                </select>
+                                            @endif
+                                        </div>
+                                        <div class="mb-6">
+                                            <label for="text"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                                 Chức vụ
                                             </label>
                                             <input type="text" name="chuc_vu" id="chuc_vu"
@@ -148,6 +181,7 @@
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 value="{{ $user->sdt }}">
                                         </div>
+
                                         <button type="submit"
                                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Cập nhật

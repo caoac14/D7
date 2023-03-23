@@ -3,6 +3,35 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="relative p-6 text-gray-900">
+                    <div class="absolute right-4">
+                        @if (\Session::has('problemed'))
+                            <div id="alert-1"
+                                class="flex p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                                role="alert">
+                                <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div class="ml-3 text-sm font-medium">
+                                    {!! \Session::get('problemed') !!}
+                                </div>
+                                <button type="button"
+                                    class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
+                                    data-dismiss-target="#alert-1" aria-label="Close">
+                                    <span class="sr-only">Close</span>
+                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        @endif
+                    </div>
                     <div>
                         <div>
                             <div
@@ -17,7 +46,7 @@
                                     <span class="flex">
                                         {{ $typeDeviceName->ten_loai_thiet_bi }}</span>
                                 </h3>
-                                <button data-modal-toggle="mapDeviceModal"
+                                <button
                                     class="flex justify-center items-center space-x-2 w-40 text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-2 py-2 text-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                         viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"
@@ -27,41 +56,15 @@
                                         <rect x="14" y="14" width="7" height="7"></rect>
                                         <rect x="3" y="14" width="7" height="7"></rect>
                                     </svg>
-                                    <span>Xem sơ đồ bố trí</span>
+                                    <span>
+                                        <a target="blank" href="{{ asset($roomName->so_do_bo_tri) }}">
+                                            Sơ đồ bố trí
+                                        </a>
+                                    </span>
+
                                 </button>
-                                <div id="mapDeviceModal" tabindex="-1" aria-hidden="true"
-                                    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-auto">
-                                    <div class="relative w-full h-full max-w-3xl">
-                                        <!-- Modal content -->
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                            <!-- Modal header -->
-                                            <div
-                                                class="flex items-center justify-between bg-blue-500 p-4 border-b rounded-t dark:border-gray-600">
-                                                <h3 class="text-xl font-semibold mt-2  text-gray-100 dark:text-white">
-                                                    Sơ đồ phòng {{ $roomName->ten_phong }}
-                                                </h3>
-                                                <button type="button"
-                                                    class="text-gray-200 bg-transparent hover:bg-red-400 hover:text-gray-100 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    data-modal-toggle="mapDeviceModal">
-                                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd"
-                                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                            clip-rule="evenodd"></path>
-                                                    </svg>
-                                                    <span class="sr-only">Close modal</span>
-                                                </button>
-                                            </div>
-                                            <!-- Modal body -->
-                                            <div class="p-6 space-y-6">
-                                                <div class="flex justify-center items-center">
-                                                    <img width="100%" src="{{ asset($roomName->so_do_bo_tri) }}"
-                                                        alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+
                             </div>
                             <div class="bg-gray-200 rounded-md shadow-md shadow-gray-300">
                                 <div>
@@ -71,9 +74,9 @@
                                                 <div class="w-full flex items-center justify-center">
                                                     <!-- Modal toggle -->
                                                     <button data-modal-toggle="deviceModal-{{ $device->id }}"
-                                                        class=" relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                                        class="w-full relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
                                                         <span
-                                                            class=" relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                            class="w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                                                             {{ $device->ten_thiet_bi }}
                                                         </span>
                                                     </button>
@@ -160,16 +163,17 @@
                                             </div>
                                         @endif
                                     </div>
-                                    <div class="absolute right-28 bottom-8">
-
-                                        <button
-                                            class="w-64 relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-semibold text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-                                            <span
-                                                class="w-64  relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                                Bàn giáo viên
-                                            </span>
-                                        </button>
-                                    </div>
+                                    @if ($typeDeviceName->id == 1)
+                                        <div class="absolute right-28 bottom-4">
+                                            <button
+                                                class="w-64 relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-semibold text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                                                <span
+                                                    class="w-64  relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                    Bàn giáo viên
+                                                </span>
+                                            </button>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

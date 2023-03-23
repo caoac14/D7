@@ -32,8 +32,10 @@ Route::group(['prefix' => 'KL', 'middleware' => ['auth', 'verified']], function 
     Route::get('/room/{id?}', [UserController::class, 'showRoom'])->name('KL.show_room');
     Route::get('/device/{roomId?}/{typeDeviceId?}', [UserController::class, 'showDevice'])->name('KL.show_device');
     Route::get('/report', [UserController::class, 'pageReport'])->name('KL.report');
-
+    Route::post('/editReport/{id}', [UserController::class, 'editReport'])->name('KL.editReport');
+    Route::get('/deleteReport/{id}', [UserController::class, 'deleteReport'])->name('KL.deleteReport');
     Route::get('/showRoomAjax', [UserController::class, 'showRoomAjax'])->name('KL.showRoomAjax');
+    Route::get('/showImage', [UserController::class, 'showImage'])->name('KL.showImage');
     Route::get('/showDeviceAjax', [UserController::class, 'showDeviceAjax'])->name('KL.showDeviceAjax');
 
     Route::post('/setDataReport', [UserController::class, 'setDataReport'])->name('KL.setDataReport');
@@ -54,7 +56,7 @@ Route::middleware('auth')->group(function () {
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {
     Route::get('/', [AdminController::class, 'showHomePage'])->name('admin.home');
 
-    
+
     Route::post('update_status_problem/{id}', [AdminController::class, 'updateStatusProblem'])->name('admin.update_status_problem');
 
     Route::get('/report', [AdminController::class, 'showReportPage'])->name('admin.report');
@@ -95,6 +97,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
 
 
     Route::post('/download_pdf', [AdminController::class, 'downloadPDF'])->name('admin.download_pdf');
+
+    Route::get('/division', [AdminController::class, 'showDivisionPage'])->name('admin.division');
+    Route::post('/updateDivision', [AdminController::class, 'updateDivision'])->name('admin.updateDivision');
 });
 
 

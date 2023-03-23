@@ -2,28 +2,15 @@
 
 @section('report')
     <div>
-        <div class="flex justify-end mt-2">
-            <form action="{{ route('admin.export_report') }}" method="POST">
-                @csrf
-                <button type="submit"
-                    class="flex items-center justify-center  bg-green-500 hover:bg-green-600 shadow-md mr-2 text-white font-bold py-1.5 px-6 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" height="20" viewBox="0 0 24 24"
-                        fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="square" stroke-linejoin="round">
-                        <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
-                    </svg>
-                    Sổ nhật ký
-                </button>
-            </form>
-        </div>
         <div class="bg-gray-100 mb-6 text-sm">
             <div>
                 <div class="w-full flex items-center font-bold p-3 bg-blue-300 mt-2">
                     <div class="w-full flex items-center">
-                        <span class="w-44 pr-2 ml-8 truncate">Tên giáo viên</span>
-                        <span class="w-32 ml-2 truncate">Tên phòng</span>
+                        <span class="w-44 pr-2 ml-2 truncate">Tên giáo viên</span>
+                        <span class="w-32 truncate">Tên phòng</span>
                         <span class="w-44 truncate">Thiết bị</span>
-                        <span class="w-52 ml-2">Ghi chú</span>
-                        <span class="w-24 ml-2">Trạng thái</span>
+                        <span class="w-64 ml-2">Ghi chú</span>
+                        <span class="w-24">Trạng thái</span>
                     </div>
                     <div class="w-48 flex items-center justify-end">
                         <span class="w-full ml-6 text-gray-800">Thời gian</span>
@@ -34,15 +21,13 @@
             <ul>
                 @foreach ($reportList as $report)
                     <li class="flex items-center border-y hover:bg-gray-200 px-3">
-                        <input id="default-checkbox" type="checkbox" value="" :checked="checkAll"
-                            class="w-4 h-4 text-blue-600 bg-white rounded border-gray-300 focus:ring-blue-500 mr-2 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <div x-data="{ messageHover: false }" @mouseover="messageHover = true" @mouseleave="messageHover = false"
                             class="w-full flex items-center justify-between p-2 cursor-pointer">
                             <div data-modal-target="modal-report-{{ $report->id }}"
                                 data-modal-toggle="modal-report-{{ $report->id }}">
                                 <div class="flex items-center">
-                                    <span class="w-44 pr-2 truncate">{{ $report->name }}</span>
-                                    <span class="w-32 ml-2 truncate">{{ $report->ten_phong }}</span>
+                                    <span class="w-44 truncate">{{ $report->name }}</span>
+                                    <span class="w-32 truncate">{{ $report->ten_phong }}</span>
                                     <span class="w-44 truncate">
                                         @foreach ($groupDeviceList as $item)
                                             @if ($item->ma_nhat_ky == $report->id)
@@ -51,7 +36,7 @@
                                         @endforeach
                                     </span>
                                     <span class="mx-1">-</span>
-                                    <span class="w-52 text-gray-600 text-sm truncate">{{ $report->mo_ta_loi }}</span>
+                                    <span class="w-64 text-gray-600 text-sm truncate">{{ $report->mo_ta_loi }}</span>
                                     @if ($report->trang_thai == '1')
                                         <div>
                                             <span
@@ -102,21 +87,7 @@
                                         <form action="{{ route('admin.download_pdf') }}" method="POST">
                                             @csrf
                                             <div class="px-6 py-4 space-y-6">
-                                                @if ($report->trang_thai != '0')
-                                                    <div class="flex justify-end">
-                                                        <button type="submit"
-                                                            class="flex items-center justify-center  bg-blue-500 hover:bg-blue-600 shadow-md text-white font-bold py-1.5 px-4 rounded">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-2"
-                                                                width="20" height="20" viewBox="0 0 24 24"
-                                                                fill="none" stroke="#ffffff" stroke-width="2"
-                                                                stroke-linecap="square" stroke-linejoin="round">
-                                                                <path
-                                                                    d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5" />
-                                                            </svg>
-                                                            Xuất phiếu
-                                                        </button>
-                                                    </div>
-                                                @endif
+
                                                 <div class="overflow-hidden bg-white shadow sm:rounded-lg">
                                                     <div class="border-t  border-gray-200">
                                                         <dl class="bg-gray-300">
@@ -165,11 +136,11 @@
                                                                 </dt>
                                                                 <div
                                                                     class="mt-1 text-base text-gray-900 sm:col-span-2 sm:mt-0">
-                                                                    <span class="space-y-2">
+                                                                    <span class="space-y-2 ">
                                                                         @foreach ($groupDeviceList as $item)
                                                                             @if ($item->ma_nhat_ky == $report->id)
                                                                                 <input name="ten_thiet_bi"
-                                                                                    class="block text-gray-900"
+                                                                                    class="block text-gray-900 bg-gray-200"
                                                                                     value="{{ $item->ten_thiet_bi }}">
                                                                             @endif
                                                                         @endforeach
@@ -190,33 +161,19 @@
                                             </div>
                                         </form>
                                         <div class="pb-4 px-4 my-4 mx-2">
-                                            @if ($report->trang_thai == '0  ')
-                                                <form action="" method="POST">
-                                                    @csrf
-                                                    <button type="button"
-                                                        data-modal-toggle="modal-report-{{ $report->id }}"
-                                                        type="button"
-                                                        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                        Xong
-                                                    </button>
-                                                </form>
-                                            @else
+                                            @if ($report->trang_thai == '1')
                                                 <form action="{{ route('admin.update_status', $report->id) }}"
                                                     method="POST">
                                                     @csrf
-                                                    <button type="submit"
-                                                        data-modal-toggle="modal-report-{{ $report->id }}"
-                                                        type="button"
-                                                        class="flex justify-center items-center space-x-2 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="19"
-                                                            height="19" viewBox="0 0 24 24" fill="none"
-                                                            stroke="currentColor" stroke-width="2" stroke-linecap="butt"
-                                                            stroke-linejoin="bevel">
-                                                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                                        </svg>
-                                                        <span> Đã xử lý</span>
+                                                    <button data-modal-toggle="modal-report-{{ $report->id }}"
+                                                        type="submit"
+                                                        class=" relative flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                                        <span
+                                                            class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                            <span> Khắc phục xong</span>
+                                                        </span>
                                                     </button>
+
                                                 </form>
                                             @endif
                                         </div>

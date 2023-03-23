@@ -75,13 +75,14 @@
                             @foreach ($typeDeviceLists as $device)
                                 <div class="w-full flex items-center justify-center">
                                     <!-- Modal toggle -->
-                                    
+
                                     <button data-modal-toggle="defaultModal-{{ $device->id }}"
-                                    class="w-full relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                                        <span class="w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                        class="w-full relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                        <span
+                                            class="w-full relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                                             {{ $device->ten_thiet_bi }}
                                         </span>
-                                      </button>
+                                    </button>
                                     <!-- Main modal -->
                                     <div id="defaultModal-{{ $device->id }}" tabindex="-1" aria-hidden="true"
                                         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
@@ -116,23 +117,15 @@
                                                 <!-- Modal body -->
                                                 <div class="p-6 space-y-6">
                                                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                        W2ith less than a month to go before the European
-                                                        Union
-                                                        enacts
-                                                        new consumer privacy laws for its citizens,
-                                                        companies
-                                                        around
-                                                        the
-                                                        world are updating their terms of service agreements
-                                                        to
-                                                        comply.
+                                                        Trường Đại học Trà Vinh
                                                     </p>
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div
                                                     class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                                                     <form action="{{ route('admin.delete_device', $device->id) }} "
-                                                        method="POST" onclick="return confirm('Xác nhận xóa thiết bị - {{ $device->ten_thiet_bi }} ?')">
+                                                        method="POST"
+                                                        onclick="return confirm('Xác nhận xóa thiết bị - {{ $device->ten_thiet_bi }} ?')">
                                                         @csrf
                                                         <input type="text" name="devide" class="hidden"
                                                             value="{{ $device->id }}">

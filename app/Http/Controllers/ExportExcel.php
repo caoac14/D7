@@ -15,7 +15,13 @@ class ExportExcel extends Controller
     {
         switch ($request->rdo_excel) {
             case ('rdo_report'):
-                return Excel::download(new ExportReport, 'so nhat ky.xlsx');
+                // print($request->nhatky_nam ." - ". $request->nhatky_thang);die;
+                if ($request->nhatky_nam == 2023 && $request->nhatky_thang == 2) {
+                    return Excel::download(new ExportReport, $request->nhatky_thang . "-" . $request->nhatky_nam . '.xlsx');
+                } else {
+                    return redirect()->back()->with('noData', 'Hiện tại nhật ký không có dữ liệu tháng ' . $request->nhatky_thang . "-" . $request->nhatky_nam);
+                }
+
                 break;
             case ('rdo_account'):
                 return Excel::download(new ExportAccount, 'danh sach tai khoan.xlsx');

@@ -26,3 +26,4 @@ class ExportDevice implements FromCollection
         return $dataReport;
     }
 }
+?>

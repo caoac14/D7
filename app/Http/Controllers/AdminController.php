@@ -14,28 +14,32 @@ use App\Models\GroupDevice;
 use App\Models\Problem;
 use App\Models\TypeDevice;
 use App\Models\GroupRoom;
+use App\Models\Division;
 use App\Models\TypeRoom;
 use App\Mail\SendMail;
 use App\Mail\ResetMail;
+use Illuminate\Support\Facades\Auth;
+
 use Barryvdh\DomPDF\Facade\PDF;
 
 class AdminController extends Controller
 {
     function createAdmin()
     {
-        $random_pass = (Str::random(10));
-        $user = new User();
-        $user->name = "Trương Quốc Huy";
-        $user->email = "quochuy@gmail.com";
-        $user->chuc_vu = "";
-        $user->hoc_vi = "";
-        $user->sdt = "";
-        $user->password = Hash::make($random_pass);
-        $user->save();
 
-        $mailSended = $this->sendMail("Trương Quốc Huy", "quochuy@gmail.com", $random_pass);
-        return redirect()->back();
-        
+        // $random_pass = (Str::random(10));
+        // $user = new User();
+        // $user->name = "Trương Quốc Huy";
+        // $user->email = "quochuy@gmail.com";
+        // $user->chuc_vu = "";
+        // $user->hoc_vi = "";
+        // $user->sdt = "";
+        // $user->role = "1";
+        // $user->password = Hash::make($random_pass);
+        // $user->save();
+
+        // $mailSended = $this->sendMail("Trương Quốc Huy", "quochuy@gmail.com", $random_pass);
+        // return redirect()->back();
     }
 
 
@@ -44,7 +48,7 @@ class AdminController extends Controller
         $problemListAll = Problem::join('phong', 'phong.id', '=', 'su_co.ma_phong')
             ->join('thiet_bi', 'thiet_bi.id', '=', 'su_co.ma_thiet_bi')
             ->join('users', 'users.id', '=', 'su_co.ma_giao_vien')
-            ->orderBy('su_co.ngay', 'DESC')
+            ->orderBy('su_co.created_at', 'DESC')
             ->select(
                 'name',
                 'email',
@@ -58,14 +62,14 @@ class AdminController extends Controller
                 'su_co.id'
             )->get();
 
-            $problemList = $problemListAll->where('trang_thai', '1');
-            $problemListed = $problemListAll->where('trang_thai', '0');
+        $problemList = $problemListAll->where('trang_thai', '1');
+        $problemListed = $problemListAll->where('trang_thai', '0');
 
-        return view('admin.home',compact('problemList', 'problemListed'));
-
+        return view('admin.home', compact('problemList', 'problemListed'));
     }
 
-    function updateStatusProblem($id){
+    function updateStatusProblem($id)
+    {
         if ($id) {
             Problem::where('id', $id)->update(['trang_thai' => 0]);
         }
@@ -115,7 +119,9 @@ class AdminController extends Controller
     function showDevicePage()
     {
         $roomLists = Room::orderBy('ten_phong', 'ASC')->get();
-        $groupRoomLists = GroupRoom::orderBy('ten_day_phong', 'ASC')->get();
+        $groupRoomLists = GroupRoom::join('phan_cong', 'phan_cong.ma_day', '=', 'nhom_phong.id')
+            ->where('ma_giao_vien', Auth::user()->id)
+            ->orderBy('ten_day_phong', 'ASC')->get();
 
         return view('admin.device', compact('roomLists', 'groupRoomLists'));
     }
@@ -234,6 +240,9 @@ class AdminController extends Controller
         }
 
         $groupRoomSelected = GroupRoom::where('id', $id)->first();
+
+        // $phongCheck = Room::where('ma_nhom_phong', $id)->get();
+
         $groupRoomLists = GroupRoom::orderBy('ten_day_phong', 'ASC')->get();
 
         return view('admin.room', compact('roomLists', 'typeRoomLists', 'groupRoomLists', 'groupRoomSelected', 'nameTypeRoom'));
@@ -274,7 +283,7 @@ class AdminController extends Controller
     // function of Account
     function showAccountPage()
     {
-        $userLists = User::orderBy('name', 'ASC')->paginate(20);
+        $userLists = User::orderBy('role', 'DESC')->orderBy('name', 'ASC')->paginate(20);
         return view('admin.account', compact('userLists'));
     }
 
@@ -292,7 +301,7 @@ class AdminController extends Controller
     function updateAccount(Request $request, $id)
     {
         User::where('id', $id)
-            ->update(['name' => $request->name, 'chuc_vu' => $request->chuc_vu, 'hoc_vi' => $request->hoc_vi, 'sdt' => $request->sdt]);
+            ->update(['name' => $request->name, 'chuc_vu' => $request->chuc_vu, 'hoc_vi' => $request->hoc_vi, 'sdt' => $request->sdt, 'role' => $request->role]);
         return redirect('admin/account');
     }
 
@@ -363,6 +372,7 @@ class AdminController extends Controller
         $user->email = $request->email;
         $user->chuc_vu = "";
         $user->hoc_vi = "";
+        $user->role = 0;
         $user->sdt = "";
         $user->password = Hash::make($random_pass);
 
@@ -380,14 +390,37 @@ class AdminController extends Controller
         return view('admin.infor');
     }
 
-
-    // PDF
-    public function downloadPDF(Request $request)
+    function showDivisionPage()
     {
-    	$data = ['tenGV' => $request->tenGV,'ten_thiet_bi'=>$request->ten_thiet_bi ,'emailGV'=>$request->emailGV, 'tenPhongLop'=>$request->tenPhongLop, 'thoiGian'=>$request->thoiGian, 'moTa'=>$request->moTa, 'id'=>$request->id];	
-    	$pdf = PDF::loadView('admin.exportPDF',  compact('data'));
-    		return $pdf->download('Nhật ký '.$request->id.'.pdf');
+        $listGroupRooms = GroupRoom::orderBy('ten_day_phong', "ASC")->get();
+        $listUsers = User::where('role', '1')->orderBy('name', "ASC")->take(5)->get();
+        $listDivisions = Division::join('users', 'users.id', '=', 'phan_cong.ma_giao_vien')
+            ->join('nhom_phong', 'nhom_phong.id', '=', 'phan_cong.ma_day')
+            ->select('phan_cong.ma_day', 'name', 'ten_day_phong')
+            ->orderBy('ten_day_phong', 'ASC')
+            ->get();
+
+
+        return  view('admin.division', compact('listGroupRooms', 'listUsers', 'listDivisions'));
     }
 
-    //Main
+    function updateDivision(Request  $request)
+    {
+        if ($request->ajax()) {
+            $data = explode("-", $request->dataRequest);
+
+            $checkIdHaved = Division::where('ma_day', $data[0])->first();
+
+            if ($checkIdHaved != null) {
+                Division::where('ma_day', $data[0])->update(['ma_giao_vien' => $data[1]]);
+            } else {
+                $divison = new Division();
+                $divison->ma_giao_vien = $data[1];
+                $divison->ma_day = $data[0];
+                $divison->save();
+            }
+
+            return response()->json($data);
+        }
+    }
 }
